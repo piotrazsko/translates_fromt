@@ -35,12 +35,13 @@ const TranslatesGrid = ({ data }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="spanning table">
+      <Table stickyHeader className={classes.table} aria-label="spanning table">
         <TableHead>
           <TableRow>
             <TableCell align="center">{t("key")}</TableCell>
             <TableCell align="center">{t("namespace")}</TableCell>
             <TableCell align="center">{t("value")}</TableCell>
+            <TableCell align="center">{t("edit/delete")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,6 +50,7 @@ const TranslatesGrid = ({ data }) => {
               <TableCell align="center">{row.key}</TableCell>
               <TableCell align="center">{row.namespace || ""}</TableCell>
               <TableCell align="center">{row.value}</TableCell>
+              <TableCell align="center">Edit/delete</TableCell>
             </TableRow>
           ))}
         </TableBody>

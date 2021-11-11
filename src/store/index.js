@@ -1,14 +1,19 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
 import { routerMiddleware } from "react-router-redux";
+import { persistStore } from "redux-persist";
 import history from "./history";
 import config from "config/dev";
-import rootReducer from "../modules/reducers/index.js";
+import rootSaga from "modules/saga";
+import rootReducer from "modules/reducers";
 
 const createStoreApp = () => {
   const middleware = [];
   const enhancers = [];
 
   /* ------------- Saga Middleware ------------- */
+  const sagaMiddleware = createSagaMiddleware();
+  middleware.push(sagaMiddleware);
 
   /* ------------- Router Middleware ------------- */
   middleware.push(routerMiddleware(history));
@@ -22,7 +27,10 @@ const createStoreApp = () => {
   const store = createStore(rootReducer, composeEnhancers(...enhancers));
 
   // kick off root saga
+  sagaMiddleware.run(rootSaga, store.dispatch);
 
-  return { store };
+  const persistor = persistStore(store);
+
+  return { store, persistor };
 };
-export const { store } = createStoreApp();
+export const { store, persistor } = createStoreApp();

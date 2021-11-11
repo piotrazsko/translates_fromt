@@ -45,18 +45,7 @@ const LayoutEmpty = ({
       {/* {!isMobile ? ( */}
       <Container maxWidth="lg" classes={{ root: classes.root }}>
         <Grid container spacing={2}>
-          {restWithPermissons.route.showProfile ? (
-            <Grid item md={3} lg={3}>
-              <Profile isPDF={false} />
-            </Grid>
-          ) : (
-            false
-          )}
-          <Grid
-            item
-            md={restWithPermissons.route.showProfile ? 9 : 12}
-            lg={restWithPermissons.route.showProfile ? 9 : 12}
-          >
+          <Grid item md={12} lg={12}>
             <Grid container>
               <Grid item xs={12}>
                 <Paper>

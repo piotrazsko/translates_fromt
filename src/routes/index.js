@@ -1,4 +1,4 @@
-import { Home, PDF } from "containers";
+import { Home, TranslatesManager } from "containers";
 
 export const redirectAuthPath = "/auth";
 
@@ -10,17 +10,11 @@ const mainRoutes = [
     path: "/",
     exact: true,
     component: Home,
-
-    showProfile: true,
-    // layout: Tutorial,
   },
   {
-    path: "/pdf",
+    path: "/translates",
     exact: true,
-    component: PDF,
-    isPDF: true,
-    showProfile: false,
-    // layout: Tutorial,
+    component: TranslatesManager,
   },
 ];
 export default [].concat(mainRoutes);

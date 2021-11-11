@@ -7,10 +7,12 @@ import MomentContainer from "containers/MomentContainer";
 import { theme } from "style/theme";
 import { store } from "store";
 import Viewport from "containers/ViewPort";
+import InitData from "containers/InitData";
 
 function App() {
   return (
     <Provider store={store}>
+      <InitData />
       <ThemeProvider theme={theme}>
         <AppContainer />
         <Viewport />

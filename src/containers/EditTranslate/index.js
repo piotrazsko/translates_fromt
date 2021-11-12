@@ -23,6 +23,21 @@ const useStyles = makeStyles((theme) => ({
 
 const EditTranslate = ({ route, ...props }) => {
   const { t } = useTranslation();
+  const [initialValues, changeInitialValues] = React.useState({
+    key: "",
+    namespace: "",
+    values: [{ language: "ev", value: "" }],
+  });
+
+  const onAdd = (data) => {
+    changeInitialValues((old) => {
+      console.log({
+        ...old,
+        values: [...old.values, { language: "de", value: "" }],
+      });
+      return { ...old, values: [...old.values, { language: "de", value: "" }] };
+    });
+  };
   const {
     handleChange,
     handleBlur,
@@ -33,10 +48,7 @@ const EditTranslate = ({ route, ...props }) => {
     errors,
     ...data
   } = useFormik({
-    initialValues: {
-      key: "test",
-      languages: [{}],
-    },
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -44,11 +56,6 @@ const EditTranslate = ({ route, ...props }) => {
   });
   console.log(data);
   const classes = useStyles();
-  const [initialValues, changeInitialValues] = React.useState({
-    key: "",
-    namespace: "",
-    values: [{ language: "ev", value: "" }],
-  });
   return (
     <Pane title={t("title.edit")}>
       <form onSubmit={handleSubmit}>
@@ -77,31 +84,33 @@ const EditTranslate = ({ route, ...props }) => {
             />
           </Grid>
           <Grid item xs={5}>
-            {initialValues.values.map((i, index) => (
-              <Grid container spacing={2} key={i}>
-                <Grid item xs={4}>
-                  <TextField
-                    fullWidth
-                    placeholder={t("input.language")}
-                    variant="outlined"
-                    onChange={handleChange(`values.${index}.language`)}
-                    value={values.values[index].language}
-                  />
+            {values.values.map((i, index) => {
+              return (
+                <Grid container spacing={2} key={i}>
+                  <Grid item xs={4}>
+                    <TextField
+                      fullWidth
+                      placeholder={t("input.language")}
+                      variant="outlined"
+                      onChange={handleChange(`values.${index}.language`)}
+                      value={values.values[index].language}
+                    />
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                      fullWidth
+                      placeholder={t("input.value")}
+                      variant="outlined"
+                      onChange={handleChange(`values.${index}.value`)}
+                      value={values.values[index].value}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    fullWidth
-                    placeholder={t("input.value")}
-                    variant="outlined"
-                    onChange={handleChange(`values.${index}.value`)}
-                    value={values.values[index].value}
-                  />
-                </Grid>
-              </Grid>
-            ))}
+              );
+            })}
           </Grid>
           <Grid item xs={1}>
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={onAdd}>
               <Add />
             </IconButton>
           </Grid>

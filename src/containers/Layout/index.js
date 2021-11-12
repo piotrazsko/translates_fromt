@@ -14,6 +14,7 @@ import { SideBar } from "components";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "60px",
+    display: "flex",
   },
 }));
 
@@ -44,11 +45,12 @@ const Layout = ({
       <Helmet>
         <title>{t("user_name")}</title>
       </Helmet>
-      {/* {!isMobile ? ( */}
       <Container maxWidth="lg" classes={{ root: classes.root }}>
-        <SideBar />
         <Grid container spacing={2}>
-          <Grid item md={12} lg={12}>
+          <Grid item md={2} lg={2}>
+            <SideBar />
+          </Grid>
+          <Grid item md={10} lg={10}>
             <Grid container>
               <Grid item xs={12}>
                 <Paper>
@@ -59,9 +61,6 @@ const Layout = ({
           </Grid>
         </Grid>
       </Container>
-      {/* ) : (
-        <MobileScreen />
-      )} */}
     </>
   );
 };

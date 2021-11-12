@@ -35,6 +35,7 @@ const EditTranslate = ({ route, ...props }) => {
   } = useFormik({
     initialValues: {
       key: "test",
+      languages: [{}],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -43,7 +44,11 @@ const EditTranslate = ({ route, ...props }) => {
   });
   console.log(data);
   const classes = useStyles();
-  const [languages, setLanguages] = React.useState(["en"]);
+  const [initialValues, changeInitialValues] = React.useState({
+    key: "",
+    namespace: "",
+    values: [{ language: "ev", value: "" }],
+  });
   return (
     <Pane title={t("title.edit")}>
       <form onSubmit={handleSubmit}>
@@ -72,16 +77,15 @@ const EditTranslate = ({ route, ...props }) => {
             />
           </Grid>
           <Grid item xs={5}>
-            {languages.map((i) => (
+            {initialValues.values.map((i, index) => (
               <Grid container spacing={2} key={i}>
                 <Grid item xs={4}>
                   <TextField
                     fullWidth
                     placeholder={t("input.language")}
                     variant="outlined"
-                    onChange={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
+                    onChange={handleChange(`values.${index}.language`)}
+                    value={values.values[index].language}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -89,9 +93,8 @@ const EditTranslate = ({ route, ...props }) => {
                     fullWidth
                     placeholder={t("input.value")}
                     variant="outlined"
-                    onChange={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
+                    onChange={handleChange(`values.${index}.value`)}
+                    value={values.values[index].value}
                   />
                 </Grid>
               </Grid>

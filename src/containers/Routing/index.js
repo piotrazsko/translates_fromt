@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import { Router, Route, Switch } from "react-router-dom";
 import { getViewport as viewPortSelector } from "modules/viewport";
 
-import Layout from "containers/LayoutEmpty";
+import Layout from "containers/Layout";
 import history from "store/history";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../ErrorPage";

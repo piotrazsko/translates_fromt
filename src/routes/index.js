@@ -1,4 +1,4 @@
-import { Home, TranslatesManager } from "containers";
+import { Home, TranslatesManager, EditTranslate } from "containers";
 
 export const redirectAuthPath = "/auth";
 
@@ -15,6 +15,11 @@ const mainRoutes = [
     path: "/translates",
     exact: true,
     component: TranslatesManager,
+  },
+  {
+    path: "/translates/:id?",
+    exact: true,
+    component: EditTranslate,
   },
 ];
 export default [].concat(mainRoutes);

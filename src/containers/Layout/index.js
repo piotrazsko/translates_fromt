@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Container from "@material-ui/core/Container";
+import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
-import MobileScreen from "../MobileScreen";
+import { useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Profile, Header } from "components";
-import { Home } from "containers";
 import { makeStyles } from "@material-ui/core/styles";
-import { useTranslation } from "react-i18next";
+
+import MobileScreen from "../MobileScreen";
+import { SideBar } from "components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LayoutEmpty = ({
+const Layout = ({
   myPermissionsSelector,
   children,
   viewPort,
@@ -27,7 +28,7 @@ const LayoutEmpty = ({
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { isMobile } = viewPort;
+  const { isMobile } = viewPort ?? {};
 
   const [isEndOfPage, setEndOfPage] = React.useState(false);
   const restWithPermissons = {
@@ -37,6 +38,7 @@ const LayoutEmpty = ({
     currentLocalization,
     ...rest,
   };
+
   return (
     <>
       <Helmet>
@@ -44,6 +46,7 @@ const LayoutEmpty = ({
       </Helmet>
       {/* {!isMobile ? ( */}
       <Container maxWidth="lg" classes={{ root: classes.root }}>
+        <SideBar />
         <Grid container spacing={2}>
           <Grid item md={12} lg={12}>
             <Grid container>
@@ -63,7 +66,7 @@ const LayoutEmpty = ({
   );
 };
 
-LayoutEmpty.propTypes = {
+Layout.propTypes = {
   viewPort: PropTypes.shape({ isMobile: PropTypes.bool.isRequired }).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -74,4 +77,4 @@ LayoutEmpty.propTypes = {
   currentLocalization: PropTypes.string,
 };
 
-export default LayoutEmpty;
+export default Layout;

@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import { Pane } from "components";
-import { NormalModuleReplacementPlugin } from "webpack";
 
 const validationSchema = yup.object({
   key: yup.string().required(),
@@ -53,7 +52,7 @@ const EditTranslate = ({ route, ...props }) => {
     },
   });
   const onAdd = (data) => {
-    setFieldValue("values", [
+    setFieldValue("translates", [
       ...values.translates,
       { language: "de", value: "" },
     ]);

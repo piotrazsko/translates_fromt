@@ -1,19 +1,16 @@
 import { createTheme } from "@material-ui/core/styles";
 
-const main = "#ffb500";
+// const main = "#ffb500";
 // const main = "#70c700";
 // const main = "#ff0000";
 // const main = "#ffde00";
-// const main = "#0069ff";
+const main = "#0069ff";
 
 export const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
       main: main,
-    },
-    secondary: {
-      main: "#000",
     },
   },
   breakpoints: {
@@ -81,7 +78,7 @@ export const theme = createTheme({
     MuiButton: {
       root: {
         textTransform: "capitalize",
-        borderRadius: "50px",
+        // borderRadius: "50px",
         height: "37px",
       },
 

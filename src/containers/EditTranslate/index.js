@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import get from "lodash/get";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
@@ -10,8 +12,13 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
-import { Pane } from "components";
 import Delete from "@material-ui/icons/Delete";
+
+import { Pane } from "components";
+import {
+  getTranslatesByKeyRequest,
+  getTranslatesByKeySelector,
+} from "modules/translates";
 
 const validationSchema = yup.object({
   key: yup.string().required(),
@@ -30,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 const EditTranslate = ({ route, history, ...props }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(
+      getTranslatesByKeyRequest({
+        key: "add",
+        namespace: "button",
+      })
+    );
+  }, []);
+  const translateData = useSelector(getTranslatesByKeySelector);
 
   const {
     handleChange,
@@ -45,23 +62,40 @@ const EditTranslate = ({ route, history, ...props }) => {
     initialValues: {
       key: "",
       namespace: "",
-      translates: [{ language: "ev", value: "" }],
+      translates: [{ language: "", value: "" }],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  React.useEffect(() => {
+    if (translateData.loaded) {
+      for (const key in translateData) {
+        if (
+          Object.hasOwnProperty.call(translateData, key) &&
+          key !== "loaded"
+        ) {
+          const element = translateData[key];
+          setFieldValue(key, element);
+        }
+      }
+    }
+  }, [translateData]);
+
   const onAdd = (data) => {
     setFieldValue("translates", [
       ...values.translates,
-      { language: "de", value: "" },
+      { language: "", value: "" },
     ]);
   };
   const onDelete = (itemIndex) => {
-    setFieldValue("translates", [
-      ...values.translates.filter((i, index) => index !== itemIndex),
-    ]);
+    if (values.translates.length > 1) {
+      setFieldValue("translates", [
+        ...values.translates.filter((i, index) => index !== itemIndex),
+      ]);
+    }
   };
   const classes = useStyles();
   return (
@@ -132,11 +166,16 @@ const EditTranslate = ({ route, history, ...props }) => {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={1}>
-                    <IconButton color="" onClick={() => onDelete(index)}>
-                      <Delete />
-                    </IconButton>
-                  </Grid>
+                  {values.translates.length > 1 ? (
+                    <Grid item xs={1}>
+                      <IconButton
+                        color="secondary"
+                        onClick={() => onDelete(index)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Grid>
+                  ) : null}
                 </Grid>
               );
             })}
@@ -147,19 +186,24 @@ const EditTranslate = ({ route, history, ...props }) => {
             </IconButton>
           </Grid>
         </Grid>
-
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          {t("button.save")}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          {t("button.cancel")}
-        </Button>
+        <Grid container spacing={2}>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              {t("button.cancel")}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              {t("button.save")}
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     </Pane>
   );

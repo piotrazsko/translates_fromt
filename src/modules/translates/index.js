@@ -13,6 +13,8 @@ const apiRoutes = new ApiRoutes();
 
 export const GET_LANGUAGES_LIST_REQUEST = `${modules}/GET_LANGUAGES_LIST_REQUEST`;
 export const GET_TRANSLATES_BY_KEY_REQUEST = `${modules}/GET_TRANSLATES_BY_KEY_REQUEST`;
+export const ADD_TRANSLATES_BY_KEY_REQUEST = `${modules}/ADD_TRANSLATES_BY_KEY_REQUEST`;
+export const UPDATE_TRANSLATES_BY_KEY_REQUEST = `${modules}/UPDATE_TRANSLATES_BY_KEY_REQUEST`;
 
 export const getTranslatedListRequest = actionCreator(
   GET_LANGUAGES_LIST_REQUEST

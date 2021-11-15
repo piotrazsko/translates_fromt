@@ -62,7 +62,7 @@ const EditTranslate = ({ route, history, ...props }) => {
     initialValues: {
       key: "",
       namespace: "",
-      translates: [{ language: "", value: "" }],
+      translates: [{ id: Math.random(), language: "", value: "" }],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -84,19 +84,25 @@ const EditTranslate = ({ route, history, ...props }) => {
     }
   }, [translateData]);
 
-  const onAdd = (data) => {
-    setFieldValue("translates", [
-      ...values.translates,
-      { language: "", value: "" },
-    ]);
-  };
-  const onDelete = (itemIndex) => {
-    if (values.translates.length > 1) {
+  const onAdd = React.useCallback(
+    (data) => {
       setFieldValue("translates", [
-        ...values.translates.filter((i, index) => index !== itemIndex),
+        ...values.translates,
+        { id: Math.random(), language: "", value: "" },
       ]);
-    }
-  };
+    },
+    [values.translates]
+  );
+  const onDelete = React.useCallback(
+    (itemIndex) => {
+      if (values.translates.length > 1) {
+        setFieldValue("translates", [
+          ...values.translates.filter((i, index) => index !== itemIndex),
+        ]);
+      }
+    },
+    [values.translates]
+  );
   const classes = useStyles();
   return (
     <Pane title={t("title.edit")}>
@@ -113,7 +119,7 @@ const EditTranslate = ({ route, history, ...props }) => {
               onChange={handleChange("key")}
               onBlur={handleBlur("key")}
               value={values.key}
-              error={errors.key}
+              error={Boolean(errors.key)}
               helperText={errors.key}
             />
           </Grid>
@@ -126,14 +132,14 @@ const EditTranslate = ({ route, history, ...props }) => {
               onChange={handleChange("namespace")}
               onBlur={handleBlur("namespace")}
               value={values.namespace}
-              error={errors.namespace}
+              error={Boolean(errors.namespace)}
               helperText={errors.namespace}
             />
           </Grid>
           <Grid item xs={7}>
             {values.translates.map((i, index) => {
               return (
-                <Grid container spacing={2} key={i}>
+                <Grid container spacing={2} key={i.id}>
                   <Grid item xs={4}>
                     <TextField
                       fullWidth
@@ -142,7 +148,9 @@ const EditTranslate = ({ route, history, ...props }) => {
                       variant="outlined"
                       onChange={handleChange(`translates.${index}.language`)}
                       value={get(values, `translates.${index}.language`, null)}
-                      error={get(errors, `translates.${index}.language`, null)}
+                      error={Boolean(
+                        get(errors, `translates.${index}.language`, null)
+                      )}
                       helperText={get(
                         errors,
                         `translates.${index}.language`,
@@ -158,7 +166,9 @@ const EditTranslate = ({ route, history, ...props }) => {
                       variant="outlined"
                       onChange={handleChange(`translates.${index}.value`)}
                       value={get(values, `translates.${index}.value`, null)}
-                      error={get(errors, `translates.${index}.value`, null)}
+                      error={Boolean(
+                        get(errors, `translates.${index}.value`, null)
+                      )}
                       helperText={get(
                         errors,
                         `translates.${index}.value`,
@@ -169,6 +179,7 @@ const EditTranslate = ({ route, history, ...props }) => {
                   {values.translates.length > 1 ? (
                     <Grid item xs={1}>
                       <IconButton
+                        tabIndex={"-1"}
                         color="secondary"
                         onClick={() => onDelete(index)}
                       >

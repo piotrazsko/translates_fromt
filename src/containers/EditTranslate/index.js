@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import { Pane } from "components";
+import { NormalModuleReplacementPlugin } from "webpack";
 
 const validationSchema = yup.object({
   key: yup.string().required(),
@@ -57,11 +58,14 @@ const EditTranslate = ({ route, ...props }) => {
             <TextField
               fullWidth
               placeholder={t("input.key")}
+              label={t("input.key")}
               variant="outlined"
               required
+              id="outlined-error"
               onChange={handleChange("key")}
               onBlur={handleBlur("key")}
               value={values.key}
+              error={errors.key}
               helperText={errors.key}
             />
           </Grid>
@@ -69,10 +73,12 @@ const EditTranslate = ({ route, ...props }) => {
             <TextField
               fullWidth
               placeholder={t("input.namespace")}
+              label={t("input.namespace")}
               variant="outlined"
               onChange={handleChange("namespace")}
               onBlur={handleBlur("namespace")}
               value={values.namespace}
+              error={errors.namespace}
               helperText={errors.namespace}
             />
           </Grid>
@@ -84,18 +90,40 @@ const EditTranslate = ({ route, ...props }) => {
                     <TextField
                       fullWidth
                       placeholder={t("input.language")}
+                      label={t("input.language")}
                       variant="outlined"
                       onChange={handleChange(`values.${index}.language`)}
                       value={values.values[index].language}
+                      error={
+                        Array.isArray(errors.values)
+                          ? errors.values[index].language
+                          : null
+                      }
+                      helperText={
+                        Array.isArray(errors.values)
+                          ? errors.values[index].language
+                          : null
+                      }
                     />
                   </Grid>
                   <Grid item xs={8}>
                     <TextField
                       fullWidth
                       placeholder={t("input.value")}
+                      label={t("input.value")}
                       variant="outlined"
                       onChange={handleChange(`values.${index}.value`)}
                       value={values.values[index].value}
+                      error={
+                        Array.isArray(errors.values)
+                          ? errors.values[index].value
+                          : null
+                      }
+                      helperText={
+                        Array.isArray(errors.values)
+                          ? errors.values[index].value
+                          : NormalModuleReplacementPlugin
+                      }
                     />
                   </Grid>
                 </Grid>

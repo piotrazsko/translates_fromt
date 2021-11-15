@@ -23,21 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditTranslate = ({ route, ...props }) => {
   const { t } = useTranslation();
-  const [initialValues, changeInitialValues] = React.useState({
-    key: "",
-    namespace: "",
-    values: [{ language: "ev", value: "" }],
-  });
 
-  const onAdd = (data) => {
-    changeInitialValues((old) => {
-      console.log({
-        ...old,
-        values: [...old.values, { language: "de", value: "" }],
-      });
-      return { ...old, values: [...old.values, { language: "de", value: "" }] };
-    });
-  };
   const {
     handleChange,
     handleBlur,
@@ -45,22 +31,29 @@ const EditTranslate = ({ route, ...props }) => {
     touched,
     values,
     handleSubmit,
+    setFieldValue,
     errors,
     ...data
   } = useFormik({
-    initialValues: initialValues,
+    initialValues: {
+      key: "",
+      namespace: "",
+      values: [{ language: "ev", value: "" }],
+    },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  console.log(data);
+  const onAdd = (data) => {
+    setFieldValue("values", [...values.values, { language: "de", value: "" }]);
+  };
   const classes = useStyles();
   return (
     <Pane title={t("title.edit")}>
       <form onSubmit={handleSubmit}>
         <Grid container classes={{ root: classes.container }} spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               fullWidth
               placeholder={t("input.key")}
@@ -72,7 +65,7 @@ const EditTranslate = ({ route, ...props }) => {
               helperText={errors.key}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               fullWidth
               placeholder={t("input.namespace")}
@@ -83,7 +76,7 @@ const EditTranslate = ({ route, ...props }) => {
               helperText={errors.namespace}
             />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={7}>
             {values.values.map((i, index) => {
               return (
                 <Grid container spacing={2} key={i}>

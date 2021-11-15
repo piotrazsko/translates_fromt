@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import { Pane } from "components";
+import Delete from "@material-ui/icons/Delete";
 
 const validationSchema = yup.object({
   key: yup.string().required(),
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditTranslate = ({ route, ...props }) => {
+const EditTranslate = ({ route, history, ...props }) => {
   const { t } = useTranslation();
 
   const {
@@ -55,6 +56,11 @@ const EditTranslate = ({ route, ...props }) => {
     setFieldValue("translates", [
       ...values.translates,
       { language: "de", value: "" },
+    ]);
+  };
+  const onDelete = (itemIndex) => {
+    setFieldValue("translates", [
+      ...values.translates.filter((i, index) => index !== itemIndex),
     ]);
   };
   const classes = useStyles();
@@ -110,7 +116,7 @@ const EditTranslate = ({ route, ...props }) => {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={8}>
+                  <Grid item xs={7}>
                     <TextField
                       fullWidth
                       placeholder={t("input.value")}
@@ -126,6 +132,11 @@ const EditTranslate = ({ route, ...props }) => {
                       )}
                     />
                   </Grid>
+                  <Grid item xs={1}>
+                    <IconButton color="" onClick={() => onDelete(index)}>
+                      <Delete />
+                    </IconButton>
+                  </Grid>
                 </Grid>
               );
             })}
@@ -139,6 +150,15 @@ const EditTranslate = ({ route, ...props }) => {
 
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           {t("button.save")}
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          {t("button.cancel")}
         </Button>
       </form>
     </Pane>

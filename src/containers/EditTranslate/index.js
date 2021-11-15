@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import get from "lodash/get";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import Button from "@material-ui/core/Button";
@@ -14,8 +15,13 @@ import { NormalModuleReplacementPlugin } from "webpack";
 
 const validationSchema = yup.object({
   key: yup.string().required(),
+  translates: yup.array().of(
+    yup.object().shape({
+      language: yup.string().required(),
+      value: yup.string().required(),
+    })
+  ),
 });
-
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingBottom: "20px",
@@ -39,7 +45,7 @@ const EditTranslate = ({ route, ...props }) => {
     initialValues: {
       key: "",
       namespace: "",
-      values: [{ language: "ev", value: "" }],
+      translates: [{ language: "ev", value: "" }],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -47,7 +53,10 @@ const EditTranslate = ({ route, ...props }) => {
     },
   });
   const onAdd = (data) => {
-    setFieldValue("values", [...values.values, { language: "de", value: "" }]);
+    setFieldValue("values", [
+      ...values.translates,
+      { language: "de", value: "" },
+    ]);
   };
   const classes = useStyles();
   return (
@@ -83,7 +92,7 @@ const EditTranslate = ({ route, ...props }) => {
             />
           </Grid>
           <Grid item xs={7}>
-            {values.values.map((i, index) => {
+            {values.translates.map((i, index) => {
               return (
                 <Grid container spacing={2} key={i}>
                   <Grid item xs={4}>
@@ -92,18 +101,14 @@ const EditTranslate = ({ route, ...props }) => {
                       placeholder={t("input.language")}
                       label={t("input.language")}
                       variant="outlined"
-                      onChange={handleChange(`values.${index}.language`)}
-                      value={values.values[index].language}
-                      error={
-                        Array.isArray(errors.values)
-                          ? errors.values[index].language
-                          : null
-                      }
-                      helperText={
-                        Array.isArray(errors.values)
-                          ? errors.values[index].language
-                          : null
-                      }
+                      onChange={handleChange(`translates.${index}.language`)}
+                      value={get(values, `translates.${index}.language`, null)}
+                      error={get(errors, `translates.${index}.language`, null)}
+                      helperText={get(
+                        errors,
+                        `translates.${index}.language`,
+                        null
+                      )}
                     />
                   </Grid>
                   <Grid item xs={8}>
@@ -112,18 +117,14 @@ const EditTranslate = ({ route, ...props }) => {
                       placeholder={t("input.value")}
                       label={t("input.value")}
                       variant="outlined"
-                      onChange={handleChange(`values.${index}.value`)}
-                      value={values.values[index].value}
-                      error={
-                        Array.isArray(errors.values)
-                          ? errors.values[index].value
-                          : null
-                      }
-                      helperText={
-                        Array.isArray(errors.values)
-                          ? errors.values[index].value
-                          : NormalModuleReplacementPlugin
-                      }
+                      onChange={handleChange(`translates.${index}.value`)}
+                      value={get(values, `translates.${index}.value`, null)}
+                      error={get(errors, `translates.${index}.value`, null)}
+                      helperText={get(
+                        errors,
+                        `translates.${index}.value`,
+                        null
+                      )}
                     />
                   </Grid>
                 </Grid>

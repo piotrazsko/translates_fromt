@@ -3,7 +3,7 @@ import * as apiHelpers from "api";
 import { set, get } from "lodash";
 import history from "store/history";
 import { initDataAction } from "../init";
-
+import { i18nextModuleSaga } from "modules/i18next";
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
 const {
   modules: { apiWatchRequest },
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV == "development") {
 function* rootSaga(dispatch) {
   yield all([
     apiWatchRequest({
-      additiveCallback: function* ({ showLoaderFlag = true, ...data }) {
+      additiveCallback: function*({ showLoaderFlag = true, ...data }) {
         //show loader
         if (showLoaderFlag) {
           // yield put(showLoader());
@@ -38,7 +38,7 @@ function* rootSaga(dispatch) {
         // }
         return data;
       },
-      successCallback: function* (data) {
+      successCallback: function*(data) {
         // yield put(hideLoader());
         if (
           data.config.method === "put" ||
@@ -48,7 +48,7 @@ function* rootSaga(dispatch) {
           // yield put(showSuccess({ message: 'Successful operation.' }));
         }
       },
-      failedCallback: function* (data) {
+      failedCallback: function*(data) {
         const dataStatus = data.status;
         // redirect to login
         // yield put(hideLoader());
@@ -92,6 +92,7 @@ function* rootSaga(dispatch) {
       },
     }),
     initDataAction(dispatch),
+    i18nextModuleSaga(dispatch),
     // authSaga(dispatch),
   ]);
 }

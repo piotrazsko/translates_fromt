@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import routes, { redirectAuthPath } from "routes";
 
-import { Routing } from "containers";
+import { Routing, Popups } from "containers";
 import "modules/i18next";
 
 import "../../style/style.common.scss";
@@ -11,6 +11,7 @@ const App = ({ ...props }) => {
   return (
     <Fragment>
       <Routing routes={routes} redirectUrl={redirectAuthPath} />
+      <Popups />
     </Fragment>
   );
 };

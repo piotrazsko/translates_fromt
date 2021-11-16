@@ -10,12 +10,12 @@
 
 import { routerReducer } from "react-router-redux";
 import { persistCombineReducers } from "redux-persist";
-
+import { popupsReducer } from "modules/popups";
 import { createTransform } from "redux-persist";
 import localForage from "localforage";
 import * as apiHelpers from "api";
 import viewport from "modules/viewport";
-
+import { i18nextReducer } from "modules/i18next";
 const SetTransform = createTransform((inboundState) => {
   const { saveToPersist = true, ...state } = inboundState;
   return saveToPersist && { ...state };
@@ -28,7 +28,7 @@ const persistConfig = {
   key: "root",
   storage: localForage,
   version: 0,
-  // whitelist: ["auth", "currentUser", "cookies"],
+  whitelist: [],
   // transforms: [SetTransform],
 };
 
@@ -36,4 +36,6 @@ export default persistCombineReducers(persistConfig, {
   api: apiDefaultReducer,
   viewport,
   router: routerReducer,
+  popups: popupsReducer,
+  locale: i18nextReducer,
 });

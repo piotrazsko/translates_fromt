@@ -75,6 +75,9 @@ export const theme = createTheme({
       //   // color: "#000",
       // },
     },
+    MuiDrawer: {
+      paper: { zIndex: 2 },
+    },
     MuiButton: {
       root: {
         textTransform: "capitalize",

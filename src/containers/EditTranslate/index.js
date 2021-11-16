@@ -13,11 +13,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import Delete from "@material-ui/icons/Delete";
+import { getDataFromUrl } from "helpers/url";
 
 import { Pane } from "components";
 import {
   getTranslatesByKeyRequest,
   getTranslatesByKeySelector,
+  setTranslatesByKeyRequest,
 } from "modules/translates";
 
 const validationSchema = yup.object({
@@ -35,17 +37,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditTranslate = ({ route, history, ...props }) => {
+const EditTranslate = ({
+  route,
+  match: {
+    params: { id },
+  },
+  location,
+  history,
+  ...props
+}) => {
+  const { key, namespace } = React.useMemo(() => {
+    const { search } = location;
+    return getDataFromUrl(search);
+  }, [location]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(
-      getTranslatesByKeyRequest({
-        key: "add",
-        namespace: "button",
-      })
-    );
-  }, []);
+    if (key) {
+      dispatch(
+        getTranslatesByKeyRequest({
+          key: key,
+          namespace: namespace,
+        })
+      );
+    }
+  }, [key, namespace]);
+
   const translateData = useSelector(getTranslatesByKeySelector);
 
   const {
@@ -66,12 +83,14 @@ const EditTranslate = ({ route, history, ...props }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(setTranslatesByKeyRequest({ ...values }));
+      history.goBack();
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
   React.useEffect(() => {
-    if (translateData.loaded) {
+    if (translateData.loaded && id == "edit") {
       for (const key in translateData) {
         if (
           Object.hasOwnProperty.call(translateData, key) &&
@@ -111,6 +130,7 @@ const EditTranslate = ({ route, history, ...props }) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
+              disabled={id === "edit"}
               placeholder={t("input.key")}
               label={t("input.key")}
               variant="outlined"
@@ -126,6 +146,7 @@ const EditTranslate = ({ route, history, ...props }) => {
           <Grid item xs={2}>
             <TextField
               fullWidth
+              disabled={id === "edit"}
               placeholder={t("input.namespace")}
               label={t("input.namespace")}
               variant="outlined"

@@ -12,12 +12,14 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
+
+import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
 import { useTranslation } from "react-i18next";
@@ -28,31 +30,58 @@ const useStyles = makeStyles({
   },
 });
 
-const TranslatesGrid = ({ data }) => {
+const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
   const { t } = useTranslation();
-
   const classes = useStyles();
-
   return (
     <TableContainer component={Paper}>
-      <Table stickyHeader className={classes.table} aria-label="spanning table">
+      <Table
+        size={dense ? "small" : "medium"}
+        stickyHeader
+        className={classes.table}
+        aria-label="spanning table"
+      >
         <TableHead>
           <TableRow>
-            <TableCell align="center">{t("key")}</TableCell>
-            <TableCell align="center">{t("namespace")}</TableCell>
-            <TableCell align="center">{t("value")}</TableCell>
-            <TableCell align="center">{t("edit/delete")}</TableCell>
+            <TableCell align="center">{t("tableheader.key")}</TableCell>
+            <TableCell align="center">{t("tableheader.namespace")}</TableCell>
+            <TableCell align="center">{t("tableheader.langs")}</TableCell>
+            <TableCell align="center">{t("tableheader.edit/delete")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.value}>
-              <TableCell align="center">{row.key}</TableCell>
-              <TableCell align="center">{row.namespace || ""}</TableCell>
-              <TableCell align="center">{row.value}</TableCell>
-              <TableCell align="center">Edit/delete</TableCell>
-            </TableRow>
-          ))}
+          {Array.isArray(data)
+            ? data.map((row) => (
+                <TableRow key={row.value}>
+                  <TableCell align="center">{row.key}</TableCell>
+                  <TableCell align="center">{row.namespace || ""}</TableCell>
+                  <TableCell align="center"></TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      color="primary"
+                      onClick={() => {
+                        history.push(
+                          `/translates/edit?${new URLSearchParams({
+                            key: row.key,
+                            namespace: row.namespace,
+                          }).toString()}`
+                        );
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() =>
+                        onDelete({ key: row.key, namespace: row.namespace })
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            : null}
         </TableBody>
       </Table>
     </TableContainer>
@@ -61,7 +90,14 @@ const TranslatesGrid = ({ data }) => {
 
 TranslatesGrid.propTypes = {
   data: PropTypes.array.isRequired,
+  history: PropTypes.object,
+  onDelete: PropTypes.func.isRequired,
+  dense: PropTypes.bool,
+
   // : PropTypes.
+};
+TranslatesGrid.defaultProps = {
+  data: [],
 };
 
 export default TranslatesGrid;

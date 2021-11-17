@@ -55,14 +55,18 @@ apiRoutes.add(
     data: { key, apiKey, namespace, translates },
   })
 );
+
 apiRoutes.add(
   DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST,
-  ({ key, apiKey = "test", namespace = "null", language }) => ({
-    url: `/delete-translates`,
-    method: "DELETE",
-    data: { key, apiKey, namespace, language },
-  })
+  ({ key, apiKey = "test", namespace = "null", language }) => {
+    return {
+      url: `/delete-translates`,
+      method: "DELETE",
+      params: { key, apiKey, namespace, language },
+    };
+  }
 );
+
 apiRoutes.add(
   DELETE_TRANSLATE_BY_KEY_REQUEST,
   ({ key, apiKey = "test", namespace = "null" }) => ({

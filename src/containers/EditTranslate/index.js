@@ -14,12 +14,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import Delete from "@material-ui/icons/Delete";
 import { getDataFromUrl } from "helpers/url";
+import { showPopupAction } from "modules/popups";
 
 import { Pane } from "components";
 import {
   getTranslatesByKeyRequest,
   getTranslatesByKeySelector,
   setTranslatesByKeyRequest,
+  deleteTranslatesByKeyAndLangRequest,
 } from "modules/translates";
 
 const validationSchema = yup.object({
@@ -113,16 +115,61 @@ const EditTranslate = ({
     [values.translates]
   );
   const onDelete = React.useCallback(
-    (itemIndex) => {
+    (itemIndex, { key, namespace, language }) => {
       if (values.translates.length > 1) {
-        setFieldValue("translates", [
-          ...values.translates.filter((i, index) => index !== itemIndex),
-        ]);
+        dispatch(
+          showPopupAction({
+            message: t("message.delete_translate_item"),
+            title: t("message.delete_translate_item_text"),
+
+            onClick: () => {
+              setFieldValue("translates", [
+                ...values.translates.filter((i, index) => index !== itemIndex),
+              ]);
+              dispatch(
+                deleteTranslatesByKeyAndLangRequest(
+                  { key, namespace, language },
+                  {
+                    onSuccess: () => {
+                      dispatch(
+                        getTranslatesByKeyRequest({
+                          key: key,
+                          namespace: namespace,
+                        })
+                      );
+                    },
+                  }
+                )
+              );
+              return true;
+            },
+            onCancel: () => true,
+            showCancel: true,
+            submitButtonText: t("button.ok"),
+            cancelButtonText: t("button.cancel"),
+            confirmButtonProps: {
+              color: "secondary",
+              classes: { root: classes.root },
+              style: { marginLeft: "10px" },
+            },
+            cancelButtonProps: {},
+          })
+        );
+        console.log({
+          key,
+          namespace,
+          language,
+        });
       }
     },
     [values.translates]
   );
   const classes = useStyles();
+
+  // const onDelete = React.useCallback(({ apiKey, key, namespace }) => {
+
+  // }, []);
+
   return (
     <Pane title={t("title.edit")}>
       <form onSubmit={handleSubmit}>
@@ -202,7 +249,17 @@ const EditTranslate = ({
                       <IconButton
                         tabIndex={"-1"}
                         color="secondary"
-                        onClick={() => onDelete(index)}
+                        onClick={() =>
+                          onDelete(index, {
+                            language: get(
+                              values,
+                              `translates.${index}.language`,
+                              null
+                            ),
+                            key,
+                            namespace,
+                          })
+                        }
                       >
                         <Delete />
                       </IconButton>

@@ -20,19 +20,20 @@ import { makeStyles } from "@material-ui/core";
 import {
   getTranslatedListRequest,
   getTranslatedListSelector,
-  deleteTranslateRequest,
+  deleteTranslateByKeyRequest,
 } from "modules/translates";
 import { showPopupAction } from "modules/popups";
 const useStyle = makeStyles((theme) => ({
   buttonRoot: {
     marginLeft: "10px !important",
   },
+  tabsRoot: { margin: "20px 0" },
 }));
 const TranslatesManager = ({ history, ...props }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const classes = useStyle();
-  const res = useSelector(getTranslatedListSelector) ?? [];
+  const res = useSelector(getTranslatedListSelector);
 
   React.useEffect(() => {
     dispatch(getTranslatedListRequest({ apiKey: "test" }));
@@ -72,14 +73,23 @@ const TranslatesManager = ({ history, ...props }) => {
     ).filter((i) => (tab === null ? true : tab === i.namespace));
   }, [res, searchText, tab]);
 
-  const onDelete = ({ apiKey, key, namespace }) => {
+  const onDelete = React.useCallback(({ apiKey, key, namespace }) => {
     dispatch(
       showPopupAction({
         message: t("message.delete_translate"),
         title: t("message.delete_translate"),
 
         onClick: () => {
-          // dispatch();
+          dispatch(
+            deleteTranslateByKeyRequest(
+              { key, namespace },
+              {
+                onSuccess: () => {
+                  dispatch(getTranslatedListRequest({ apiKey: "test" }));
+                },
+              }
+            )
+          );
           return true;
         },
         onCancel: () => true,
@@ -94,11 +104,11 @@ const TranslatesManager = ({ history, ...props }) => {
         cancelButtonProps: {},
       })
     );
-  };
+  }, []);
   const [dense, setDense] = React.useState(true);
   return (
     <>
-      <Pane title={t("title.translates")}>
+      <Pane title={t("title.translates")} grey>
         <Grid container justifyContent="flex-end" spacing={2}>
           <Grid item xs={9}>
             <TextField
@@ -160,7 +170,7 @@ const TranslatesManager = ({ history, ...props }) => {
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
+          classes={{ root: classes.tabsRoot }}
         >
           {tabs.map((i) => (
             <Tab label={i.label} value={i.value} />

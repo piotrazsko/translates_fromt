@@ -48,7 +48,7 @@ const Layout = ({
       <Container maxWidth="lg" classes={{ root: classes.root }}>
         <Grid container spacing={2}>
           <Grid item md={2} lg={2}>
-            <SideBar />
+            <SideBar isMobile={isMobile} {...restWithPermissons} />
           </Grid>
           <Grid item md={10} lg={10}>
             <Grid container>

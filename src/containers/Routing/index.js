@@ -33,12 +33,14 @@ const RenderLayout = ({ layout = Layout, viewPort, ...route }, component) => {
           ...{ children: component },
           ...props,
           viewPort,
+          history,
           ...{ route: route },
           // ...route,
         })
       : React.createElement(component, {
           ...props,
           viewPort,
+          history,
           ...{ route: route },
         });
   };

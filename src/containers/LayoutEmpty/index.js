@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MobileScreen from '../MobileScreen';
-import { SideBar, Header } from 'components';
+import { SideBar } from 'components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,12 +22,11 @@ const Layout = ({
     myPermissionsSelector,
     children,
     viewPort,
+    userIsMaster,
+    currentUserData,
     currentLocalization,
-    history,
-    route: { showHeader = true },
     ...rest
 }) => {
-    console.log(rest);
     const { t } = useTranslation();
     const classes = useStyles();
     const { isMobile } = viewPort ?? {};
@@ -38,7 +37,6 @@ const Layout = ({
         isEndOfPage,
         children,
         currentLocalization,
-        history,
         ...rest,
     };
 
@@ -47,23 +45,10 @@ const Layout = ({
             <Helmet>
                 <title>{t('user_name')}</title>
             </Helmet>
-            {showHeader ? <Header history={history} /> : null}
             <Container maxWidth="lg" classes={{ root: classes.root }}>
-                <Grid container spacing={2}>
-                    <Grid item md={2} lg={2}>
-                        <SideBar isMobile={isMobile} {...restWithPermissons} />
-                    </Grid>
-                    <Grid item md={10} lg={10}>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <Paper>
-                                    {React.createElement(
-                                        children,
-                                        restWithPermissons,
-                                    )}
-                                </Paper>
-                            </Grid>
-                        </Grid>
+                <Grid container>
+                    <Grid item xs={12}>
+                        {React.createElement(children, restWithPermissons)}
                     </Grid>
                 </Grid>
             </Container>

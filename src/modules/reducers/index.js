@@ -17,6 +17,7 @@ import * as apiHelpers from 'api';
 import viewport from 'modules/viewport';
 import { i18nextReducer } from 'modules/i18next';
 import { authReducer } from 'modules/auth';
+
 const SetTransform = createTransform((inboundState) => {
     const { saveToPersist = true, ...state } = inboundState;
     return saveToPersist && { ...state };
@@ -29,7 +30,7 @@ const persistConfig = {
     key: 'root',
     storage: localForage,
     version: 0,
-    whitelist: [],
+    whitelist: ['auth'],
     // transforms: [SetTransform],
 };
 

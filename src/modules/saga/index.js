@@ -2,7 +2,7 @@ import { all, put, select, delay, call } from 'redux-saga/effects';
 import * as apiHelpers from 'api';
 import { set, get } from 'lodash';
 import history from 'store/history';
-import { initDataAction } from '../init';
+import { initModuleSaga } from '../init';
 import { i18nextModuleSaga } from 'modules/i18next';
 import { authSaga, authHashSelector } from 'modules/auth';
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
@@ -31,11 +31,7 @@ function* rootSaga(dispatch) {
                 // add credentials for  request
                 const credentials = yield select(authHashSelector);
                 if (credentials) {
-                    set(
-                        data,
-                        'headers.Authorization',
-                        `${'Bearer'} ${credentials}`,
-                    );
+                    set(data, 'headers.Authorization', `${credentials}`);
                 }
                 return data;
             },
@@ -92,7 +88,7 @@ function* rootSaga(dispatch) {
                 }
             },
         }),
-        initDataAction(dispatch),
+        initModuleSaga(dispatch),
         authSaga(dispatch),
         i18nextModuleSaga(dispatch),
     ]);

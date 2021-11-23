@@ -15,9 +15,15 @@ export const RE_INIT_DATA = `${modules}/RE_INIT_DATA`;
 export const initDataAction = createAction(INIT_DATA);
 export const reInitDataAction = createAction(RE_INIT_DATA);
 
-export const initModuleSaga = function* (dispatch) {
+const initDataSaga = function*() {
+    yield put(initDataAction());
+};
+
+export const isRehydrated = (state) => state._persist.rehydrated;
+
+export const initModuleSaga = function*(dispatch) {
     yield all([
-        // takeLatest([SET_USER_LOGOUT], clearCurentUserSaga, dispatch),
+        takeLatest(['persist/REHYDRATE'], initDataSaga, dispatch),
         // takeLatest([INIT_DATA], getWorkingTimeSaga, dispatch),
         // takeLatest([SAVE_CREDENTIALS], redirectToInitSaga, dispatch),
     ]);

@@ -86,10 +86,14 @@ const EditTranslate = ({
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            console.log(values);
             dispatch(
                 setTranslatesByKeyRequest(
                     { ...values },
                     {
+                        onSuccess: () => {
+                            history.goBack();
+                        },
                         onFailure: (data) => {
                             setErrors({
                                 ...errors,
@@ -99,7 +103,6 @@ const EditTranslate = ({
                     },
                 ),
             );
-            history.goBack();
             // alert(JSON.stringify(values, null, 2));
         },
     });

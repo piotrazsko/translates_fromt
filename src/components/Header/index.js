@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
+        cursor: 'pointer',
     },
 
     sectionDesktop: {
@@ -69,6 +70,7 @@ const Header = ({ history, ...props }) => {
                 break;
             case 1:
                 dispatch(logoutAction());
+                history.push('/');
                 break;
 
             default:
@@ -107,7 +109,14 @@ const Header = ({ history, ...props }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                        className={classes.title}
+                        variant="h6"
+                        noWrap
+                    >
                         Goman Live
                     </Typography>
 

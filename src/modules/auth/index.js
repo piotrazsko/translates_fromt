@@ -11,6 +11,8 @@ const apiRoutes = new ApiRoutes();
 
 export const LOGIN_USER_REQUEST = `${modules}/LOGIN_USER_REQUEST`;
 
+export const CONFIRM_EMAIL_REQUEST = `${modules}/CONFIRM_EMAIL_REQUEST`;
+
 export const RESET_PASSWORD_REQUEST = `${modules}/RESET_PASSWORD_REQUEST`;
 export const RESET_PASSWORD_SUCCESS = `${modules}/RESET_PASSWORD_SUCCESS`;
 
@@ -40,6 +42,8 @@ export const changePasswordRequest = actionCreator(CHANGE_PASSWORD_REQUEST);
 
 export const updateUserRequest = actionCreator(UPDATE_USER_REQUEST);
 
+export const confirmLinkRequest = actionCreator(CONFIRM_EMAIL_REQUEST);
+
 export const logoutAction = createAction(LOGOUT_USER);
 
 apiRoutes.add(LOGIN_USER_REQUEST, ({ ...data }) => ({
@@ -50,6 +54,12 @@ apiRoutes.add(LOGIN_USER_REQUEST, ({ ...data }) => ({
 
 apiRoutes.add(UPDATE_USER_REQUEST, ({ ...data }) => ({
     url: `/update-user`,
+    method: 'patch',
+    data,
+}));
+
+apiRoutes.add(CONFIRM_EMAIL_REQUEST, ({ ...data }) => ({
+    url: `/confirm-email-result`,
     method: 'patch',
     data,
 }));

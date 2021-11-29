@@ -5,6 +5,7 @@ import {
     Auth,
     LayoutEmpty,
     SignUp,
+    ConfirmLink,
 } from 'containers';
 
 export const redirectAuthPath = '/auth';
@@ -22,6 +23,14 @@ const mainRoutes = [
         path: '/translates',
         exact: true,
         component: TranslatesManager,
+        isPrivate: true,
+        showHeader: true,
+        showSidebar: true,
+    },
+    {
+        path: '/confirm-link',
+        exact: true,
+        component: ConfirmLink,
         isPrivate: true,
         showHeader: true,
         showSidebar: true,

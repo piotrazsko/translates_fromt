@@ -13,19 +13,16 @@ import { useTranslation } from 'react-i18next';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        zIndex: -1,
-    },
-    appBar: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-    },
+    // appBar: {
+    //     width: `calc(100% - ${drawerWidth}px)`,
+    //     marginLeft: drawerWidth,
+    // },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
     },
     drawerPaper: {
+        background: theme.palette.primary.main,
         width: drawerWidth,
     },
     // necessary for content to be below app bar
@@ -34,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
+    },
+    text: {
+        color: '#fff',
+    },
+    icon: {
+        color: '#fff',
     },
 }));
 
@@ -45,15 +48,27 @@ const getSideBarItems = (t, history) => [
         },
     },
     {
-        title: t('sidebar.login'),
+        title: t('sidebar.post_templates'),
         onClick: () => {
-            history.push('/login');
+            history.push('/');
         },
     },
     {
-        title: t('sidebar.registration'),
+        title: t('sidebar.billing'),
         onClick: () => {
-            history.push('/registration');
+            history.push('/');
+        },
+    },
+    {
+        title: t('sidebar.api'),
+        onClick: () => {
+            history.push('/');
+        },
+    },
+    {
+        title: t('sidebar.docs'),
+        onClick: () => {
+            history.push('/');
         },
     },
 ];
@@ -80,10 +95,13 @@ export default function PermanentDrawerLeft({ history, ...props }) {
             <List>
                 {items.map((i, index) => (
                     <ListItem button key={i.title} onClick={i.onClick}>
-                        <ListItemIcon>
+                        <ListItemIcon classes={{ root: classes.text }}>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>
-                        <ListItemText primary={i.title} />
+                        <ListItemText
+                            classes={{ primary: classes.text }}
+                            primary={i.title}
+                        />
                     </ListItem>
                 ))}
             </List>

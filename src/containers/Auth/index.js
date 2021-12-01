@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
+import get from 'lodash/get';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -39,6 +40,7 @@ const Auth = ({ history }) => {
         touched,
         values,
         handleSubmit,
+        setErrors,
         errors,
     } = useFormik({
         initialValues: {
@@ -52,9 +54,14 @@ const Auth = ({ history }) => {
                     onSuccess: () => {
                         history.push('/');
                     },
+                    onFailure: (data) => {
+                        setErrors({
+                            ...errors,
+                            ...get(data, 'response.data.error'),
+                        });
+                    },
                 }),
             );
-            console.log(values);
         },
     });
 
@@ -94,6 +101,7 @@ const Auth = ({ history }) => {
                         onChange={handleChange('email')}
                         autoFocus
                         helperText={errors.email}
+                        error={errors.email}
                     />
                     <TextField
                         margin="normal"
@@ -108,6 +116,7 @@ const Auth = ({ history }) => {
                         value={values.password}
                         onChange={handleChange('password')}
                         helperText={errors.password}
+                        error={errors.password}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
@@ -120,7 +129,7 @@ const Auth = ({ history }) => {
                         color="primary"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Sign In
+                        {t('button.sign_in')}
                     </Button>
                     <Grid container>
                         <Grid item xs>
@@ -131,7 +140,7 @@ const Auth = ({ history }) => {
                                     history.push('/reset-password');
                                 }}
                             >
-                                Forgot password?
+                                {t('button.forgot_password')}
                             </Button>
                         </Grid>
                         <Grid item>
@@ -142,7 +151,10 @@ const Auth = ({ history }) => {
                                     history.push('/register');
                                 }}
                             >
-                                {"Don't have an account? Sign Up"}
+                                {t(
+                                    'button.sign_up_extended',
+                                    "Don't have an account? Sign Up",
+                                )}
                             </Button>
                         </Grid>
                     </Grid>

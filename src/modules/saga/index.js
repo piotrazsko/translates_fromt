@@ -5,7 +5,7 @@ import history from 'store/history';
 import { initModuleSaga } from '../init';
 import { i18nextModuleSaga } from 'modules/i18next';
 import { authSaga, authHashSelector } from 'modules/auth';
-import { notificationSaga, showError } from 'modules/notification';
+import { notificationSaga, showError, showSuccess } from 'modules/notification';
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
 const {
     modules: { apiWatchRequest },
@@ -41,10 +41,12 @@ function* rootSaga(dispatch) {
                 // yield put(hideLoader());
                 if (
                     data.config.method === 'put' ||
-                    data.config.method === 'post' ||
+                    // data.config.method === 'post' ||
                     data.config.method === 'delete'
                 ) {
-                    // yield put(showSuccess({ message: 'Successful operation.' }));
+                    yield put(
+                        showSuccess({ message: 'Successful operation.' }),
+                    );
                 }
             },
             failedCallback: function*(data) {

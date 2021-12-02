@@ -17,7 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useTranslation } from 'react-i18next';
 import { loginRequest } from 'modules/auth';
-
+import { Popup } from 'components_lib';
+import style from './style.scss';
 const validationSchema = yup.object({
     email: yup
         .string()
@@ -33,6 +34,8 @@ const validationSchema = yup.object({
 const Auth = ({ history }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const [resetForEmail, setResetForEmail] = React.useState('');
+
     const {
         handleChange,
         handleBlur,
@@ -64,10 +67,39 @@ const Auth = ({ history }) => {
             );
         },
     });
-
+    const [showPopup, setShowPopup] = React.useState(false);
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
+            {showPopup ? (
+                <Popup
+                    shwoPopup={showPopup}
+                    title={t('title.reset_password')}
+                    confirmButtonProps={{
+                        color: 'secondary',
+                    }}
+                    classes={{
+                        buttonContainer: style.buttonContainer,
+                    }}
+                    submitButtonText={t('button.send')}
+                    cancelButtonText={t('button.cancel')}
+                    onSubmit={(ev) => {
+                        setShowPopup(!showPopup);
+                    }}
+                    onCancel={(ev) => {
+                        console.log('cancel');
+                    }}
+                >
+                    <TextField
+                        value={resetForEmail}
+                        onChange={(ev) => {
+                            setResetForEmail(ev.target.value);
+                        }}
+                        fullWidth
+                    />
+                </Popup>
+            ) : null}
+
             <Box
                 sx={{
                     marginTop: 8,
@@ -137,7 +169,7 @@ const Auth = ({ history }) => {
                                 variant="text"
                                 color="primary"
                                 onClick={() => {
-                                    history.push('/reset-password');
+                                    setShowPopup(!showPopup);
                                 }}
                             >
                                 {t('button.forgot_password')}

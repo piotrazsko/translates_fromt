@@ -5,6 +5,7 @@ import history from 'store/history';
 import { initModuleSaga } from '../init';
 import { i18nextModuleSaga } from 'modules/i18next';
 import { authSaga, authHashSelector } from 'modules/auth';
+import { notificationSaga, showError } from 'modules/notification';
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
 const {
     modules: { apiWatchRequest },
@@ -13,6 +14,7 @@ const {
 
 if (process.env.NODE_ENV == 'development') {
     init('http://localhost:3001');
+    // init('https://translates.goman.live');
 } else if (process.env.NODE_ENV == 'production') {
     init('https://translates.goman.live');
 }
@@ -54,7 +56,9 @@ function* rootSaga(dispatch) {
                         yield call(history.push, '/login');
                         return;
                     case dataStatus === 500:
-                        // yield put(showError({ message: "Internal server error." }));
+                        yield put(
+                            showError({ message: 'Internal server error.' }),
+                        );
                         return;
                     case dataStatus === 406: {
                         const message = get(
@@ -62,7 +66,7 @@ function* rootSaga(dispatch) {
                             'response.data.message',
                             'Internal server error.',
                         );
-                        // yield put(showError({ message }));
+                        yield put(showError({ message }));
                         return;
                     }
                     case dataStatus === 403: {
@@ -71,17 +75,16 @@ function* rootSaga(dispatch) {
                             'response.data.message',
                             'Internal server error.',
                         );
-                        // yield put(showError({ message }));
+                        yield put(showError({ message }));
                         return;
                     }
                     default: {
+                        const error = get(data, 'response.data.error');
                         if (
-                            data.hasOwnProperty('errors') &&
-                            typeof data.errors !== 'undefined'
+                            typeof error === 'object' &&
+                            error.type === 'popup'
                         ) {
-                            for (var key of Object.keys(data.errors)) {
-                                // yield put(showError({ message: data.errors[key] }));
-                            }
+                            yield put(showError({ message: error.message }));
                         }
                         return;
                     }
@@ -91,6 +94,7 @@ function* rootSaga(dispatch) {
         initModuleSaga(dispatch),
         authSaga(dispatch),
         i18nextModuleSaga(dispatch),
+        notificationSaga(dispatch),
     ]);
 }
 

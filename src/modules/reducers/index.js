@@ -17,6 +17,7 @@ import * as apiHelpers from 'api';
 import viewport from 'modules/viewport';
 import { i18nextReducer } from 'modules/i18next';
 import { authReducer } from 'modules/auth';
+import notificationsReducer from 'modules/notification';
 
 const SetTransform = createTransform((inboundState) => {
     const { saveToPersist = true, ...state } = inboundState;
@@ -41,4 +42,5 @@ export default persistCombineReducers(persistConfig, {
     popups: popupsReducer,
     locale: i18nextReducer,
     auth: authReducer,
+    notification: notificationsReducer,
 });

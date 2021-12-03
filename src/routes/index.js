@@ -6,6 +6,8 @@ import {
     LayoutEmpty,
     SignUp,
     ConfirmLink,
+    Profile,
+    Settings,
 } from 'containers';
 
 export const redirectAuthPath = '/auth';
@@ -52,6 +54,18 @@ const mainRoutes = [
         exact: true,
         component: SignUp,
         layout: LayoutEmpty,
+    },
+    {
+        path: '/profile',
+        exact: true,
+        component: Profile,
+        isPrivate: true,
+    },
+    {
+        path: '/settings',
+        exact: true,
+        component: Settings,
+        isPrivate: true,
     },
 ];
 export default [].concat(mainRoutes);

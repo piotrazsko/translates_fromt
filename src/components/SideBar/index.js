@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        background: theme.palette.primary.main,
+        // background: theme.palette.primary.main,
         width: drawerWidth,
     },
     // necessary for content to be below app bar
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     text: {
-        color: '#fff',
+        // color: '#fff',
     },
     icon: {
         color: '#fff',
@@ -69,6 +69,12 @@ const getSideBarItems = (t, history) => [
         title: t('sidebar.docs'),
         onClick: () => {
             history.push('/');
+        },
+    },
+    {
+        title: t('sidebar.settings'),
+        onClick: () => {
+            history.push('/settings');
         },
     },
 ];

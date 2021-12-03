@@ -16,7 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useTranslation } from 'react-i18next';
-import { loginRequest } from 'modules/auth';
+import { loginRequest, resetPasswordRequest } from 'modules/auth';
 import { Popup } from 'components_lib';
 import style from './style.scss';
 const validationSchema = yup.object({
@@ -30,11 +30,17 @@ const validationSchema = yup.object({
         .max(16)
         .required(),
 });
+const validationSchemaEmail = yup.object({
+    email: yup
+        .string()
+        .email()
+        .required(),
+});
 
 const Auth = ({ history }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const [resetForEmail, setResetForEmail] = React.useState('');
+    const [emailForReset, setResetForEmail] = React.useState('');
 
     const {
         handleChange,
@@ -68,6 +74,8 @@ const Auth = ({ history }) => {
         },
     });
     const [showPopup, setShowPopup] = React.useState(false);
+    const [errorEmail, setErrorEmail] = React.useState(false);
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -84,18 +92,41 @@ const Auth = ({ history }) => {
                     submitButtonText={t('button.send')}
                     cancelButtonText={t('button.cancel')}
                     onSubmit={(ev) => {
-                        setShowPopup(!showPopup);
+                        console.log(emailForReset);
+                        validationSchemaEmail
+                            .isValid({ email: emailForReset })
+                            .then((valid) => {
+                                if (!valid) {
+                                    setErrorEmail('test');
+                                } else {
+                                    dispatch(
+                                        resetPasswordRequest(
+                                            {
+                                                email: emailForReset,
+                                            },
+                                            {
+                                                onSuccess: () => {
+                                                    setShowPopup(!showPopup);
+                                                },
+                                            },
+                                        ),
+                                    );
+                                    setErrorEmail('');
+                                }
+                            });
                     }}
                     onCancel={(ev) => {
-                        console.log('cancel');
+                        setShowPopup(!showPopup);
                     }}
                 >
                     <TextField
-                        value={resetForEmail}
+                        value={emailForReset}
                         onChange={(ev) => {
                             setResetForEmail(ev.target.value);
                         }}
                         fullWidth
+                        helperText={errorEmail}
+                        error={errorEmail}
                     />
                 </Popup>
             ) : null}

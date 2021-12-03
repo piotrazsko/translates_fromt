@@ -12,7 +12,7 @@ import { SideBar, Header } from 'components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '60px',
+        marginTop: '80px',
         display: 'flex',
     },
 }));

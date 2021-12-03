@@ -41,12 +41,18 @@ function* rootSaga(dispatch) {
                 // yield put(hideLoader());
                 if (
                     data.config.method === 'put' ||
-                    // data.config.method === 'post' ||
+                    data.config.method === 'post' ||
                     data.config.method === 'delete'
                 ) {
-                    yield put(
-                        showSuccess({ message: 'Successful operation.' }),
-                    );
+                    console.log(data);
+                    const message = get(data, 'data.message');
+                    if (message) {
+                        yield put(showSuccess({ message }));
+                    } else {
+                        yield put(
+                            showSuccess({ message: 'Successful operation.' }),
+                        );
+                    }
                 }
             },
             failedCallback: function*(data) {

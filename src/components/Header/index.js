@@ -67,6 +67,7 @@ const Header = ({ history, ...props }) => {
     const handleMenuClose = (i) => {
         switch (i) {
             case 0:
+                history.push('/profile');
                 break;
             case 1:
                 dispatch(logoutAction());

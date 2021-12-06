@@ -46,7 +46,7 @@ const Layout = ({
                 <title>{t('user_name')}</title>
             </Helmet>
             {showHeader ? <Header history={history} /> : null}
-            <Container maxWidth="lg" classes={{ root: classes.root }}>
+            <Container maxWidth="" classes={{ root: classes.root }}>
                 <Grid container spacing={2}>
                     <Grid item md={2} lg={2}>
                         <SideBar isMobile={isMobile} {...restWithPermissons} />

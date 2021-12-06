@@ -59,8 +59,6 @@ const Account = ({ ...props }) => {
     };
     const {
         handleChange,
-        handleBlur,
-        handleReset,
         touched,
         values,
         handleSubmit,

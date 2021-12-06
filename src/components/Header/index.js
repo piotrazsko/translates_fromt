@@ -100,7 +100,11 @@ const Header = ({ history, ...props }) => {
 
     return (
         <div className={classes.grow}>
-            <AppBar classes={{ root: classes.root }} elevation="1">
+            <AppBar
+                color="default"
+                classes={{ root: classes.root }}
+                elevation="1"
+            >
                 <Toolbar>
                     <IconButton
                         edge="start"

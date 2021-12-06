@@ -22,8 +22,9 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        // background: theme.palette.primary.main,
+        background: theme.palette.primary.main,
         width: drawerWidth,
+        borderRadius: 0,
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     text: {
-        // color: '#fff',
+        color: '#fff',
     },
     icon: {
         color: '#fff',
@@ -97,7 +98,6 @@ export default function PermanentDrawerLeft({ history, ...props }) {
             anchor="left"
         >
             <div className={classes.toolbar} />
-            <Divider />
             <List>
                 {items.map((i, index) => (
                     <ListItem button key={i.title} onClick={i.onClick}>
@@ -111,7 +111,6 @@ export default function PermanentDrawerLeft({ history, ...props }) {
                     </ListItem>
                 ))}
             </List>
-            <Divider />
         </Drawer>
     );
 }

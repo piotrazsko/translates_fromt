@@ -8,6 +8,7 @@ import {
     ConfirmLink,
     Profile,
     Settings,
+    APIPage,
 } from 'containers';
 
 export const redirectAuthPath = '/auth';
@@ -65,6 +66,12 @@ const mainRoutes = [
         path: '/settings',
         exact: true,
         component: Settings,
+        isPrivate: true,
+    },
+    {
+        path: '/api',
+        exact: true,
+        component: APIPage,
         isPrivate: true,
     },
 ];

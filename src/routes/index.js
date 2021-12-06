@@ -10,6 +10,7 @@ import {
     Settings,
     APIPage,
 } from 'containers';
+import HomeLayout from '../containers/Home/Layout';
 
 export const redirectAuthPath = '/auth';
 
@@ -21,6 +22,9 @@ const mainRoutes = [
         path: '/',
         exact: true,
         component: Home,
+        showHeader: true,
+        showSidebar: false,
+        layout: HomeLayout,
     },
     {
         path: '/translates',

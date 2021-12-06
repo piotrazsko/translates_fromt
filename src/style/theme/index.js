@@ -41,12 +41,12 @@ export const theme = createTheme({
         body1: {
             'font-size': '18px',
             color: '#4c4c4c',
-            'line-height': '1.9',
+            // 'line-height': '1.9',
         },
         body2: {
             'font-size': '18px',
             color: 'red',
-            border: '2px solid #ccc',
+            // border: '2px solid #ccc',
             // padding: '3px 6px',
             fontWeight: '400',
             cursor: 'pointer',

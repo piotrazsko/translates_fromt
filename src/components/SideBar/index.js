@@ -49,12 +49,6 @@ const getSideBarItems = (t, history) => [
         },
     },
     {
-        title: t('sidebar.post_templates'),
-        onClick: () => {
-            history.push('/');
-        },
-    },
-    {
         title: t('sidebar.billing'),
         onClick: () => {
             history.push('/');

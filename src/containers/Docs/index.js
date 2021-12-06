@@ -9,7 +9,7 @@ import { getUserRequst, getUserSelector } from 'modules/user';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 
-const APIPage = ({ ...props }) => {
+const Docs = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -53,8 +53,8 @@ const APIPage = ({ ...props }) => {
     );
 };
 
-APIPage.propTypes = {
+Docs.propTypes = {
     // : PropTypes.
 };
 
-export default APIPage;
+export default Docs;

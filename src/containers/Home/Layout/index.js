@@ -7,13 +7,21 @@ import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Footer from './Footer.js';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
+import theme from './theme';
 
 import { SideBar, Header } from 'components';
+import AOS from 'aos/dist/aos';
+import GlobalStyles from './GlobalStyles.js';
+
+AOS.init({ once: true });
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '80px',
-        display: 'flex',
+        padding: 0,
+        // marginTop: '80px',
+        // display: 'flex',
     },
 }));
 
@@ -45,31 +53,14 @@ const Layout = ({
             <Helmet>
                 <title>{t('user_name')}</title>
             </Helmet>
+            <GlobalStyles />
             {showHeader ? <Header history={history} /> : null}
-            <Container maxWidth="" classes={{ root: classes.root }}>
-                <Grid container spacing={2}>
-                    {showSidebar ? (
-                        <Grid item md={2} lg={2}>
-                            <SideBar
-                                isMobile={isMobile}
-                                {...restWithPermissons}
-                            />
-                        </Grid>
-                    ) : null}
-                    <Grid item md={10} lg={10}>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <Paper>
-                                    {React.createElement(
-                                        children,
-                                        restWithPermissons,
-                                    )}
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Container>
+            <MuiThemeProvider theme={theme}>
+                <Container maxWidth="" classes={{ root: classes.root }}>
+                    {React.createElement(children, restWithPermissons)}
+                </Container>
+                <Footer />
+            </MuiThemeProvider>
         </>
     );
 };

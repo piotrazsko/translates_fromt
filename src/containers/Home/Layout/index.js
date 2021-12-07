@@ -13,6 +13,7 @@ import theme from './theme';
 
 import { SideBar, Header } from 'components';
 import AOS from 'aos/dist/aos';
+import 'aos/dist/aos.css';
 import GlobalStyles from './GlobalStyles.js';
 
 AOS.init({ once: true });

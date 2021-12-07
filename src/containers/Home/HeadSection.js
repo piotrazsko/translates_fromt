@@ -100,7 +100,7 @@ const styles = (theme) => ({
 });
 
 function HeadSection(props) {
-    const { classes, theme, width } = props;
+    const { classes, theme, width, history } = props;
     const { t } = useTranslation();
     return (
         <Fragment>
@@ -173,9 +173,15 @@ function HeadSection(props) {
                                                         label:
                                                             classes.extraLargeButtonLabel,
                                                     }}
-                                                    href=""
+                                                    onClick={() => {
+                                                        history.push(
+                                                            '/translates',
+                                                        );
+                                                    }}
                                                 >
-                                                    {t('button.go_to_demo')}
+                                                    {t(
+                                                        'button.go_to_translates',
+                                                    )}
                                                 </Button>
                                             </div>
                                         </Box>

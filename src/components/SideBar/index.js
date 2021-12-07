@@ -51,7 +51,7 @@ const getSideBarItems = (t, history) => [
     {
         title: t('sidebar.billing'),
         onClick: () => {
-            history.push('/');
+            history.push('/billing');
         },
     },
     {
@@ -63,7 +63,7 @@ const getSideBarItems = (t, history) => [
     {
         title: t('sidebar.docs'),
         onClick: () => {
-            history.push('/');
+            history.push('/docs');
         },
     },
     {

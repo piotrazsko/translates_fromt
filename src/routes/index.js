@@ -9,6 +9,8 @@ import {
     Profile,
     Settings,
     APIPage,
+    Docs,
+    Billing,
 } from 'containers';
 import HomeLayout from '../containers/Home/Layout';
 
@@ -76,6 +78,18 @@ const mainRoutes = [
         path: '/api',
         exact: true,
         component: APIPage,
+        isPrivate: true,
+    },
+    {
+        path: '/docs',
+        exact: true,
+        component: Docs,
+        isPrivate: true,
+    },
+    {
+        path: '/billing',
+        exact: true,
+        component: Billing,
         isPrivate: true,
     },
 ];

@@ -9,7 +9,7 @@ import { getUserRequst, getUserSelector } from 'modules/user';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 
-const Docs = ({ ...props }) => {
+const Billing = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -18,10 +18,10 @@ const Docs = ({ ...props }) => {
     const { apiKey, url, ...user } = useSelector(getUserSelector);
     return (
         <>
-            <Pane title={t('title.docs')}>
+            <Pane title={t('title.billing')}>
                 <Box>
                     <Typography gutterBottom variant="body1" display="inline">
-                        {t('text.documentation')}
+                        {t('text.billing')}
                     </Typography>
                 </Box>
             </Pane>
@@ -29,8 +29,8 @@ const Docs = ({ ...props }) => {
     );
 };
 
-Docs.propTypes = {
+Billing.propTypes = {
     // : PropTypes.
 };
 
-export default Docs;
+export default Billing;

@@ -13,15 +13,16 @@ import HeadSection from './HeadSection';
 import FeatureSection from './FeatureSection';
 import PricingSection from './PricingSection';
 
-const Home = ({ ...props }) => {
+const Home = ({ history, ...props }) => {
+    console.log(props);
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
     return (
         <>
-            <HeadSection />
-            <FeatureSection />
-            <PricingSection />
+            <HeadSection history={history} />
+            <FeatureSection history={history} />
+            <PricingSection history={history} />
         </>
     );
 };

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { useTranslation } from 'react-i18next';
 import { Pane } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserRequst, getUserSelector } from 'modules/user';
+import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import { showInfo } from 'modules/notification';
@@ -15,7 +15,7 @@ const APIPage = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(getUserRequst());
+        dispatch(getCurrentUserRequest());
     }, []);
     const saveToClipBoadrdAndMessage = React.useCallback(
         (str) => (ev) => {
@@ -28,7 +28,7 @@ const APIPage = ({ ...props }) => {
         },
         [],
     );
-    const { apiKey, url, ...user } = useSelector(getUserSelector);
+    const { apiKey, url, ...user } = useSelector(getCurrentUserSelector);
 
     return (
         <>

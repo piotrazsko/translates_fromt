@@ -13,3 +13,4 @@ export { default as Settings } from './Settings';
 export { default as APIPage } from './APIPage';
 export { default as Docs } from './Docs';
 export { default as Billing } from './Billing';
+export { default as ConfirmEmailPopup } from './ConfirmEmailPopup';

@@ -1,6 +1,8 @@
 import * as api_helpers from 'api';
 import { createAction } from 'redux-actions';
 import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { INIT_DATA } from 'modules/init';
+
 const modules = 'auth';
 const {
     helpers: { actionCreator, apiSelector },
@@ -12,6 +14,7 @@ const apiRoutes = new ApiRoutes();
 export const LOGIN_USER_REQUEST = `${modules}/LOGIN_USER_REQUEST`;
 
 export const CONFIRM_EMAIL_REQUEST = `${modules}/CONFIRM_EMAIL_REQUEST`;
+export const SEND_CONFIRM_EMAIL_REQUEST = `${modules}/SEND_CONFIRM_EMAIL_REQUEST`;
 
 export const RESET_PASSWORD_REQUEST = `${modules}/RESET_PASSWORD_REQUEST`;
 export const RESET_PASSWORD_SUCCESS = `${modules}/RESET_PASSWORD_SUCCESS`;
@@ -30,6 +33,10 @@ export const LOGOUT_USER = `${modules}/LOGOUT_USER`;
 export const UPDATE_USER_REQUEST = `${modules}/UPDATE_USER_REQUEST`;
 export const UPDATE_USER_SUCCESS = `${modules}/UPDATE_USER_SUCCESS`;
 
+export const GET_USER_REQUEST = `${modules}/GET_USER_REQUEST`;
+
+export const getCurrentUserRequest = actionCreator(GET_USER_REQUEST);
+
 export const loginRequest = actionCreator(LOGIN_USER_REQUEST, {
     preventFailure: false,
 });
@@ -43,8 +50,16 @@ export const changePasswordRequest = actionCreator(CHANGE_PASSWORD_REQUEST);
 export const updateUserRequest = actionCreator(UPDATE_USER_REQUEST);
 
 export const confirmLinkRequest = actionCreator(CONFIRM_EMAIL_REQUEST);
+export const sendConfirmLinkRequest = actionCreator(SEND_CONFIRM_EMAIL_REQUEST);
 
 export const logoutAction = createAction(LOGOUT_USER);
+
+apiRoutes.add(GET_USER_REQUEST, () => {
+    return {
+        url: `/user`,
+        method: 'GET',
+    };
+});
 
 apiRoutes.add(LOGIN_USER_REQUEST, ({ ...data }) => ({
     url: `/login`,
@@ -61,6 +76,12 @@ apiRoutes.add(UPDATE_USER_REQUEST, ({ ...data }) => ({
 apiRoutes.add(CONFIRM_EMAIL_REQUEST, ({ ...data }) => ({
     url: `/confirm-email-result`,
     method: 'patch',
+    data,
+}));
+
+apiRoutes.add(SEND_CONFIRM_EMAIL_REQUEST, ({ ...data }) => ({
+    url: `/confirm-email`,
+    method: 'post',
     data,
 }));
 
@@ -122,9 +143,16 @@ export const authReducer = (state = initialState, action) => {
 export function* logoutSaga() {
     yield put(logoutRequest());
 }
+export function* getUserSaga() {
+    const auth = yield select(userIsAuthSelector);
+    if (auth) {
+        yield put(getCurrentUserRequest());
+    }
+}
 
 export function* authSaga(dispatch) {
     yield all([takeEvery(LOGOUT_USER, logoutSaga)]);
+    yield all([takeEvery(INIT_DATA, getUserSaga)]);
 }
 
 export const userDataSelector = (state) => state.auth;
@@ -135,3 +163,4 @@ export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const registerUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const Selector = apiSelector(LOGIN_USER_REQUEST);
 export const updateUserSelector = apiSelector(LOGIN_USER_REQUEST);
+export const getCurrentUserSelector = apiSelector(GET_USER_REQUEST);

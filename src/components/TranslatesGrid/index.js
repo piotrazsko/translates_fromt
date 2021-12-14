@@ -6,13 +6,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -40,15 +38,23 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
 
     const res = React.useMemo(() => {
         return data.sort((a, b) => {
-            console.log(a[sort.field][0] - b[sort.field][0]);
             return sort.direct > 0
                 ? a[sort.field][0] > b[sort.field][0]
                 : a[sort.field][0] < b[sort.field][0];
         });
-    }, [sort]);
+    }, [sort, data]);
+    const [expanded, switchExpanded] = React.useState();
 
     return (
         <TableContainer component={Paper}>
+            <Toolbar>
+                <Box>
+                    <IconButton onClick={() => switchExpanded(!expanded)}>
+                        <FilterListIcon />
+                    </IconButton>
+                </Box>
+                {expanded ? <Box>-a-a-a</Box> : null}
+            </Toolbar>
             <Table
                 size={dense ? 'small' : 'medium'}
                 stickyHeader

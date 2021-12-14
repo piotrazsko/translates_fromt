@@ -8,15 +8,3 @@ const {
 } = api_helpers;
 
 const apiRoutes = new ApiRoutes();
-
-export const GET_USER_REQUEST = `${modules}/GET_USER_REQUEST`;
-
-export const getUserRequst = actionCreator(GET_USER_REQUEST);
-
-apiRoutes.add(GET_USER_REQUEST, () => {
-    return {
-        url: `/user`,
-        method: 'GET',
-    };
-});
-export const getUserSelector = apiSelector(GET_USER_REQUEST);

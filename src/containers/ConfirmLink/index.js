@@ -18,7 +18,9 @@ const ConfirmLink = ({ location, history, ...props }) => {
                 { token },
                 {
                     onSuccess: () => {
-                        history.push('/login');
+                        setTimeout(() => {
+                            // history.push('/');
+                        }, 10000);
                     },
                 },
             ),

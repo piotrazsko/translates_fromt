@@ -40,7 +40,7 @@ const mainRoutes = [
         path: '/confirm-link',
         exact: true,
         component: ConfirmLink,
-        isPrivate: true,
+        // isPrivate: true,
         showHeader: true,
         showSidebar: true,
     },

@@ -16,7 +16,7 @@ if (process.env.NODE_ENV == 'development') {
     // init('http://localhost:3001');
     init('https://translates.goman.live');
 } else if (process.env.NODE_ENV == 'production') {
-    // init('https://translates.goman.live');
+    init('https://translates.goman.live');
 }
 
 // TODO:  need refactoring

@@ -100,6 +100,14 @@ const Settings = ({ ...props }) => {
                 postUploadJsonByLangRequest(fd, {
                     onSuccess: () => {
                         setFileName('');
+                        fd.delete('language');
+                        fd.delete('translate');
+                    },
+                    onFailure: (data) => {
+                        setErrors({
+                            ...errors,
+                            ...get(data, 'response.data.error'),
+                        });
                     },
                 }),
             );

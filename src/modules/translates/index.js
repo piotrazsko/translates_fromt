@@ -13,6 +13,8 @@ const apiRoutes = new ApiRoutes();
 
 export const GET_LANGUAGES_LIST_REQUEST = `${modules}/GET_LANGUAGES_LIST_REQUEST`;
 export const GET_EXPORT_JSON_REQUEST = `${modules}/GET_EXPORT_JSON_REQUEST`;
+export const POST_UPLOAD_LANG_JSON_REQUEST = `${modules}/POST_UPLOAD_LANG_JSON_REQUEST`;
+
 export const POST_IMPORT_JSON_REQUEST = `${modules}/POST_IMPORT_JSON_REQUEST`;
 export const GET_TRANSLATES_BY_KEY_REQUEST = `${modules}/GET_TRANSLATES_BY_KEY_REQUEST`;
 export const SET_TRANSLATES_BY_KEY_REQUEST = `${modules}/SET_TRANSLATES_BY_KEY_REQUEST`;
@@ -23,7 +25,12 @@ export const getTranslatedListRequest = actionCreator(
     GET_LANGUAGES_LIST_REQUEST,
 );
 export const getExportJsonRequest = actionCreator(GET_EXPORT_JSON_REQUEST);
+
+export const postUploadJsonByLangRequest = actionCreator(
+    POST_UPLOAD_LANG_JSON_REQUEST,
+);
 export const postImportJsonRequest = actionCreator(POST_IMPORT_JSON_REQUEST);
+
 export const getTranslatesByKeyRequest = actionCreator(
     GET_TRANSLATES_BY_KEY_REQUEST,
 );
@@ -49,9 +56,16 @@ apiRoutes.add(GET_EXPORT_JSON_REQUEST, () => ({
     // params,
 }));
 apiRoutes.add(POST_IMPORT_JSON_REQUEST, (data) => {
-    console.log(data);
     return {
         url: `/import-json`,
+        method: 'post',
+        data,
+        headers: { 'Content-Type': 'multipart/form-data' },
+    };
+});
+apiRoutes.add(POST_UPLOAD_LANG_JSON_REQUEST, (data) => {
+    return {
+        url: `/import-lang-json`,
         method: 'post',
         data,
         headers: { 'Content-Type': 'multipart/form-data' },

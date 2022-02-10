@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Box from '@material-ui/core/Box';
 
 import Grid from '@material-ui/core/Grid';
 import { useTranslation } from 'react-i18next';
@@ -141,11 +142,7 @@ const Settings = ({ ...props }) => {
                 </Typography>
                 <Grid container>
                     <Grid item xs={2}>
-                        <TextField
-                            variant="outlined"
-                            value={fileName}
-                            disabled
-                        />
+                        <Box>{fileName}</Box>
                         <Button
                             variant="contained"
                             onClick={onUploadTranslatesByLang}
@@ -158,6 +155,7 @@ const Settings = ({ ...props }) => {
                         <TextField
                             variant="outlined"
                             value={values.language}
+                            placeholder = {t('placeholder.language_key')}
                             onChange={handleChange('language')}
                             helperText={errors.language}
                             error={errors.language}

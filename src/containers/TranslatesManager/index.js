@@ -180,7 +180,7 @@ const TranslatesManager = ({ history, ...props }) => {
                     classes={{ root: classes.tabsRoot }}
                 >
                     {tabs.map((i) => (
-                        <Tab label={i.label} value={i.value} />
+                        <Tab label={i.label} value={i.value} key={i.label} />
                     ))}
                 </Tabs>
                 <TranslatesGrid

@@ -156,7 +156,7 @@ export function* authSaga(dispatch) {
 }
 
 export const userDataSelector = (state) => state.auth;
-export const userIsAuthSelector = (state) => state.auth.token;
+export const userIsAuthSelector = (state) => Boolean(state.auth.token);
 export const authHashSelector = (state) => state.auth.token;
 
 export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);

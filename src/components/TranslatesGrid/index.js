@@ -96,7 +96,7 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                 <TableBody>
                     {Array.isArray(res)
                         ? res.map((row) => (
-                              <TableRow key={row.value}>
+                              <TableRow key={row.key + row.namespace}>
                                   <TableCell align="center">
                                       {row.key}
                                   </TableCell>

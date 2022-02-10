@@ -103,7 +103,10 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                   <TableCell align="center">
                                       {row.namespace || ''}
                                   </TableCell>
-                                  <TableCell align="center"></TableCell>
+                                  <TableCell align="center">
+                                      {row.langs.join(', ').slice(0, 10) +
+                                          (row.langs.length > 3 ? '...' : '')}
+                                  </TableCell>
                                   <TableCell align="center">
                                       <IconButton
                                           color="primary"

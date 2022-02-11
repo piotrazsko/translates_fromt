@@ -131,48 +131,57 @@ const EditTranslate = ({
         [values.translates],
     );
     const onDelete = React.useCallback(
-        (itemIndex, { key, namespace, language }) => {
+        (itemIndex, { key, namespace, language, value }) => {
+            console.log(key, namespace, language, value);
             if (values.translates.length > 1) {
-                dispatch(
-                    showPopupAction({
-                        message: t('message.delete_translate_item'),
-                        title: t('message.delete_translate_item_text'),
+                if (value || language) {
+                    dispatch(
+                        showPopupAction({
+                            message: t('message.delete_translate_item'),
+                            title: t('message.delete_translate_item_text'),
 
-                        onClick: () => {
-                            setFieldValue('translates', [
-                                ...values.translates.filter(
-                                    (i, index) => index !== itemIndex,
-                                ),
-                            ]);
-                            dispatch(
-                                deleteTranslatesByKeyAndLangRequest(
-                                    { key, namespace, language },
-                                    {
-                                        onSuccess: () => {
-                                            dispatch(
-                                                getTranslatesByKeyRequest({
-                                                    key: key,
-                                                    namespace: namespace,
-                                                }),
-                                            );
+                            onClick: () => {
+                                setFieldValue('translates', [
+                                    ...values.translates.filter(
+                                        (i, index) => index !== itemIndex,
+                                    ),
+                                ]);
+                                dispatch(
+                                    deleteTranslatesByKeyAndLangRequest(
+                                        { key, namespace, language },
+                                        {
+                                            onSuccess: () => {
+                                                dispatch(
+                                                    getTranslatesByKeyRequest({
+                                                        key: key,
+                                                        namespace: namespace,
+                                                    }),
+                                                );
+                                            },
                                         },
-                                    },
-                                ),
-                            );
-                            return true;
-                        },
-                        onCancel: () => true,
-                        showCancel: true,
-                        submitButtonText: t('button.ok'),
-                        cancelButtonText: t('button.cancel'),
-                        confirmButtonProps: {
-                            color: 'secondary',
-                            classes: { root: classes.root },
-                            style: { marginLeft: '10px' },
-                        },
-                        cancelButtonProps: {},
-                    }),
-                );
+                                    ),
+                                );
+                                return true;
+                            },
+                            onCancel: () => true,
+                            showCancel: true,
+                            submitButtonText: t('button.ok'),
+                            cancelButtonText: t('button.cancel'),
+                            confirmButtonProps: {
+                                color: 'secondary',
+                                classes: { root: classes.root },
+                                style: { marginLeft: '10px' },
+                            },
+                            cancelButtonProps: {},
+                        }),
+                    );
+                } else {
+                    setFieldValue('translates', [
+                        ...values.translates.filter(
+                            (i, index) => index !== itemIndex,
+                        ),
+                    ]);
+                }
                 console.log({
                     key,
                     namespace,
@@ -300,6 +309,11 @@ const EditTranslate = ({
                                                         ),
                                                         key,
                                                         namespace,
+                                                        value: get(
+                                                            values,
+                                                            `translates.${index}.value`,
+                                                            null,
+                                                        ),
                                                     })
                                                 }
                                             >

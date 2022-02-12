@@ -24,7 +24,7 @@ if (process.env.NODE_ENV == 'development') {
 function* rootSaga(dispatch) {
     yield all([
         apiWatchRequest({
-            additiveCallback: function*({ showLoaderFlag = true, ...data }) {
+            additiveCallback: function*({ showLoaderFlag = false, ...data }) {
                 //show loader
                 if (showLoaderFlag) {
                     // yield put(showLoader());

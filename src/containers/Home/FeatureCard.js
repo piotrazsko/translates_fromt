@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Typography, withStyles } from "@material-ui/core";
+import { Typography } from "@mui/material";
+
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   iconWrapper: {

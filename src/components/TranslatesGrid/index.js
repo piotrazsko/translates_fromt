@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
+import { lighten } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Toolbar from '@mui/material/Toolbar';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 
-import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { useTranslation } from 'react-i18next';
 
@@ -49,7 +50,7 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
         <TableContainer component={Paper}>
             <Toolbar>
                 <Box>
-                    <IconButton onClick={() => switchExpanded(!expanded)}>
+                    <IconButton onClick={() => switchExpanded(!expanded)} size="large">
                         <FilterListIcon />
                     </IconButton>
                 </Box>
@@ -121,7 +122,7 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                                   ).toString()}`,
                                               );
                                           }}
-                                      >
+                                          size="large">
                                           <EditIcon />
                                       </IconButton>
                                       <IconButton
@@ -132,7 +133,7 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                                   namespace: row.namespace,
                                               })
                                           }
-                                      >
+                                          size="large">
                                           <DeleteIcon />
                                       </IconButton>
                                   </TableCell>

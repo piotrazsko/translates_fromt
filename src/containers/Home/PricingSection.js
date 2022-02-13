@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    Grid,
-    Typography,
-    isWidthUp,
-    withWidth,
-    withStyles,
-} from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 import PriceCard from './PriceCard';
 import calculateSpacing from './calculateSpacing';
+import { useIsWidthUp } from 'helpers/mui';
+
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => (
+    <WrappedComponent {...props} width="xs" />
+);
 
 const styles = (theme) => ({
     containerFix: {
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             paddingLeft: theme.spacing(6),
             paddingRight: theme.spacing(6),
         },
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             paddingLeft: theme.spacing(4),
             paddingRight: theme.spacing(4),
         },
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
         },
@@ -30,14 +31,14 @@ const styles = (theme) => ({
         paddingBottom: theme.spacing(1),
     },
     cardWrapper: {
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             marginLeft: 'auto',
             marginRight: 'auto',
             maxWidth: 340,
         },
     },
     cardWrapperHighlighted: {
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             marginLeft: 'auto',
             marginRight: 'auto',
             maxWidth: 360,
@@ -113,7 +114,7 @@ function PricingSection(props) {
                         sm={6}
                         lg={3}
                         data-aos="zoom-in-up"
-                        data-aos-delay={isWidthUp('md', width) ? '400' : '0'}
+                        data-aos-delay={useIsWidthUp('md', width) ? '400' : '0'}
                     >
                         <PriceCard
                             title="Business"
@@ -136,7 +137,9 @@ function PricingSection(props) {
                         sm={6}
                         lg={3}
                         data-aos="zoom-in-up"
-                        data-aos-delay={isWidthUp('md', width) ? '600' : '200'}
+                        data-aos-delay={
+                            useIsWidthUp('md', width) ? '600' : '200'
+                        }
                     >
                         <PriceCard
                             title="Tycoon"

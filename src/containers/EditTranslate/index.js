@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash/get';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Add from '@material-ui/icons/Add';
-import Delete from '@material-ui/icons/Delete';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import makeStyles from '@mui/styles/makeStyles';
+import IconButton from '@mui/material/IconButton';
+import Add from '@mui/icons-material/Add';
+import Delete from '@mui/icons-material/Delete';
 import { getDataFromUrl } from 'helpers/url';
 import { showPopupAction } from 'modules/popups';
 
@@ -316,7 +316,7 @@ const EditTranslate = ({
                                                         ),
                                                     })
                                                 }
-                                            >
+                                                size="large">
                                                 <Delete />
                                             </IconButton>
                                         </Grid>
@@ -326,7 +326,7 @@ const EditTranslate = ({
                         })}
                     </Grid>
                     <Grid item xs={1}>
-                        <IconButton color="primary" onClick={onAdd}>
+                        <IconButton color="primary" onClick={onAdd} size="large">
                             <Add />
                         </IconButton>
                     </Grid>

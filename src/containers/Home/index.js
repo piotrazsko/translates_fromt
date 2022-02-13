@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
 import { Pane, ServiceCard, SkillItem, ClientCard } from 'components';
 import { useDispatch } from 'react-redux';
 import { showError, showWarning } from 'modules/notification';
 
 import { clients } from 'config/clients.js';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import HeadSection from './HeadSection';
 import FeatureSection from './FeatureSection';
 import PricingSection from './PricingSection';

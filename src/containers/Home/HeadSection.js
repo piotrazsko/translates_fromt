@@ -1,20 +1,17 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    Grid,
-    Typography,
-    Card,
-    Button,
-    Hidden,
-    Box,
-    withStyles,
-    withWidth,
-    isWidthUp,
-} from '@material-ui/core';
+import { Grid, Typography, Card, Button, Hidden, Box } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 import WaveBorder from './shared/components/WaveBorder';
 import ZoomImage from './shared/components/ZoomImage';
 import { useTranslation } from 'react-i18next';
+import { useIsWidthUp } from 'helpers/mui';
+
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => (
+    <WrappedComponent {...props} width="xs" />
+);
 
 const styles = (theme) => ({
     extraLargeButtonLabel: {
@@ -61,7 +58,7 @@ const styles = (theme) => ({
             paddingLeft: theme.spacing(6),
             paddingRight: theme.spacing(6),
         },
-        [theme.breakpoints.down('lg')]: {
+        [theme.breakpoints.down('xl')]: {
             width: 'auto',
         },
     },
@@ -79,13 +76,13 @@ const styles = (theme) => ({
     container: {
         marginTop: theme.spacing(6),
         marginBottom: theme.spacing(12),
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             marginBottom: theme.spacing(9),
         },
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             marginBottom: theme.spacing(6),
         },
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             marginBottom: theme.spacing(3),
         },
     },
@@ -134,7 +131,10 @@ function HeadSection(props) {
                                             <Box mb={4}>
                                                 <Typography
                                                     variant={
-                                                        isWidthUp('lg', width)
+                                                        useIsWidthUp(
+                                                            'lg',
+                                                            width,
+                                                        )
                                                             ? 'h3'
                                                             : 'h4'
                                                     }
@@ -146,7 +146,7 @@ function HeadSection(props) {
                                                 <Box mb={2}>
                                                     <Typography
                                                         variant={
-                                                            isWidthUp(
+                                                            useIsWidthUp(
                                                                 'lg',
                                                                 width,
                                                             )
@@ -186,7 +186,7 @@ function HeadSection(props) {
                                             </div>
                                         </Box>
                                     </Grid>
-                                    <Hidden smDown>
+                                    <Hidden mdDown>
                                         <Grid item md={6}>
                                             <ZoomImage
                                                 src={`${process.env.PUBLIC_URL}/images/logged_out/headerImage.jpg`}

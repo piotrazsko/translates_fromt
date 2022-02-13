@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
 import Footer from './Footer.js';
-import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
+import { ThemeProvider, StyledEngineProvider, CssBaseline } from '@mui/material';
 import theme from './theme';
 
 import { SideBar, Header } from 'components';
@@ -49,21 +49,21 @@ const Layout = ({
         ...rest,
     };
 
-    return (
-        <>
-            <Helmet>
-                <title>{t('user_name')}</title>
-            </Helmet>
-            <GlobalStyles />
-            {showHeader ? <Header history={history} /> : null}
-            <MuiThemeProvider theme={theme}>
+    return <>
+        <Helmet>
+            <title>{t('user_name')}</title>
+        </Helmet>
+        <GlobalStyles />
+        {showHeader ? <Header history={history} /> : null}
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
                 <Container maxWidth="" classes={{ root: classes.root }}>
                     {React.createElement(children, restWithPermissons)}
                 </Container>
                 <Footer />
-            </MuiThemeProvider>
-        </>
-    );
+            </ThemeProvider>
+        </StyledEngineProvider>
+    </>;
 };
 
 Layout.propTypes = {

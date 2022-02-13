@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme, adaptV4Theme } from '@mui/material/styles';
 
 // const main = "#ffb500";
 // const main = "#70c700";
@@ -6,7 +6,7 @@ import { createTheme } from '@material-ui/core/styles';
 // const main = "#ffde00";
 const main = '#0069ff';
 
-export const theme = createTheme({
+export const theme = createTheme(adaptV4Theme({
     palette: {
         mode: 'light',
         primary: {
@@ -111,4 +111,4 @@ export const theme = createTheme({
             },
         },
     },
-});
+}));

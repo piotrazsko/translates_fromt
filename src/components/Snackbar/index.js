@@ -1,13 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-// @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles';
-import Snack from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-// @material-ui/icons
-import Close from '@material-ui/icons/Close';
-import MuiAlert from '@material-ui/lab/Alert';
+import withStyles from '@mui/styles/withStyles';
+import Snack from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+// @mui/icons-material
+import Close from '@mui/icons-material/Close';
+import MuiAlert from '@mui/material/Alert';
 // core components
 
 function Snackbar({ ...props }) {
@@ -34,7 +33,7 @@ function Snackbar({ ...props }) {
                 aria-label="Close"
                 color="inherit"
                 onClick={() => props.closeNotification()}
-            >
+                size="large">
                 <Close className={classes.close} />
             </IconButton>,
         ];

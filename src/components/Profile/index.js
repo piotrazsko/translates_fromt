@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import style from "./style.scss";
 import { useTranslation } from "react-i18next";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import List from "../List";
 import userImage from "assets/images/user_image.jpg";
 import userImageWebp from "assets/images/user_image.webp";

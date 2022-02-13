@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Tabs from '@material-ui/core/Tabs';
-import Button from '@material-ui/core/Button';
-import Tab from '@material-ui/core/Tab';
-import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Tabs from '@mui/material/Tabs';
+import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
+import makeStyles from '@mui/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { Pane } from 'components';
 import { useDispatch } from 'react-redux';

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography, Box, withStyles } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
+import { Typography, Box } from "@mui/material";
+import withStyles from '@mui/styles/withStyles';
+import CheckIcon from "@mui/icons-material/Check";
 
 const styles = theme => ({
   card: {
@@ -21,7 +22,7 @@ const styles = theme => ({
     border: `3px solid ${theme.palette.primary.dark}`,
     borderRadius: theme.shape.borderRadius * 2,
     backgroundColor: theme.palette.primary.main,
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2)
     }
   },

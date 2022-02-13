@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Portal, Backdrop, withStyles } from '@material-ui/core';
-import ScrollbarSize from '@material-ui/core/Tabs/ScrollbarSize';
+import Backdrop from '@mui/material/Backdrop';
+import Portal from '@mui/base/Portal';
+import withStyles from '@mui/styles/withStyles';
+import ScrollbarSize from '@mui/material/Tabs/ScrollbarSize';
 import classNames from 'classnames';
 
 const styles = (theme) => ({

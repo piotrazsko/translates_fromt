@@ -1,21 +1,21 @@
-/**
- * This calculates the spacing for the
- * grid container component based on the viewsize
- */
-
-import { isWidthUp } from "@material-ui/core/withWidth";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useIsWidthUp } from 'helpers/mui';
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => (
+    <WrappedComponent {...props} width="xs" />
+);
 
 function calculateSpacing(width) {
-  if (isWidthUp("lg", width)) {
-    return 5;
-  }
-  if (isWidthUp("md", width)) {
-    return 4;
-  }
-  if (isWidthUp("sm", width)) {
-    return 3;
-  }
-  return 2;
+    if (useIsWidthUp('lg', width)) {
+        return 5;
+    }
+    if (useIsWidthUp('md', width)) {
+        return 4;
+    }
+    if (useIsWidthUp('sm', width)) {
+        return 3;
+    }
+    return 2;
 }
 
 export default calculateSpacing;

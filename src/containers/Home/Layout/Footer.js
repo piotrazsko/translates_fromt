@@ -6,16 +6,19 @@ import {
     Box,
     IconButton,
     Hidden,
-    withStyles,
-    withWidth,
-    isWidthUp,
     TextField,
-} from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/Phone';
-import MailIcon from '@material-ui/icons/Mail';
+} from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
+import PhoneIcon from '@mui/icons-material/Phone';
+import MailIcon from '@mui/icons-material/Mail';
 import WaveBorder from '../shared/components/WaveBorder';
-import transitions from '@material-ui/core/styles/transitions';
 import ColoredButton from '../shared/components/ColoredButton';
+import { useIsWidthUp } from 'helpers/mui';
+
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => (
+    <WrappedComponent {...props} width="xs" />
+);
 
 const styles = (theme) => ({
     footerInner: {
@@ -62,7 +65,7 @@ const styles = (theme) => ({
     link: {
         cursor: 'Pointer',
         color: theme.palette.common.white,
-        transition: transitions.create(['color'], {
+        transition: theme.transitions.create(['color'], {
             duration: theme.transitions.duration.shortest,
             easing: theme.transitions.easing.easeIn,
         }),
@@ -163,7 +166,7 @@ function Footer(props) {
                 animationNegativeDelay={4}
             />
             <div className={classes.footerInner}>
-                <Grid container spacing={isWidthUp('md', width) ? 10 : 5}>
+                <Grid container spacing={useIsWidthUp('md', width) ? 10 : 5}>
                     <Grid item xs={12} md={6} lg={4}>
                         <form>
                             <Box display="flex" flexDirection="column">
@@ -193,7 +196,7 @@ function Footer(props) {
                             </Box>
                         </form>
                     </Grid>
-                    <Hidden mdDown>
+                    <Hidden lgDown>
                         <Grid item xs={12} md={6} lg={4}>
                             <Box display="flex" justifyContent="center">
                                 <div>
@@ -204,6 +207,7 @@ function Footer(props) {
                                                     className={classes.infoIcon}
                                                     tabIndex={-1}
                                                     disabled
+                                                    size="large"
                                                 >
                                                     {info.icon}
                                                 </IconButton>
@@ -251,6 +255,7 @@ function Footer(props) {
                                         aria-label={socialIcon.label}
                                         className={classes.socialIcon}
                                         href={socialIcon.href}
+                                        size="large"
                                     >
                                         {socialIcon.icon}
                                     </IconButton>

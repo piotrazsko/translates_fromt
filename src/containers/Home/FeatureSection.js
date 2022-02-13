@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, isWidthUp, withWidth } from '@material-ui/core';
-import CodeIcon from '@material-ui/icons/Code';
-import BuildIcon from '@material-ui/icons/Build';
-import ComputerIcon from '@material-ui/icons/Computer';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import HeadsetMicIcon from '@material-ui/icons/HeadsetMic';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import CloudIcon from '@material-ui/icons/Cloud';
-import MeassageIcon from '@material-ui/icons/Message';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { Grid, Typography } from '@mui/material';
+import CodeIcon from '@mui/icons-material/Code';
+import BuildIcon from '@mui/icons-material/Build';
+import ComputerIcon from '@mui/icons-material/Computer';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import CloudIcon from '@mui/icons-material/Cloud';
+import MeassageIcon from '@mui/icons-material/Message';
+import CancelIcon from '@mui/icons-material/Cancel';
 import calculateSpacing from './calculateSpacing';
+import { useIsWidthUp } from 'helpers/mui';
 import FeatureCard from './FeatureCard';
+
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => (
+    <WrappedComponent {...props} width="xs" />
+);
 
 const iconSize = 30;
 
@@ -120,7 +126,7 @@ function FeatureSection(props) {
                                 md={4}
                                 data-aos="zoom-in-up"
                                 data-aos-delay={
-                                    isWidthUp('md', width)
+                                    useIsWidthUp('md', width)
                                         ? element.mdDelay
                                         : element.smDelay
                                 }

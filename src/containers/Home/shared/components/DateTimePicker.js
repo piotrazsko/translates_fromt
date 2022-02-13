@@ -5,14 +5,15 @@ import {
   DateTimePicker as DTPicker
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { withTheme, MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import AccessTime from "@material-ui/icons/AccessTime";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import DateRange from "@material-ui/icons/DateRange";
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from "@mui/material";
+import withTheme from '@mui/styles/withTheme';
+import AccessTime from "@mui/icons-material/AccessTime";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import DateRange from "@mui/icons-material/DateRange";
 
 const Theme2 = theme =>
-  createMuiTheme({
+  createTheme(adaptV4Theme({
     ...theme,
     overrides: {
       MuiOutlinedInput: {
@@ -33,28 +34,30 @@ const Theme2 = theme =>
         }
       }
     }
-  });
+  }));
 
 function DateTimePicker(props) {
   const { disabled, value, onChange } = props;
   return (
-    <MuiThemeProvider theme={Theme2}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DTPicker
-          inputVariant="outlined"
-          leftArrowIcon={<KeyboardArrowLeft />}
-          rightArrowIcon={<KeyboardArrowRight />}
-          timeIcon={<AccessTime />}
-          dateRangeIcon={<DateRange />}
-          variant="outlined"
-          disabled={disabled}
-          value={value}
-          onChange={onChange}
-          {...props}
-          inputProps={{ style: { width: "100%", cursor: "pointer" } }}
-        />
-      </MuiPickersUtilsProvider>
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={Theme2}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DTPicker
+            inputVariant="outlined"
+            leftArrowIcon={<KeyboardArrowLeft />}
+            rightArrowIcon={<KeyboardArrowRight />}
+            timeIcon={<AccessTime />}
+            dateRangeIcon={<DateRange />}
+            variant="outlined"
+            disabled={disabled}
+            value={value}
+            onChange={onChange}
+            {...props}
+            inputProps={{ style: { width: "100%", cursor: "pointer" } }}
+          />
+        </MuiPickersUtilsProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 

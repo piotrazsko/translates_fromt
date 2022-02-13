@@ -6,20 +6,20 @@ import { useFormik } from 'formik';
 import get from 'lodash/get';
 import { useDispatch } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography';
 
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import { Popup } from 'components_lib';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { Pane } from 'components';
 import { showError, showWarning } from 'modules/notification';
@@ -132,7 +132,7 @@ const Account = ({ ...props }) => {
                                             onMouseDown={
                                                 handleMouseDownPassword
                                             }
-                                        >
+                                            size="large">
                                             {showPassword ? (
                                                 <Visibility />
                                             ) : (

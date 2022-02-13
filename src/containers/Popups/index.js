@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Popup } from 'components_lib';
 import { popupSelector, hidePopupAction } from 'modules/popups';
 import 'components_lib/es/main.css';
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({
     buttonContainer: {},

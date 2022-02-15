@@ -13,10 +13,11 @@ import makeStyles from '@mui/styles/makeStyles';
 import IconButton from '@mui/material/IconButton';
 import Add from '@mui/icons-material/Add';
 import Delete from '@mui/icons-material/Delete';
+
 import { getDataFromUrl } from 'helpers/url';
 import { showPopupAction } from 'modules/popups';
 
-import { Pane } from 'components';
+import { Pane, LangAutocompleate } from 'components';
 import {
     getTranslatesByKeyRequest,
     getTranslatesByKeySelector,
@@ -240,7 +241,7 @@ const EditTranslate = ({
                             return (
                                 <Grid container spacing={2} key={i.id}>
                                     <Grid item xs={4}>
-                                        <TextField
+                                        <LangAutocompleate
                                             fullWidth
                                             placeholder={t('input.language')}
                                             label={t('input.language')}
@@ -270,6 +271,8 @@ const EditTranslate = ({
                                     <Grid item xs={7}>
                                         <TextField
                                             fullWidth
+                                            multiline
+                                            maxRows={4}
                                             placeholder={t('input.value')}
                                             label={t('input.value')}
                                             variant="outlined"
@@ -316,7 +319,8 @@ const EditTranslate = ({
                                                         ),
                                                     })
                                                 }
-                                                size="large">
+                                                size="large"
+                                            >
                                                 <Delete />
                                             </IconButton>
                                         </Grid>
@@ -326,7 +330,11 @@ const EditTranslate = ({
                         })}
                     </Grid>
                     <Grid item xs={1}>
-                        <IconButton color="primary" onClick={onAdd} size="large">
+                        <IconButton
+                            color="primary"
+                            onClick={onAdd}
+                            size="large"
+                        >
                             <Add />
                         </IconButton>
                     </Grid>

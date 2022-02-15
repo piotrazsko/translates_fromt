@@ -21,8 +21,8 @@ const Home = ({ history, ...props }) => {
     return (
         <>
             <HeadSection history={history} />
-            <FeatureSection history={history} />
-            <PricingSection history={history} />
+            {/* <FeatureSection history={history} />
+            <PricingSection history={history} /> */}
         </>
     );
 };

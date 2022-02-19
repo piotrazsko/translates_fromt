@@ -24,7 +24,6 @@ import {
     setTranslatesByKeyRequest,
     deleteTranslatesByKeyAndLangRequest,
     getRecommendedTranslateRequest,
-    getRecommenndedTranslateSelector,
 } from 'modules/translates';
 
 const validationSchema = yup.object({
@@ -89,7 +88,6 @@ const EditTranslate = ({
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log(values);
             dispatch(
                 setTranslatesByKeyRequest(
                     { ...values },
@@ -135,7 +133,6 @@ const EditTranslate = ({
     );
     const onDelete = React.useCallback(
         (itemIndex, { key, namespace, language, value }) => {
-            console.log(key, namespace, language, value);
             if (values.translates.length > 1) {
                 if (value || language) {
                     dispatch(
@@ -204,10 +201,11 @@ const EditTranslate = ({
 
     const onBlur = React.useCallback(
         (ev, index) => {
-            console.log(ev.target.value, values);
             if (index > 0) {
                 const currentLang = get(values, 'translates[0].language');
+                console.log(values);
                 const text = get(values, 'translates[0].value');
+                console.log(currentLang, text);
                 const translateToLang = ev.target.value;
                 if (currentLang && text && translateToLang) {
                     dispatch(
@@ -279,13 +277,18 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
-                                            onBlur={(ev) => onBlur(ev, index)}
+                                            onBlur={(ev, value) =>
+                                                onBlur(ev, index)
+                                            }
                                             placeholder={t('input.language')}
                                             label={t('input.language')}
                                             variant="outlined"
-                                            onChange={handleChange(
-                                                `translates.${index}.language`,
-                                            )}
+                                            onChange={(ev, value) => {
+                                                setFieldValue(
+                                                    `translates.${index}.language`,
+                                                    ev.target.value || value,
+                                                );
+                                            }}
                                             value={get(
                                                 values,
                                                 `translates.${index}.language`,

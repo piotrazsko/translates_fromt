@@ -23,6 +23,8 @@ import {
     getTranslatesByKeySelector,
     setTranslatesByKeyRequest,
     deleteTranslatesByKeyAndLangRequest,
+    getRecommendedTranslateRequest,
+    getRecommenndedTranslateSelector,
 } from 'modules/translates';
 
 const validationSchema = yup.object({
@@ -194,9 +196,43 @@ const EditTranslate = ({
     );
     const classes = useStyles();
 
-    // const onDelete = React.useCallback(({ apiKey, key, namespace }) => {
+    // console.log(values);
 
-    // }, []);
+    // React.useEffect(()=>{
+    //     if(values.translates>)
+    // },[values.translates])
+
+    const onBlur = React.useCallback(
+        (ev, index) => {
+            console.log(ev.target.value, values);
+            if (index > 0) {
+                const currentLang = get(values, 'translates[0].language');
+                const text = get(values, 'translates[0].value');
+                const translateToLang = ev.target.value;
+                if (currentLang && text && translateToLang) {
+                    dispatch(
+                        getRecommendedTranslateRequest(
+                            {
+                                currentLang,
+                                text,
+                                translateToLang,
+                            },
+                            {
+                                onSuccess: (data) => {
+                                    setFieldValue(
+                                        `translates[${index}].value`,
+                                        get(data, 'data.translate'),
+                                    );
+                                    console.log(data);
+                                },
+                            },
+                        ),
+                    );
+                }
+            }
+        },
+        [values.translates],
+    );
 
     return (
         <Pane title={t('title.edit')}>
@@ -243,6 +279,7 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
+                                            onBlur={(ev) => onBlur(ev, index)}
                                             placeholder={t('input.language')}
                                             label={t('input.language')}
                                             variant="outlined"
@@ -279,6 +316,9 @@ const EditTranslate = ({
                                             onChange={handleChange(
                                                 `translates.${index}.value`,
                                             )}
+                                            onBlur={handleBlur(
+                                                `translates.${index}.value`,
+                                            )}
                                             value={get(
                                                 values,
                                                 `translates.${index}.value`,
@@ -301,7 +341,7 @@ const EditTranslate = ({
                                     {values.translates.length > 1 ? (
                                         <Grid item xs={1}>
                                             <IconButton
-                                                tabIndex={'-1'}
+                                                tabIndex={-1}
                                                 color="secondary"
                                                 onClick={() =>
                                                     onDelete(index, {

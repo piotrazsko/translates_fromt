@@ -11,7 +11,9 @@ const {
 
 const apiRoutes = new ApiRoutes();
 
-export const GET_LANGUAGES_LIST_REQUEST = `${modules}/GET_LANGUAGES_LIST_REQUEST`;
+export const GET_ALL_KEYS_REQUEST = `${modules}/GET_ALL_KEYS_REQUEST`;
+export const GET_RECOMMENDED_TRANSLATE_REQUEST = `${modules}/GET_RECOMMENDED_TRANSLATE_REQUEST`;
+
 export const GET_EXPORT_JSON_REQUEST = `${modules}/GET_EXPORT_JSON_REQUEST`;
 export const POST_UPLOAD_LANG_JSON_REQUEST = `${modules}/POST_UPLOAD_LANG_JSON_REQUEST`;
 
@@ -21,9 +23,11 @@ export const SET_TRANSLATES_BY_KEY_REQUEST = `${modules}/SET_TRANSLATES_BY_KEY_R
 export const DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST = `${modules}/DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST`;
 export const DELETE_TRANSLATE_BY_KEY_REQUEST = `${modules}/DELETE_TRANSLATE_BY_KEY_REQUEST`;
 
-export const getTranslatedListRequest = actionCreator(
-    GET_LANGUAGES_LIST_REQUEST,
+export const getTranslatedListRequest = actionCreator(GET_ALL_KEYS_REQUEST);
+export const getRecommendedTranslateRequest = actionCreator(
+    GET_RECOMMENDED_TRANSLATE_REQUEST,
 );
+
 export const getExportJsonRequest = actionCreator(GET_EXPORT_JSON_REQUEST);
 
 export const postUploadJsonByLangRequest = actionCreator(
@@ -44,11 +48,24 @@ export const deleteTranslateByKeyRequest = actionCreator(
     DELETE_TRANSLATE_BY_KEY_REQUEST,
 );
 
-apiRoutes.add(GET_LANGUAGES_LIST_REQUEST, ({ ...params }) => ({
+apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params }) => ({
     url: `/get-all-keys`,
     method: 'get',
     params,
 }));
+
+apiRoutes.add(
+    GET_RECOMMENDED_TRANSLATE_REQUEST,
+    ({ currentLang, text, translateToLang }) => ({
+        url: `/get-recommended-translate`,
+        method: 'get',
+        params: {
+            currentLang,
+            text,
+            translateToLang,
+        },
+    }),
+);
 
 apiRoutes.add(GET_EXPORT_JSON_REQUEST, () => ({
     url: `/export-json`,
@@ -107,10 +124,11 @@ apiRoutes.add(
     }),
 );
 
-export const getTranslatedListSelector = apiSelector(
-    GET_LANGUAGES_LIST_REQUEST,
-);
+export const getTranslatedListSelector = apiSelector(GET_ALL_KEYS_REQUEST);
 export const getTranslatesByKeySelector = apiSelector(
     GET_TRANSLATES_BY_KEY_REQUEST,
 );
 export const exportJSONSelector = apiSelector(GET_EXPORT_JSON_REQUEST);
+export const getRecommenndedTranslateSelector = apiSelector(
+    GET_RECOMMENDED_TRANSLATE_REQUEST,
+);

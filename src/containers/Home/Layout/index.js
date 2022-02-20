@@ -8,7 +8,11 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
 import Footer from './Footer.js';
-import { ThemeProvider, StyledEngineProvider, CssBaseline } from '@mui/material';
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    CssBaseline,
+} from '@mui/material';
 import theme from './theme';
 
 import { SideBar, Header } from 'components';
@@ -49,21 +53,23 @@ const Layout = ({
         ...rest,
     };
 
-    return <>
-        <Helmet>
-            <title>{t('user_name')}</title>
-        </Helmet>
-        <GlobalStyles />
-        {showHeader ? <Header history={history} /> : null}
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-                <Container maxWidth="" classes={{ root: classes.root }}>
-                    {React.createElement(children, restWithPermissons)}
-                </Container>
-                <Footer />
-            </ThemeProvider>
-        </StyledEngineProvider>
-    </>;
+    return (
+        <>
+            <Helmet>
+                <title>{t('default.user_name')}</title>
+            </Helmet>
+            <GlobalStyles />
+            {showHeader ? <Header history={history} /> : null}
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}>
+                    <Container maxWidth="" classes={{ root: classes.root }}>
+                        {React.createElement(children, restWithPermissons)}
+                    </Container>
+                    <Footer />
+                </ThemeProvider>
+            </StyledEngineProvider>
+        </>
+    );
 };
 
 Layout.propTypes = {

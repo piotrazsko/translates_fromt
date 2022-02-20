@@ -43,7 +43,7 @@ const Layout = ({
     return (
         <>
             <Helmet>
-                <title>{t('user_name')}</title>
+                <title>{t('default.user_name')}</title>
             </Helmet>
             {showHeader ? <Header history={history} /> : null}
             <Container maxWidth="" classes={{ root: classes.root }}>

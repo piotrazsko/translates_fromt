@@ -43,7 +43,7 @@ const Layout = ({
     return (
         <>
             <Helmet>
-                <title>{t('user_name')}</title>
+                <title>{t('default.user_name')}</title>
             </Helmet>
             <Container maxWidth="lg" classes={{ root: classes.root }}>
                 <Grid container>

@@ -42,6 +42,7 @@ i18next
         compatibilityJSON: 'v1',
         debug: false,
         saveMissing: true,
+        // defaultNS: 'default',
         resources: {},
     });
 

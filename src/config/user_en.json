@@ -2,7 +2,7 @@
   "user_address": "Minsk,  Karolinskaya st. 14/13",
   "user_job": "Senior frontend developer",
   "user_birth_date": "27 January 1988",
-  "user_name": "Petrashka Siarhei",
+  "default.user_name": "Petrashka Siarhei",
   "user_position": "Senior frontend developer",
   "user_about_me": "Meticulous web developer with over 7 years of front end  and mobile applications (React Native)  experience and passion for responsive design and  their performance.\nPassionate about writing quality, productive and maintainable code.Constantly improving my skills by learning new development tools.\nMy strong suit is optimizing the development processes and implementation of new features, which reduces the number of bugs in the product, time and cost of development.",
 

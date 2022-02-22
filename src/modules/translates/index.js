@@ -48,7 +48,7 @@ export const deleteTranslateByKeyRequest = actionCreator(
     DELETE_TRANSLATE_BY_KEY_REQUEST,
 );
 
-apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params }) => ({
+apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params } = {}) => ({
     url: `/get-all-keys`,
     method: 'get',
     params,

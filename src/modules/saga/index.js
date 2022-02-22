@@ -59,7 +59,13 @@ function* rootSaga(dispatch) {
                 const dataStatus = data.status;
                 // redirect to login
                 // yield put(hideLoader());
+                const error = get(data, 'response.data.error');
                 switch (true) {
+                    case typeof error === 'object' && error.type === 'popup': {
+                        yield put(showError({ message: error.message }));
+                        return;
+                    }
+
                     case dataStatus === 401:
                         yield call(history.push, '/login');
                         return;
@@ -87,7 +93,6 @@ function* rootSaga(dispatch) {
                         return;
                     }
                     default: {
-                        const error = get(data, 'response.data.error');
                         if (
                             typeof error === 'object' &&
                             error.type === 'popup'

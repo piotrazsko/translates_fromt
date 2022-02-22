@@ -14,7 +14,6 @@ import FeatureSection from './FeatureSection';
 import PricingSection from './PricingSection';
 
 const Home = ({ history, ...props }) => {
-    console.log(props);
     const { t } = useTranslation();
     const dispatch = useDispatch();
 

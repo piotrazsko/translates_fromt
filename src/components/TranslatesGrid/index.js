@@ -39,18 +39,19 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
 
     const res = React.useMemo(() => {
         return data.sort((a, b) => {
-            return sort.direct > 0
-                ? a[sort.field][0] > b[sort.field][0]
-                : a[sort.field][0] < b[sort.field][0];
+            const direct = a[sort.field] >= b[sort.field] ? 1 : -1;
+            return sort.direct > 0 ? direct : -direct;
         });
     }, [sort, data]);
     const [expanded, switchExpanded] = React.useState();
-
     return (
         <TableContainer component={Paper}>
             <Toolbar>
                 <Box>
-                    <IconButton onClick={() => switchExpanded(!expanded)} size="large">
+                    <IconButton
+                        onClick={() => switchExpanded(!expanded)}
+                        size="large"
+                    >
                         <FilterListIcon />
                     </IconButton>
                 </Box>
@@ -122,7 +123,8 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                                   ).toString()}`,
                                               );
                                           }}
-                                          size="large">
+                                          size="large"
+                                      >
                                           <EditIcon />
                                       </IconButton>
                                       <IconButton
@@ -133,7 +135,8 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                                   namespace: row.namespace,
                                               })
                                           }
-                                          size="large">
+                                          size="large"
+                                      >
                                           <DeleteIcon />
                                       </IconButton>
                                   </TableCell>

@@ -15,7 +15,6 @@ const ConfirmEmailPopup = (props) => {
             switchPopup(true);
         }
     }, [currentUser]);
-    console.log(currentUser);
 
     return showPopup ? (
         <Popup

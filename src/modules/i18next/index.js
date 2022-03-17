@@ -14,7 +14,7 @@ import {
     takeLatest,
     delay,
 } from 'redux-saga/effects';
-import * as api_helpers from 'api';
+import * as api_helpers from 'react_redux_api';
 import { INIT_DATA, reInitDataAction } from '../init';
 const {
     helpers: { actionCreator, apiSelector },

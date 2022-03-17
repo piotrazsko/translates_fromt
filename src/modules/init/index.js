@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import { createAction } from 'redux-actions';
 import { all, put, select, call, takeLatest } from 'redux-saga/effects';
-import * as api_helpers from 'api';
+import * as api_helpers from 'react_redux_api';
 const {
     helpers: { actionCreator, apiSelector },
     modules: { ApiRoutes },

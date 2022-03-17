@@ -13,7 +13,7 @@ import { persistCombineReducers } from 'redux-persist';
 import { popupsReducer } from 'modules/popups';
 import { createTransform } from 'redux-persist';
 import localForage from 'localforage';
-import * as apiHelpers from 'api';
+import * as apiHelpers from 'react_redux_api';
 import viewport from 'modules/viewport';
 import { i18nextReducer } from 'modules/i18next';
 import { authReducer } from 'modules/auth';

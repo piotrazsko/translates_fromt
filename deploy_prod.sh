@@ -1,7 +1,7 @@
 #!/bin/bash
 # node ./prepare/sitemap/index.js
 # node ./prepare/robot.js
-sudo sshfs -o allow_other,default_permissions,IdentityFile=/home/serj/.ssh/id_rsa user@46.101.168.74:/ /mnt/prod
+sudo sshfs -o allow_other,default_permissions,IdentityFile=/home/serj/.ssh/id_rsa root@46.101.168.74:/ /mnt/prod
 echo -ne '#####                     (33%)\r'
 sleep 1
 echo -ne '#############             (66%)\r'

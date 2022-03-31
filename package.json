@@ -1,6 +1,6 @@
 {
     "name": "cv",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "private": true,
     "dependencies": {
         "@babel/core": "7.12.3",
@@ -24,7 +24,6 @@
         "@typescript-eslint/parser": "^4.5.0",
         "aos": "^2.3.4",
         "api": "https://github.com/piotrazsko/react_redux_api_helpers.git#deaee43b2d8bd2985fd39844ed73b07de2374bf4",
-        "react_redux_api":"^0.0.9",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^26.6.0",
         "babel-loader": "8.1.0",
@@ -85,6 +84,7 @@
         "react-router-dom": "^5.3.0",
         "react-router-redux": "^4.0.8",
         "react-scripts": "4.0.3",
+        "react_redux_api": "^0.0.9",
         "redux": "^4.1.1",
         "redux-actions": "^2.6.5",
         "redux-persist": "^6.0.0",
@@ -113,10 +113,10 @@
         "version:feature": "yarn build && git add . && yarn feature",
         "version:release": "yarn build && git add . && yarn release",
         "deploy": "bash deploy_prod.sh",
-        "build:prod": "yarn run version:patch && yarn run deploy",
         "patch": "yarn version --patch",
         "feature": "yarn version --minor",
-        "release": "yarn version --major"
+        "release": "yarn version --major",
+        "build:prod": "yarn run version:patch && yarn run deploy"
     },
     "eslintConfig": {
         "extends": [

@@ -28,6 +28,7 @@ const EditTranslate = ({
     history,
     ...props
 }) => {
+    const classes = useStyles();
     const {
         handleSubmit,
         t,
@@ -41,9 +42,8 @@ const EditTranslate = ({
         key,
         namespace,
         onAdd,
-    } = useHook({ id, location, history });
+    } = useHook({ id, location, history, classes });
 
-    const classes = useStyles();
     return (
         <Pane title={t('title.edit')}>
             <form onSubmit={handleSubmit}>

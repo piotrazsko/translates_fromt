@@ -22,6 +22,7 @@ export const GET_TRANSLATES_BY_KEY_REQUEST = `${modules}/GET_TRANSLATES_BY_KEY_R
 export const SET_TRANSLATES_BY_KEY_REQUEST = `${modules}/SET_TRANSLATES_BY_KEY_REQUEST`;
 export const DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST = `${modules}/DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST`;
 export const DELETE_TRANSLATE_BY_KEY_REQUEST = `${modules}/DELETE_TRANSLATE_BY_KEY_REQUEST`;
+export const DELETE_ALL_TRANSLATES_REQUEST = `${modules}/DELETE_ALL_TRANSLATES_REQUEST`;
 
 export const getTranslatedListRequest = actionCreator(GET_ALL_KEYS_REQUEST);
 export const getRecommendedTranslateRequest = actionCreator(
@@ -46,6 +47,9 @@ export const deleteTranslatesByKeyAndLangRequest = actionCreator(
 );
 export const deleteTranslateByKeyRequest = actionCreator(
     DELETE_TRANSLATE_BY_KEY_REQUEST,
+);
+export const deleteAllTranslatesAction = actionCreator(
+    DELETE_ALL_TRANSLATES_REQUEST,
 );
 
 apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params } = {}) => ({
@@ -108,7 +112,7 @@ apiRoutes.add(
     DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST,
     ({ key, namespace = 'null', language }) => {
         return {
-            url: `/delete-translates`,
+            url: `/delete-translate`,
             method: 'DELETE',
             params: { key, namespace, language },
         };
@@ -118,11 +122,16 @@ apiRoutes.add(
 apiRoutes.add(
     DELETE_TRANSLATE_BY_KEY_REQUEST,
     ({ key, namespace = 'null' }) => ({
-        url: `/delete-all-translates`,
+        url: `/delete-all-translates-by-key`,
         method: 'DELETE',
         params: { key, namespace },
     }),
 );
+
+apiRoutes.add(DELETE_ALL_TRANSLATES_REQUEST, () => ({
+    url: `/delete-all-translates`,
+    method: 'DELETE',
+}));
 
 export const getTranslatedListSelector = apiSelector(GET_ALL_KEYS_REQUEST);
 export const getTranslatesByKeySelector = apiSelector(

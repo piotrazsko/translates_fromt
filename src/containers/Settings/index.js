@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
 import get from 'lodash/get';
 import Typography from '@mui/material/Typography';
+import { showPopupAction } from 'modules/popups';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import Box from '@mui/material/Box';
-
 import Grid from '@mui/material/Grid';
+
+import * as yup from 'yup';
+
 import { useTranslation } from 'react-i18next';
 import { Pane } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { showError, showWarning } from 'modules/notification';
+import { deleteAllTranslatesAction } from 'modules/translates';
+import { LangAutocompleate } from 'components';
 
 import {
     getExportJsonRequest,
@@ -65,6 +70,28 @@ const Settings = ({ ...props }) => {
             ref.current.click();
         }
     }, []);
+    const onDelete = () => {
+        dispatch(
+            showPopupAction({
+                message: t('message.delete_translate_item'),
+                title: t('message.delete_translate_item_text'),
+
+                onClick: () => {
+                    dispatch(deleteAllTranslatesAction());
+                    return true;
+                },
+                onCancel: () => true,
+                showCancel: true,
+                submitButtonText: t('button.ok'),
+                cancelButtonText: t('button.cancel'),
+                confirmButtonProps: {
+                    color: 'secondary',
+                    style: { marginLeft: '10px' },
+                },
+                cancelButtonProps: {},
+            }),
+        );
+    };
 
     const fd = React.useMemo(() => new FormData(), []);
     const [fileName, setFileName] = React.useState('');
@@ -112,7 +139,6 @@ const Settings = ({ ...props }) => {
                     },
                 }),
             );
-            console.log(fd, fileName);
         },
     });
 
@@ -122,21 +148,30 @@ const Settings = ({ ...props }) => {
                 <Typography variant="body1">
                     {t('text.manage_your_translates')}
                 </Typography>
-                <Grid container>
-                    <Grid item xs={2}>
+                <Grid container spacing={6}>
+                    <Grid item xs={4}>
                         <Button variant="contained" onClick={onDownload}>
                             {t('button.download_json')}
                         </Button>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={4}>
                         <Button variant="contained" onClick={uploadAction}>
                             {t('button.upload_json')}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={onDelete}
+                        >
+                            {t('button.delete_all_translates')}
                         </Button>
                     </Grid>
                 </Grid>
                 <input accept=".json" hidden ref={ref} type="file" />
             </Pane>
-            <Pane>
+            {/* <Pane>
                 <Typography variant="body1">
                     {t('text.upload_translates')}
                 </Typography>
@@ -152,14 +187,15 @@ const Settings = ({ ...props }) => {
                         <input accept=".json" hidden ref={ref2} type="file" />
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField
+                        <LangAutocompleate
                             variant="outlined"
                             value={values.language}
-                            placeholder = {t('placeholder.language_key')}
+                            placeholder={t('placeholder.language_key')}
                             onChange={handleChange('language')}
                             helperText={errors.language}
                             error={errors.language}
                         />
+                       
                     </Grid>
                     <Grid item xs={2}>
                         <Button variant="contained" onClick={handleSubmit}>
@@ -167,7 +203,7 @@ const Settings = ({ ...props }) => {
                         </Button>
                     </Grid>
                 </Grid>
-            </Pane>
+            </Pane> */}
         </>
     );
 };

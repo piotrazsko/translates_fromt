@@ -33,9 +33,9 @@ export const LOGOUT_USER = `${modules}/LOGOUT_USER`;
 export const UPDATE_USER_REQUEST = `${modules}/UPDATE_USER_REQUEST`;
 export const UPDATE_USER_SUCCESS = `${modules}/UPDATE_USER_SUCCESS`;
 
-export const GET_USER_REQUEST = `${modules}/GET_USER_REQUEST`;
+export const GET_CURRENT_USER_REQUEST = `${modules}/GET_CURRENT_USER_REQUEST`;
 
-export const getCurrentUserRequest = actionCreator(GET_USER_REQUEST);
+export const getCurrentUserRequest = actionCreator(GET_CURRENT_USER_REQUEST);
 
 export const loginRequest = actionCreator(LOGIN_USER_REQUEST, {
     preventFailure: false,
@@ -54,9 +54,9 @@ export const sendConfirmLinkRequest = actionCreator(SEND_CONFIRM_EMAIL_REQUEST);
 
 export const logoutAction = createAction(LOGOUT_USER);
 
-apiRoutes.add(GET_USER_REQUEST, () => {
+apiRoutes.add(GET_CURRENT_USER_REQUEST, () => {
     return {
-        url: `/user`,
+        url: `/current-user`,
         method: 'GET',
     };
 });
@@ -163,4 +163,4 @@ export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const registerUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const Selector = apiSelector(LOGIN_USER_REQUEST);
 export const updateUserSelector = apiSelector(LOGIN_USER_REQUEST);
-export const getCurrentUserSelector = apiSelector(GET_USER_REQUEST);
+export const getCurrentUserSelector = apiSelector(GET_CURRENT_USER_REQUEST);

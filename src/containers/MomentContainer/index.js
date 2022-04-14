@@ -1,15 +1,15 @@
-import { PureComponent } from "react";
-import moment from "moment";
-import ruLocale from "moment/locale/ru";
+import { PureComponent } from 'react';
+import moment from 'moment';
+import enLocale from 'moment/locale/en-gb';
 
 class MomentContainer extends PureComponent {
-  componentDidMount() {
-    moment.locale("ru", ruLocale);
-  }
+    componentDidMount() {
+        moment.locale('en', enLocale);
+    }
 
-  render() {
-    return null;
-  }
+    render() {
+        return null;
+    }
 }
 
 export default MomentContainer;

@@ -14,7 +14,7 @@ import {
 } from 'containers';
 import HomeLayout from '../containers/Home/Layout';
 
-export const redirectAuthPath = '/auth';
+export const redirectAuthPath = '/login';
 
 //* layout used for   set layouts for pages
 //* if layout ===  false   we use page without layout

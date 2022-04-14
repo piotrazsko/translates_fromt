@@ -1,12 +1,8 @@
-import { createTheme, adaptV4Theme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
-// const main = "#ffb500";
-// const main = "#70c700";
-// const main = "#ff0000";
-// const main = "#ffde00";
 const main = '#0069ff';
 
-export const theme = createTheme(adaptV4Theme({
+export const theme = createTheme({
     palette: {
         mode: 'light',
         primary: {
@@ -23,21 +19,6 @@ export const theme = createTheme(adaptV4Theme({
         },
     },
     typography: {
-        // fontSize: 18,
-        // fontWeight: 500,
-        // fontFamily: "Roboto",
-        // fontColor: "#333",
-        // h2: {
-        //   fontSize: "26px",
-        //   fontWeight: "600",
-        //   borderBottom: `7px solid ${main}`,
-        //   display: "inline",
-        //   boxSizing: "border-box",
-        //   padding: "0",
-        // },
-        // h3: { fontSize: "24px", fontWeight: "bold", textTransform: "uppercase" },
-        // h4: { fontSize: "22px", fontWeight: "500", color: "#000" },
-        // h5: { fontSize: "18px", fontWeight: "500" },
         body1: {
             'font-size': '18px',
             color: '#4c4c4c',
@@ -52,15 +33,6 @@ export const theme = createTheme(adaptV4Theme({
             cursor: 'pointer',
             // 'line-height': '28px',
         },
-        // subtitle1: {
-        //   fontSize: "16px",
-        //   color: "#777",
-        // },
-        // subtitle2: {
-        //   fontSize: "16px",
-        //   color: "#000",
-        //   fontWeight: "400",
-        // },
     },
     overrides: {
         MuiTab: {
@@ -74,9 +46,6 @@ export const theme = createTheme(adaptV4Theme({
                 fontSize: '14px',
                 fontWeight: 'bold',
             },
-            // wrapper: {
-            //   // color: "#000",
-            // },
         },
         MuiDrawer: {
             paper: { zIndex: 2 },
@@ -111,4 +80,4 @@ export const theme = createTheme(adaptV4Theme({
             },
         },
     },
-}));
+});

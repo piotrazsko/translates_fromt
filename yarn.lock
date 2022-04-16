@@ -5475,7 +5475,7 @@ component-emitter@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
   integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
 
-"components_lib@https://github.com/piotrazsko/fq_stend.git#d46d2af08009594c037cc163142c0c7a842d0293":
+"components@https://github.com/piotrazsko/fq_stend.git#d46d2af08009594c037cc163142c0c7a842d0293":
   version "0.1.2"
   resolved "https://github.com/piotrazsko/fq_stend.git#d46d2af08009594c037cc163142c0c7a842d0293"
   dependencies:

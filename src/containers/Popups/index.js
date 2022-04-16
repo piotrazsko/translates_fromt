@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { Popup } from 'components_lib';
+import { Popup } from 'components';
 import { popupSelector, hidePopupAction } from 'modules/popups';
-import 'components_lib/es/main.css';
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({

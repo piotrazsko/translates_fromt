@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useTranslation } from 'react-i18next';
 import { loginRequest, resetPasswordRequest } from 'modules/auth';
-import { Popup } from 'components_lib';
+import { Popup } from 'components';
 import style from './style.scss';
 const validationSchema = yup.object({
     email: yup

@@ -5,3 +5,4 @@ export { default as TranslatesGrid } from './TranslatesGrid';
 export { default as SideBar } from './SideBar';
 export { default as SnackBar } from './Snackbar';
 export { default as LangAutocompleate } from './LangAutocompleate';
+export { default as Popup } from './Popup';

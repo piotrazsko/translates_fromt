@@ -33,7 +33,6 @@
         "camelcase": "^6.1.0",
         "case-sensitive-paths-webpack-plugin": "2.3.0",
         "classnames": "^2.3.1",
-        "components_lib": "https://github.com/piotrazsko/fq_stend.git#d46d2af08009594c037cc163142c0c7a842d0293",
         "css-loader": "4.3.0",
         "dotenv": "8.2.0",
         "dotenv-expand": "5.1.0",

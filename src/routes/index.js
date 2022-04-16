@@ -16,9 +16,6 @@ import HomeLayout from '../containers/Home/Layout';
 
 export const redirectAuthPath = '/login';
 
-//* layout used for   set layouts for pages
-//* if layout ===  false   we use page without layout
-//* if layout is  react elemen - we use it
 const mainRoutes = [
     {
         path: '/',

@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Popup } from 'components_lib';
+import { Popup } from 'components';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';

@@ -24,12 +24,14 @@ import {
     deleteTranslateByKeyRequest,
 } from 'modules/translates';
 import { showPopupAction } from 'modules/popups';
+
 const useStyle = makeStyles((theme) => ({
     buttonRoot: {
         marginLeft: '10px !important',
     },
     tabsRoot: { margin: '20px 0' },
 }));
+
 const TranslatesManager = ({ history, ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();

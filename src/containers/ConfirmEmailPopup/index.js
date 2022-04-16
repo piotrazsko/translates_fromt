@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUserSelector, sendConfirmLinkRequest } from 'modules/auth';
-import { Popup } from 'components_lib';
+import { Popup } from 'components';
 import { useTranslation } from 'react-i18next';
 
 const ConfirmEmailPopup = (props) => {

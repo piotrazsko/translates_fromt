@@ -1,83 +1,129 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material';
 
-const main = '#0069ff';
+// colors
+const primary = '#6160DC';
+const secondary = '#54C5EB';
+const black = '#22242C';
+const darkBlack = 'rgb(36, 40, 44)';
+const background = '#f5f5f5';
+// const warningLight = 'rgba(253, 200, 69, .3)';
+const warningMain = '#FF4A55';
+// const warningDark = 'rgba(253, 200, 69, .7)';
+
+// border
+const borderWidth = 2;
+const borderColor = 'rgba(0, 0, 0, 0.13)';
+
+// breakpoints
+const xl = 1920;
+const lg = 1280;
+const md = 960;
+const sm = 600;
+const xs = 0;
+
+// spacing
+const spacing = 8;
 
 export const theme = createTheme({
     palette: {
-        mode: 'light',
-        primary: {
-            main: main,
+        type: 'light',
+        primary: { main: primary },
+        secondary: { main: secondary },
+        common: {
+            black,
+            darkBlack,
         },
+        warning: {
+            // light: warningLight,
+            main: warningMain,
+            // dark: warningDark,
+        },
+        // Used to shift a color's luminance by approximately
+        // two indexes within its tonal palette.
+        // E.g., shift from Red 500 to Red 300 or Red 700.
+        tonalOffset: 0.2,
+        background: {
+            default: background,
+        },
+        spacing,
     },
     breakpoints: {
+        // Define custom breakpoint values.
+        // These will apply to Material-UI components that use responsive
+        // breakpoints, such as `Grid` and `Hidden`. You can also use the
+        // theme breakpoint functions `up`, `down`, and `between` to create
+        // media queries for these breakpoints
         values: {
-            xs: 0,
-            sm: 600,
-            md: 960,
-            lg: 1400,
-            xl: 1820,
+            xl,
+            lg,
+            md,
+            sm,
+            xs,
         },
     },
-    typography: {
-        body1: {
-            'font-size': '18px',
-            color: '#4c4c4c',
-            // 'line-height': '1.9',
-        },
-        body2: {
-            'font-size': '18px',
-            color: 'red',
-            // border: '2px solid #ccc',
-            // padding: '3px 6px',
-            fontWeight: '400',
-            cursor: 'pointer',
-            // 'line-height': '28px',
-        },
+    border: {
+        borderColor: borderColor,
+        borderWidth: borderWidth,
     },
-    overrides: {
-        MuiTab: {
-            root: {
-                padding: '0px 10px',
-                minWidth: '0px !important',
-                color: '#000',
-            },
-            textColorPrimary: {
-                color: '#000',
-                fontSize: '14px',
-                fontWeight: 'bold',
-            },
-        },
-        MuiDrawer: {
-            paper: { zIndex: 2 },
-        },
+    components: {
         MuiButton: {
-            root: {
-                textTransform: 'capitalize',
-                // borderRadius: "50px",
-                height: '37px',
+            styleOverrides: {
+                root: {
+                    borderRadius: '40px',
+                    'box-shadow': '0px 20px 50px rgba(191, 21, 108, 0.05)',
+                },
+                sizeMedium: {
+                    height: 40,
+                },
             },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    height: 40,
+                },
+                sizeSmall: {
+                    height: 32,
+                },
+                sizeMedium: {
+                    height: 40,
+                },
+                sizeLarge: {
+                    height: 48,
+                },
+            },
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '40px',
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '40px',
+                    padding: '32px',
+                },
+            },
+        },
+        MuiTypography: {
+            styleOverrides: {
+                h1: { fontWeight: 700, fontSize: '36px' },
+                h2: { fontWeight: 700, fontSize: '24px' },
+                h3: { fontWeight: 700, fontSize: '22px' },
+                h4: { fontWeight: 700, fontSize: '16px' },
+                h5: { fontWeight: 700, fontSize: '14px' },
+                body1: { fontWeight: 500, fontSize: '18px' },
+                body2: { fontWeight: 500, fontSize: '14px' },
+            },
+        },
+    },
 
-            contained: {
-                boxShadow: 'none',
-            },
-            label: { fontSize: '14px' },
-        },
-        MuiPaper: {
-            root: {
-                borderRadius: '6px',
-                minHeight: '20px',
-            },
-            rounded: {
-                borderRadius: '6px',
-            },
-            elevation1: {
-                boxShadow: '0px 2px 92px 0px rgba(0, 0, 0, 0.07)',
-            },
-        },
-        PrivateTabIndicator: {
-            root: {
-                display: 'none',
-            },
-        },
+    typography: {
+        useNextVariants: true,
     },
 });
+
+// export default responsiveFontSizes(theme);

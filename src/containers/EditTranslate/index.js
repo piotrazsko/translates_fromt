@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Add from '@mui/icons-material/Add';
 import Delete from '@mui/icons-material/Delete';
 
-import { Pane, LangAutocompleate } from 'components';
+import { PageSkeleton, LangAutocompleate } from 'components';
 import { useHook } from './hooks';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,7 @@ const EditTranslate = ({
     } = useHook({ id, location, history, classes });
 
     return (
-        <Pane title={t('title.edit')}>
+        <PageSkeleton title={t('title.edit')}>
             <form onSubmit={handleSubmit}>
                 <Grid
                     container
@@ -217,7 +217,7 @@ const EditTranslate = ({
                     </Grid>
                 </Grid>
             </form>
-        </Pane>
+        </PageSkeleton>
     );
 };
 

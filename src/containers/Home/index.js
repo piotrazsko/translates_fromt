@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import { Pane, ServiceCard, SkillItem, ClientCard } from 'components';
+import { PageSkeleton, ServiceCard, SkillItem, ClientCard } from 'components';
 import { useDispatch } from 'react-redux';
 import { showError, showWarning } from 'modules/notification';
 

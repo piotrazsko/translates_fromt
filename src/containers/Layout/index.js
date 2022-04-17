@@ -59,12 +59,10 @@ const Layout = ({
                     <Grid item md={10} lg={10}>
                         <Grid container>
                             <Grid item xs={12}>
-                                <Paper>
-                                    {React.createElement(
-                                        children,
-                                        restWithPermissons,
-                                    )}
-                                </Paper>
+                                {React.createElement(
+                                    children,
+                                    restWithPermissons,
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>

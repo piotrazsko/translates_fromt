@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { confirmLinkRequest } from 'modules/auth';
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 
 const ConfirmLink = ({ location, history, ...props }) => {
     const { t } = useTranslation();
@@ -28,11 +28,11 @@ const ConfirmLink = ({ location, history, ...props }) => {
     }, [location]);
     return (
         <>
-            <Pane title={t('title.email_confirmation')}>
+            <PageSkeleton title={t('title.email_confirmation')}>
                 <Typography variant="body1">
                     {t('text.email_confirmation')}
                 </Typography>
-            </Pane>
+            </PageSkeleton>
         </>
     );
 };

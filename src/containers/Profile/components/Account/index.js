@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 import { showError, showWarning } from 'modules/notification';
 import { changePasswordRequest } from 'modules/auth';
 import style from './style.scss';

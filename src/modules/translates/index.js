@@ -1,6 +1,7 @@
 import * as api_helpers from 'react_redux_api';
 
-const modules = 'languages';
+const modules = 'translates';
+
 const {
     helpers: { actionCreator, apiSelector },
     modules: { ApiRoutes },

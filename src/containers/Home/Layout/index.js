@@ -3,19 +3,10 @@ import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
 import Footer from './Footer.js';
-import {
-    ThemeProvider,
-    StyledEngineProvider,
-    CssBaseline,
-} from '@mui/material';
-import theme from './theme';
 
-import { SideBar, Header } from 'components';
+import { Header } from 'components';
 import AOS from 'aos/dist/aos';
 import 'aos/dist/aos.css';
 import GlobalStyles from './GlobalStyles.js';
@@ -41,7 +32,6 @@ const Layout = ({
 }) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { isMobile } = viewPort ?? {};
 
     const [isEndOfPage, setEndOfPage] = React.useState(false);
     const restWithPermissons = {
@@ -60,14 +50,10 @@ const Layout = ({
             </Helmet>
             <GlobalStyles />
             {showHeader ? <Header history={history} /> : null}
-            <StyledEngineProvider injectFirst>
-                <ThemeProvider theme={theme}>
-                    <Container maxWidth="" classes={{ root: classes.root }}>
-                        {React.createElement(children, restWithPermissons)}
-                    </Container>
-                    <Footer />
-                </ThemeProvider>
-            </StyledEngineProvider>
+            <Container maxWidth="" classes={{ root: classes.root }}>
+                {React.createElement(children, restWithPermissons)}
+            </Container>
+            <Footer />
         </>
     );
 };

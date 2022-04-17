@@ -104,7 +104,7 @@ src/containers/Home/index.js
   Line 2:8:    'PropTypes' is defined but never used          no-unused-vars
   Line 3:8:    'Typography' is defined but never used         no-unused-vars
   Line 4:8:    'Grid' is defined but never used               no-unused-vars
-  Line 6:10:   'Pane' is defined but never used               no-unused-vars
+  Line 6:10:   'PageSkeleton' is defined but never used               no-unused-vars
   Line 6:16:   'ServiceCard' is defined but never used        no-unused-vars
   Line 6:29:   'SkillItem' is defined but never used          no-unused-vars
   Line 6:40:   'ClientCard' is defined but never used         no-unused-vars
@@ -140,7 +140,7 @@ src/containers/Profile/components/Account/index.js
   Line 12:8:   'Grid' is defined but never used           no-unused-vars
   Line 15:8:   'Tab' is defined but never used            no-unused-vars
   Line 19:8:   'AccountCircle' is defined but never used  no-unused-vars
-  Line 24:10:  'Pane' is defined but never used           no-unused-vars
+  Line 24:10:  'PageSkeleton' is defined but never used           no-unused-vars
   Line 25:10:  'showError' is defined but never used      no-unused-vars
   Line 25:21:  'showWarning' is defined but never used    no-unused-vars
 
@@ -306,7 +306,7 @@ src/containers/Home/index.js
   Line 2:8:    'PropTypes' is defined but never used          no-unused-vars
   Line 3:8:    'Typography' is defined but never used         no-unused-vars
   Line 4:8:    'Grid' is defined but never used               no-unused-vars
-  Line 6:10:   'Pane' is defined but never used               no-unused-vars
+  Line 6:10:   'PageSkeleton' is defined but never used               no-unused-vars
   Line 6:16:   'ServiceCard' is defined but never used        no-unused-vars
   Line 6:29:   'SkillItem' is defined but never used          no-unused-vars
   Line 6:40:   'ClientCard' is defined but never used         no-unused-vars
@@ -342,7 +342,7 @@ src/containers/Profile/components/Account/index.js
   Line 12:8:   'Grid' is defined but never used           no-unused-vars
   Line 15:8:   'Tab' is defined but never used            no-unused-vars
   Line 19:8:   'AccountCircle' is defined but never used  no-unused-vars
-  Line 24:10:  'Pane' is defined but never used           no-unused-vars
+  Line 24:10:  'PageSkeleton' is defined but never used           no-unused-vars
   Line 25:10:  'showError' is defined but never used      no-unused-vars
   Line 25:21:  'showWarning' is defined but never used    no-unused-vars
 

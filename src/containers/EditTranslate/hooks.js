@@ -171,7 +171,7 @@ export const useHook = ({ location, history, id, classes }) => {
                             submitButtonText: t('button.ok'),
                             cancelButtonText: t('button.cancel'),
                             confirmButtonProps: {
-                                color: 'secondary',
+                                color: 'error',
                                 classes: { root: classes.root },
                                 style: { marginLeft: '10px' },
                             },

@@ -1,52 +1,35 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import makeStyles from '@mui/styles/makeStyles';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: "30px 30px 45px 30px",
-  },
-  grey: {
-    background: "#fafafa",
-  },
-  content: {
-    margin: "30px 0 0 0 !important",
-    whiteSpace: "pre-wrap",
-  },
-}));
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
-const Pane = ({ title, children, verticalOffset = 0, grey = false }) => {
-  const classes = useStyles();
-  return (
-    <Grid
-      container
-      classes={{ root: classes.container }}
-      className={grey ? classes.grey : ""}
-      // style={{ marginTop: "20px" }}
-    >
-      <Grid item xs={12}>
-        <Typography variant="h2">{title}</Typography>
-      </Grid>
-      <Grid
-        classes={{
-          item: classes.content,
-        }}
-        style={{ paddingTop: `${verticalOffset}px` }}
-        item
-        xs={12}
-      >
-        {children}
-      </Grid>
-    </Grid>
-  );
+import style from './style.scss';
+
+const Pane = ({ children, title = '' }) => {
+    return (
+        <Card>
+            <CardContent>
+                {title ? (
+                    <Typography
+                        className={style.title}
+                        gutterBottom
+                        variant="h2"
+                        component="div"
+                    >
+                        {title}
+                    </Typography>
+                ) : null}
+                {children}
+            </CardContent>
+        </Card>
+    );
 };
 
 Pane.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.any,
-  grey: PropTypes.bool,
+    cildren: PropTypes.any,
+    title: PropTypes.string,
 };
 
 export default Pane;

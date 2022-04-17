@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
-import { Pane, ContactsItem, Map } from 'components';
+import { PageSkeleton, ContactsItem, Map } from 'components';
 import { useTranslation } from 'react-i18next';
 
 const contacts = (t) => [
@@ -31,18 +31,18 @@ const Contacts = ({ viewPort: { isMobile }, ...props }) => {
         <>
             <Grid container>
                 <Grid item xs={6}>
-                    <Pane title={t('contact_information')}>
+                    <PageSkeleton title={t('contact_information')}>
                         {contacts(t).map((i) => (
                             <ContactsItem key={i.title} item={i}></ContactsItem>
                         ))}
-                    </Pane>
+                    </PageSkeleton>
                 </Grid>
             </Grid>
             <Grid container>
                 <Grid item xs={12}>
-                    <Pane title={t('contact_map')}>
+                    <PageSkeleton title={t('contact_map')}>
                         <Map data={mapData} />
-                    </Pane>
+                    </PageSkeleton>
                 </Grid>
             </Grid>
         </>

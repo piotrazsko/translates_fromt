@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import * as yup from 'yup';
 
 import { useTranslation } from 'react-i18next';
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 
 import { showError, showWarning } from 'modules/notification';
 import { deleteAllTranslatesAction } from 'modules/translates';
@@ -144,7 +144,7 @@ const Settings = ({ ...props }) => {
 
     return (
         <>
-            <Pane title={t('title.settings')}>
+            <PageSkeleton title={t('title.settings')}>
                 <Typography variant="body1">
                     {t('text.manage_your_translates')}
                 </Typography>
@@ -170,8 +170,8 @@ const Settings = ({ ...props }) => {
                     </Grid>
                 </Grid>
                 <input accept=".json" hidden ref={ref} type="file" />
-            </Pane>
-            {/* <Pane>
+            </PageSkeleton>
+            {/* <PageSkeleton>
                 <Typography variant="body1">
                     {t('text.upload_translates')}
                 </Typography>
@@ -203,7 +203,7 @@ const Settings = ({ ...props }) => {
                         </Button>
                     </Grid>
                 </Grid>
-            </Pane> */}
+            </PageSkeleton> */}
         </>
     );
 };

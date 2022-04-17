@@ -13,10 +13,6 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 
-import Checkbox from '@mui/material/Checkbox';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -128,7 +124,7 @@ const TranslatesGrid = ({ data, history, onDelete, dense = true }) => {
                                           <EditIcon />
                                       </IconButton>
                                       <IconButton
-                                          color="secondary"
+                                          color="warning"
                                           onClick={() =>
                                               onDelete({
                                                   key: row.key,

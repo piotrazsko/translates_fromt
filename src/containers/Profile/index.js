@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
 import makeStyles from '@mui/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 import { useDispatch } from 'react-redux';
 import { showError, showWarning } from 'modules/notification';
 import Account from './components/Account';
@@ -31,7 +31,7 @@ const Profile = ({ ...props }) => {
     const classes = useStyles();
     return (
         <>
-            <Pane title={t('title.profile')}>
+            <PageSkeleton title={t('title.profile')}>
                 <Grid container spacing={6}>
                     <Grid item xs={3}>
                         <Tabs
@@ -49,7 +49,7 @@ const Profile = ({ ...props }) => {
 
                     <Grid xs={8}>{tab === 0 ? <Account /> : null}</Grid>
                 </Grid>
-            </Pane>
+            </PageSkeleton>
         </>
     );
 };

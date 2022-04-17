@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@mui/material/Divider';
@@ -18,13 +18,13 @@ const Billing = ({ ...props }) => {
     const { apiKey, url, ...user } = useSelector(getCurrentUserSelector);
     return (
         <>
-            <Pane title={t('title.billing')}>
+            <PageSkeleton title={t('title.billing')}>
                 <Box>
                     <Typography gutterBottom variant="body1" display="inline">
                         {t('text.billing')}
                     </Typography>
                 </Box>
-            </Pane>
+            </PageSkeleton>
         </>
     );
 };

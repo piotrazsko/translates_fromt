@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import { Pane } from 'components';
+import { PageSkeleton } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@mui/material/Divider';
@@ -32,7 +32,7 @@ const APIPage = ({ ...props }) => {
 
     return (
         <>
-            <Pane title={t('title.api')}>
+            <PageSkeleton title={t('title.api')}>
                 <Box>
                     <Typography gutterBottom variant="body1" display="inline">
                         {t('text.your_api_key')}
@@ -69,7 +69,7 @@ const APIPage = ({ ...props }) => {
                         </Typography>
                     </Box>
                 ) : null}
-            </Pane>
+            </PageSkeleton>
         </>
     );
 };

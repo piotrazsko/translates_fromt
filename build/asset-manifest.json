@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.96be1b34.chunk.css",
-    "main.js": "/static/js/main.5b019919.chunk.js",
-    "main.js.map": "/static/js/main.5b019919.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.77b339aa.js",
-    "runtime-main.js.map": "/static/js/runtime-main.77b339aa.js.map",
-    "static/css/2.1a2d262e.chunk.css": "/static/css/2.1a2d262e.chunk.css",
-    "static/js/2.9a5da197.chunk.js": "/static/js/2.9a5da197.chunk.js",
-    "static/js/2.9a5da197.chunk.js.map": "/static/js/2.9a5da197.chunk.js.map",
-    "static/js/3.53d99399.chunk.js": "/static/js/3.53d99399.chunk.js",
-    "static/js/3.53d99399.chunk.js.map": "/static/js/3.53d99399.chunk.js.map",
+    "main.css": "/static/css/main.71ed3612.chunk.css",
+    "main.js": "/static/js/main.9253a0ac.chunk.js",
+    "main.js.map": "/static/js/main.9253a0ac.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.48506aeb.js",
+    "runtime-main.js.map": "/static/js/runtime-main.48506aeb.js.map",
+    "static/css/2.ec02d681.chunk.css": "/static/css/2.ec02d681.chunk.css",
+    "static/js/2.65797422.chunk.js": "/static/js/2.65797422.chunk.js",
+    "static/js/2.65797422.chunk.js.map": "/static/js/2.65797422.chunk.js.map",
+    "static/js/3.6966c185.chunk.js": "/static/js/3.6966c185.chunk.js",
+    "static/js/3.6966c185.chunk.js.map": "/static/js/3.6966c185.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/2.1a2d262e.chunk.css.map": "/static/css/2.1a2d262e.chunk.css.map",
-    "static/css/main.96be1b34.chunk.css.map": "/static/css/main.96be1b34.chunk.css.map",
-    "static/js/2.9a5da197.chunk.js.LICENSE.txt": "/static/js/2.9a5da197.chunk.js.LICENSE.txt",
+    "static/css/2.ec02d681.chunk.css.map": "/static/css/2.ec02d681.chunk.css.map",
+    "static/css/main.71ed3612.chunk.css.map": "/static/css/main.71ed3612.chunk.css.map",
+    "static/js/2.65797422.chunk.js.LICENSE.txt": "/static/js/2.65797422.chunk.js.LICENSE.txt",
     "static/media/stylesheet.css": "/static/media/Roboto-ThinItalic.5e786dc1.ttf",
-    "static/media/style.common.scss": "/static/media/bg.54815803.png",
     "static/media/feelqueen.1c5631f5.svg": "/static/media/feelqueen.1c5631f5.svg",
     "static/media/rednavis.d6717a24.svg": "/static/media/rednavis.d6717a24.svg",
     "static/media/spritecs.4ef203c0.svg": "/static/media/spritecs.4ef203c0.svg",
@@ -23,10 +22,10 @@
     "static/media/user_image.f116b7df.webp": "/static/media/user_image.f116b7df.webp"
   },
   "entrypoints": [
-    "static/js/runtime-main.77b339aa.js",
-    "static/css/2.1a2d262e.chunk.css",
-    "static/js/2.9a5da197.chunk.js",
-    "static/css/main.96be1b34.chunk.css",
-    "static/js/main.5b019919.chunk.js"
+    "static/js/runtime-main.48506aeb.js",
+    "static/css/2.ec02d681.chunk.css",
+    "static/js/2.65797422.chunk.js",
+    "static/css/main.71ed3612.chunk.css",
+    "static/js/main.9253a0ac.chunk.js"
   ]
 }

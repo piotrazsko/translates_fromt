@@ -54,6 +54,7 @@ const EditTranslate = ({
                 >
                     <Grid item xs={2}>
                         <TextField
+                            size="small"
                             fullWidth
                             disabled={id === 'edit'}
                             placeholder={t('input.key')}
@@ -70,6 +71,7 @@ const EditTranslate = ({
                     </Grid>
                     <Grid item xs={2}>
                         <TextField
+                            size="small"
                             fullWidth
                             disabled={id === 'edit'}
                             placeholder={t('input.namespace')}
@@ -92,6 +94,7 @@ const EditTranslate = ({
                                             onBlur={(ev, value) =>
                                                 onBlur(ev, index)
                                             }
+                                            size="small"
                                             placeholder={t('input.language')}
                                             label={t('input.language')}
                                             variant="outlined"
@@ -123,6 +126,7 @@ const EditTranslate = ({
                                     <Grid item xs={7}>
                                         <TextField
                                             fullWidth
+                                            size="small"
                                             multiline
                                             maxRows={4}
                                             placeholder={t('input.value')}

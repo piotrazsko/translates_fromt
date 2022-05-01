@@ -71,6 +71,7 @@ export const theme = createTheme({
                 root: {
                     borderRadius: '40px',
                     'box-shadow': '0px 20px 50px rgba(191, 21, 108, 0.05)',
+                    minWidth: '80px',
                 },
                 sizeMedium: {
                     height: 40,
@@ -79,17 +80,24 @@ export const theme = createTheme({
         },
         MuiInputBase: {
             styleOverrides: {
-                root: {
-                    height: 40,
-                },
+                // root: {
+                //     height: 40,
+                // },
                 sizeSmall: {
-                    height: 32,
+                    // height: 32,
                 },
-                sizeMedium: {
-                    height: 40,
-                },
-                sizeLarge: {
-                    height: 48,
+                // sizeMedium: {
+                //     height: 40,
+                // },
+                // sizeLarge: {
+                //     height: 48,
+                // },
+            },
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    // transform: 'translate(14px, 9px) scale(1)',
                 },
             },
         },

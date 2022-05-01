@@ -161,7 +161,7 @@ const EditTranslate = ({
                                         <Grid item xs={1}>
                                             <IconButton
                                                 tabIndex={-1}
-                                                color="secondary"
+                                                color="error"
                                                 onClick={() =>
                                                     onDelete(index, {
                                                         language: get(

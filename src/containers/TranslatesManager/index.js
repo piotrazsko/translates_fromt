@@ -65,15 +65,16 @@ const TranslatesManager = ({ history, ...props }) => {
     }, [res]);
 
     const data = React.useMemo(() => {
-        return (searchText
-            ? res.filter((item) => {
-                  return (
-                      `${item.key} ${item.namespace}`
-                          .toLowerCase()
-                          .indexOf(searchText.toLowerCase()) !== -1
-                  );
-              })
-            : res
+        return (
+            searchText
+                ? res.filter((item) => {
+                      return (
+                          `${item.key} ${item.namespace}`
+                              .toLowerCase()
+                              .indexOf(searchText.toLowerCase()) !== -1
+                      );
+                  })
+                : res
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
 
@@ -118,7 +119,6 @@ const TranslatesManager = ({ history, ...props }) => {
                         <Grid item xs={9}>
                             <TextField
                                 fullWidth
-                                size="small"
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment

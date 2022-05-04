@@ -79,25 +79,28 @@ export const theme = createTheme({
             },
         },
         MuiInputBase: {
+            // defaultProps: { size: 'small' },
             styleOverrides: {
-                // root: {
-                //     height: 40,
-                // },
-                sizeSmall: {
-                    // height: 32,
+                root: {
+                    height: 40,
                 },
-                // sizeMedium: {
-                //     height: 40,
-                // },
-                // sizeLarge: {
-                //     height: 48,
-                // },
+                sizeSmall: {
+                    height: 32,
+                },
+                sizeMedium: {
+                    height: 40,
+                },
+                sizeLarge: {
+                    height: 48,
+                },
             },
         },
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    // transform: 'translate(14px, 9px) scale(1)',
+                    '&[data-shrink="false"]': {
+                        transform: 'translate(14px, 9px) scale(1)',
+                    },
                 },
             },
         },

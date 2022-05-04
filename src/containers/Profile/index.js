@@ -26,44 +26,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object({
-    password: yup
-        .string()
-        .min(6)
-        .max(16)
-        .required(),
+    password: yup.string().min(6).max(16).required(),
     confirmed_password: yup
         .string()
         .min(6)
         .max(16)
         .required()
         .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    old_password: yup
-        .string()
-        .min(6)
-        .max(16)
-        .required(),
+    old_password: yup.string().min(6).max(16).required(),
 });
 
 const Profile = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const classes = useStyles();
-    const {
-        handleChange,
-        touched,
-        values,
-        handleSubmit,
-        setErrors,
-        errors,
-    } = useFormik({
-        initialValues: {
-            confirmed_password: '',
-            password: '',
-            old_password: '',
-        },
-        validationSchema: validationSchema,
-        onSubmit: (values) => {},
-    });
+    const { handleChange, touched, values, handleSubmit, setErrors, errors } =
+        useFormik({
+            initialValues: {
+                confirmed_password: '',
+                password: '',
+                old_password: '',
+            },
+            validationSchema: validationSchema,
+            onSubmit: (values) => {},
+        });
     return (
         <>
             <PageSkeleton title={t('title.profile')}>
@@ -84,17 +70,17 @@ const Profile = ({ ...props }) => {
                             <Typography>{t('subtitle.reference')}</Typography>
                             <Grid container spacing={6} columnSpacig={1}>
                                 <Grid item xs={4}>
-                                    <TextField
-                                        fullWidth
-                                        label="ID"
-                                        size={'small'}
-                                    />
+                                    <TextField fullWidth label="ID" />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <ChangePassword />
                                 </Grid>
                                 <Grid item xs={4}>
-                                    <TextField fullWidth size={'small'} />
+                                    <TextField
+                                        fullWidth
+                                        label="email"
+                                        disabled
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>

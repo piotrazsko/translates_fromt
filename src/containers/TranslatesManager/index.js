@@ -118,6 +118,7 @@ const TranslatesManager = ({ history, ...props }) => {
                         <Grid item xs={9}>
                             <TextField
                                 fullWidth
+                                size="small"
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment

@@ -11,7 +11,6 @@ import {
     setTranslatesByKeyRequest,
     deleteTranslatesByKeyAndLangRequest,
     getRecommendedTranslateRequest,
-    getTranslatedListSelector,
     getTranslatedListRequest,
 } from 'modules/translates';
 
@@ -28,6 +27,8 @@ const validationSchema = yup.object({
 });
 
 export const useHook = ({ location, history, id, classes }) => {
+    const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
+
     const { key, namespace } = React.useMemo(() => {
         const { search } = location;
         return getDataFromUrl(search);
@@ -52,7 +53,6 @@ export const useHook = ({ location, history, id, classes }) => {
     }, [key, namespace]);
 
     const translateData = useSelector(getTranslatesByKeySelector);
-    const fullTranslates = useSelector(getTranslatedListSelector);
 
     const {
         handleChange,
@@ -92,23 +92,6 @@ export const useHook = ({ location, history, id, classes }) => {
             // alert(JSON.stringify(values, null, 2));
         },
     });
-
-    // React.useEffect(() => {
-    //     if (id === 'add') {
-    //         const { key, namespace } = values;
-    //         const item = fullTranslates.find(
-    //             (i) =>
-    //                 i.key === key.trim() &&
-    //                 (namespace === i.namespace ||
-    //                     (i.namespace === 'default' &&
-    //                         (namespace ?? '').trim()) === ''),
-    //         );
-    //         if (item) {
-    //             setErrors({ ...errors, key: 'this key exist' });
-    //         }
-    //         console.log(item);
-    //     }
-    // }, [values]);
 
     React.useEffect(() => {
         if (translateData.loaded && id == 'edit') {
@@ -196,7 +179,7 @@ export const useHook = ({ location, history, id, classes }) => {
                 const currentLang = get(values, 'translates[0].language');
                 const text = get(values, 'translates[0].value');
                 const translateToLang = ev.target.value;
-                if (currentLang && text && translateToLang) {
+                if (currentLang && text && translateToLang && autoTranslate) {
                     dispatch(
                         getRecommendedTranslateRequest(
                             {

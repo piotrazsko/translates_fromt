@@ -110,6 +110,7 @@ const TranslatesManager = ({ history, ...props }) => {
             }),
         );
     }, []);
+
     const [dense, setDense] = React.useState(true);
     return (
         <>

@@ -79,7 +79,7 @@ export const theme = createTheme({
             },
         },
         MuiInputBase: {
-            // defaultProps: { size: 'small' },
+            defaultProps: { size: 'medium' },
             styleOverrides: {
                 root: {
                     height: 40,
@@ -92,6 +92,9 @@ export const theme = createTheme({
                 },
                 sizeLarge: {
                     height: 48,
+                },
+                inputMultiline: {
+                    height: 80,
                 },
             },
         },

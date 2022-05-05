@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import makeStyles from '@mui/styles/makeStyles';
-import { useTranslation } from 'react-i18next';
+
 import { PageSkeleton, Pane } from 'components';
-import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { getCurrentUserSelector } from 'modules/auth';
 
 import ChangePassword from './components/ChangePassword';
 
@@ -40,12 +43,16 @@ const Profile = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const classes = useStyles();
+    const currentUser = useSelector(getCurrentUserSelector);
+    console.log(currentUser);
+
     const { handleChange, touched, values, handleSubmit, setErrors, errors } =
         useFormik({
             initialValues: {
-                confirmed_password: '',
-                password: '',
-                old_password: '',
+                email: currentUser.email,
+                firstName: currentUser.first_name,
+                lastName: currentUser.last_name,
+                adress: currentUser.address,
             },
             validationSchema: validationSchema,
             onSubmit: (values) => {},
@@ -69,17 +76,38 @@ const Profile = ({ ...props }) => {
                         <Grid item xs={8}>
                             <Typography>{t('subtitle.reference')}</Typography>
                             <Grid container spacing={6} columnSpacig={1}>
-                                <Grid item xs={4}>
-                                    <TextField fullWidth label="ID" />
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        label={t('labels.firstName')}
+                                        value={values.firstName}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        label={t('labels.lastName')}
+                                        value={values.lastName}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        fullWidth
+                                        label="email"
+                                        value={values.email}
+                                        disabled
+                                    />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <ChangePassword />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6}>
                                     <TextField
                                         fullWidth
-                                        label="email"
-                                        disabled
+                                        multiline
+                                        rows={4}
+                                        label={t('labels.address')}
+                                        value={values.address}
                                     />
                                 </Grid>
                             </Grid>

@@ -98,6 +98,13 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiAutocomplete: {
+            styleOverrides: {
+                input: {
+                    padding: '0.5px 4px 7.5px 6px !important',
+                },
+            },
+        },
         MuiInputLabel: {
             styleOverrides: {
                 root: {

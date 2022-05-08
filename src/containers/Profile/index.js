@@ -11,8 +11,14 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { PageSkeleton, Pane } from 'components';
+import { PageSkeleton, Pane, LanguageSelect } from 'components';
 import { getCurrentUserSelector } from 'modules/auth';
+import {
+    getLanguagesListRequest,
+    getLanguagesListSelector,
+    saveLocaleAction,
+    localeSelector,
+} from 'modules/i18next';
 
 import ChangePassword from './components/ChangePassword';
 
@@ -44,8 +50,12 @@ const Profile = ({ ...props }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const currentUser = useSelector(getCurrentUserSelector);
-    console.log(currentUser);
-
+    const currentLang = useSelector(localeSelector);
+    React.useEffect(() => {
+        dispatch(getLanguagesListRequest());
+    }, []);
+    const languages = useSelector(getLanguagesListSelector);
+    console.log(languages);
     const { handleChange, touched, values, handleSubmit, setErrors, errors } =
         useFormik({
             initialValues: {
@@ -57,6 +67,7 @@ const Profile = ({ ...props }) => {
             validationSchema: validationSchema,
             onSubmit: (values) => {},
         });
+
     return (
         <>
             <PageSkeleton title={t('title.profile')}>
@@ -66,7 +77,20 @@ const Profile = ({ ...props }) => {
                             <Typography>{t('subtitle.reference')}</Typography>
                             <Grid container>
                                 <Grid item xs={11}>
-                                    a-a-a-a
+                                    <LanguageSelect
+                                        filter={(i) =>
+                                            languages.includes(i.iso639_1)
+                                        }
+                                        value={currentLang}
+                                        onChange={(ev) => {
+                                            dispatch(
+                                                saveLocaleAction(
+                                                    ev.target.value,
+                                                ),
+                                            );
+                                        }}
+                                        label={t('labels.language')}
+                                    />
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Divider orientation="vertical" />

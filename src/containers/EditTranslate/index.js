@@ -98,7 +98,9 @@ const EditTranslate = ({
                                             onChange={(ev, value) => {
                                                 setFieldValue(
                                                     `translates.${index}.language`,
-                                                    ev.target.value || value,
+                                                    ev.target.value ||
+                                                        value ||
+                                                        undefined, // fixed bug with validation null
                                                 );
                                             }}
                                             value={get(

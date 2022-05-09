@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     tabs: {
         borderRight: `1px solid ${theme.palette.primary.main}`,
     },
+    title: {
+        paddingBottom: '24px',
+    },
 }));
 
 const validationSchema = yup.object({
@@ -74,7 +77,9 @@ const Profile = ({ ...props }) => {
                 <Pane>
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <Typography>{t('subtitle.reference')}</Typography>
+                            <Typography className={classes.title}>
+                                {t('subtitle.reference')}
+                            </Typography>
                             <Grid container>
                                 <Grid item xs={11}>
                                     <LanguageSelect
@@ -98,7 +103,9 @@ const Profile = ({ ...props }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography>{t('subtitle.reference')}</Typography>
+                            <Typography className={classes.title}>
+                                {t('subtitle.reference')}
+                            </Typography>
                             <Grid container spacing={6} columnSpacig={1}>
                                 <Grid item xs={6}>
                                     <TextField

@@ -30,8 +30,8 @@ const createStoreApp = () => {
     const persistConfig = {
         key: 'root',
         storage: storage,
-        throttle: null,
-        version: 1,
+        throttle: 100,
+        version: 0,
         whitelist: ['auth', 'locale'],
     };
     // Middleware: Redux Persist Persisted Reducer

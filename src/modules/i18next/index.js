@@ -61,6 +61,7 @@ apiRoutes.add(GET_TRANSLATE_REQUEST, ({ locale }) => {
         params: {
             language: locale,
             apiKey: 'test',
+            applicationId: 'appID9e20e4908641',
         },
         showLoaderFlag: false,
     };
@@ -120,7 +121,7 @@ const getTranslateByActionSaga = function* (dispatch, action) {
 const getTranslateSuccessSaga = function* () {
     const { loaded, ...translates } = yield select(getTranslatesSelector);
     const locale = yield select(localeSelector);
-    console.log(locale, translates);
+
     i18next.addResourceBundle(locale, 'translation', translates[locale]);
     i18next.changeLanguage(locale);
     yield put(reInitDataAction());

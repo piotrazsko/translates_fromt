@@ -53,7 +53,7 @@ export const deleteAllTranslatesAction = actionCreator(
 apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params } = {}) => ({
     url: `/get-all-keys`,
     method: 'get',
-    params,
+    params: { ...params, applicationId: 'appID87b9abb0d07b' },
 }));
 
 apiRoutes.add(
@@ -72,6 +72,7 @@ apiRoutes.add(
 apiRoutes.add(GET_EXPORT_JSON_REQUEST, () => ({
     url: `/export-json`,
     method: 'get',
+    params: { applicationId: 'appID87b9abb0d07b' },
     // params,
 }));
 apiRoutes.add(POST_IMPORT_JSON_REQUEST, (data) => {
@@ -94,7 +95,7 @@ apiRoutes.add(POST_UPLOAD_LANG_JSON_REQUEST, (data) => {
 apiRoutes.add(GET_TRANSLATES_BY_KEY_REQUEST, ({ key, namespace = 'null' }) => ({
     url: `/get-translate`,
     method: 'get',
-    params: { namespace, key },
+    params: { namespace, key, applicationId: 'appID87b9abb0d07b' },
 }));
 
 apiRoutes.add(
@@ -112,7 +113,12 @@ apiRoutes.add(
         return {
             url: `/delete-translate`,
             method: 'DELETE',
-            params: { key, namespace, language },
+            params: {
+                key,
+                namespace,
+                language,
+                applicationId: 'appID9e20e4908641',
+            },
         };
     },
 );
@@ -122,13 +128,14 @@ apiRoutes.add(
     ({ key, namespace = 'null' }) => ({
         url: `/delete-all-translates-by-key`,
         method: 'DELETE',
-        params: { key, namespace },
+        params: { key, namespace, applicationId: 'appID9e20e4908641' },
     }),
 );
 
 apiRoutes.add(DELETE_ALL_TRANSLATES_REQUEST, () => ({
     url: `/delete-all-translates`,
     method: 'DELETE',
+    params: { applicationId: 'appID9e20e4908641' },
 }));
 
 export const getTranslatedListSelector = apiSelector(GET_ALL_KEYS_REQUEST);

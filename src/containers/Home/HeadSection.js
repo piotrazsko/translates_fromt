@@ -9,9 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useIsWidthUp } from 'helpers/mui';
 
 // FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
-const withWidth = () => (WrappedComponent) => (props) => (
-    <WrappedComponent {...props} width="xs" />
-);
+const withWidth = () => (WrappedComponent) => (props) =>
+    <WrappedComponent {...props} width="xs" />;
 
 const styles = (theme) => ({
     extraLargeButtonLabel: {
@@ -170,12 +169,11 @@ function HeadSection(props) {
                                                         classes.extraLargeButton
                                                     }
                                                     classes={{
-                                                        label:
-                                                            classes.extraLargeButtonLabel,
+                                                        label: classes.extraLargeButtonLabel,
                                                     }}
                                                     onClick={() => {
                                                         history.push(
-                                                            '/translates',
+                                                            '/dashboard',
                                                         );
                                                     }}
                                                 >

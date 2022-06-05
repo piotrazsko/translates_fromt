@@ -11,7 +11,6 @@ import {
     setTranslatesByKeyRequest,
     deleteTranslatesByKeyAndLangRequest,
     getRecommendedTranslateRequest,
-    getTranslatedListRequest,
 } from 'modules/translates';
 
 import get from 'lodash/get';
@@ -26,7 +25,7 @@ const validationSchema = yup.object({
     ),
 });
 
-export const useHook = ({ location, history, id, classes }) => {
+export const useHook = ({ location, history, applicationId, id, classes }) => {
     const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
 
     const { key, namespace } = React.useMemo(() => {
@@ -38,15 +37,12 @@ export const useHook = ({ location, history, id, classes }) => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(getTranslatedListRequest({}));
-    }, []);
-
-    React.useEffect(() => {
         if (key) {
             dispatch(
                 getTranslatesByKeyRequest({
                     key: key,
                     namespace: namespace,
+                    applicationId,
                 }),
             );
         }
@@ -75,7 +71,7 @@ export const useHook = ({ location, history, id, classes }) => {
         onSubmit: (values) => {
             dispatch(
                 setTranslatesByKeyRequest(
-                    { ...values },
+                    { ...values, applicationId },
                     {
                         onSuccess: () => {
                             history.goBack();
@@ -134,7 +130,12 @@ export const useHook = ({ location, history, id, classes }) => {
                                 ]);
                                 dispatch(
                                     deleteTranslatesByKeyAndLangRequest(
-                                        { key, namespace, language },
+                                        {
+                                            key,
+                                            namespace,
+                                            language,
+                                            applicationId,
+                                        },
                                         {
                                             onSuccess: () => {
                                                 dispatch(

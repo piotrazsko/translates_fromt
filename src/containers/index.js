@@ -14,3 +14,5 @@ export { default as APIPage } from './APIPage';
 export { default as Docs } from './Docs';
 export { default as Billing } from './Billing';
 export { default as ConfirmEmailPopup } from './ConfirmEmailPopup';
+export { default as Dashboard } from './Dashboard';
+export { default as Applications } from './Applications';

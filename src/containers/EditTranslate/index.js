@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const EditTranslate = ({
     route,
     match: {
-        params: { id },
+        params: { id, applicationId },
     },
     location,
     history,
@@ -42,7 +42,7 @@ const EditTranslate = ({
         key,
         namespace,
         onAdd,
-    } = useHook({ id, location, history, classes });
+    } = useHook({ id, location, history, classes, applicationId });
 
     return (
         <PageSkeleton title={t('title.edit')}>

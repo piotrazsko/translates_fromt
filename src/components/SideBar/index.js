@@ -43,7 +43,19 @@ const useStyles = makeStyles((theme) => ({
 
 const getSideBarItems = (t, history) => [
     {
-        title: t('sidebar.translations'),
+        title: t('sidebar.dashboard'),
+        onClick: () => {
+            history.push('/dashboard');
+        },
+    },
+    {
+        title: t('sidebar.applications'),
+        onClick: () => {
+            history.push('/applications');
+        },
+    },
+    {
+        title: t('sidebar.translates'),
         onClick: () => {
             history.push('/translates');
         },

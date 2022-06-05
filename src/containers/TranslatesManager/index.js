@@ -16,15 +16,22 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { PageSkeleton, Pane } from 'components';
-import TranslatesGrid from './components/TranslatesGrid';
-
+import { PagePlaceholder, PageSkeleton, Pane, Select } from 'components';
 import {
     getTranslatedListRequest,
     getTranslatedListSelector,
     deleteTranslateByKeyRequest,
 } from 'modules/translates';
+import {
+    getApplicationsListRequest,
+    getApplicationsListSelector,
+} from 'modules/applications';
+
+import { prepareSearchString, getDataFromCurrentLocarion } from 'helpers/url';
+
 import { showPopupAction } from 'modules/popups';
+
+import TranslatesGrid from './components/TranslatesGrid';
 
 const useStyle = makeStyles((theme) => ({
     buttonRoot: {
@@ -33,15 +40,36 @@ const useStyle = makeStyles((theme) => ({
     tabsRoot: { margin: '20px 0' },
 }));
 
-const TranslatesManager = ({ history, ...props }) => {
+const TranslatesManager = ({
+    history,
+    location: { pathname, search },
+    ...props
+}) => {
+    const { applicationId: applicationidFromUrl } =
+        getDataFromCurrentLocarion();
+
+    const [applicationId, setApplicationId] =
+        React.useState(applicationidFromUrl);
+
+    console.log(props);
+
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const classes = useStyle();
     const res = useSelector(getTranslatedListSelector);
+    const applications = useSelector(getApplicationsListSelector);
 
     React.useEffect(() => {
-        dispatch(getTranslatedListRequest({}));
+        dispatch(getApplicationsListRequest());
     }, []);
+
+    React.useEffect(() => {
+        if (applicationId) {
+            const url = prepareSearchString({ applicationId });
+            history.push(`${pathname}?${url}`);
+            dispatch(getTranslatedListRequest({ applicationId }));
+        }
+    }, [applicationId, applicationidFromUrl]);
 
     const [tab, setTab] = React.useState(null);
     const [searchText, setSearchText] = React.useState();
@@ -112,12 +140,26 @@ const TranslatesManager = ({ history, ...props }) => {
     }, []);
 
     const [dense, setDense] = React.useState(true);
+
     return (
         <>
             <PageSkeleton title={t('title.translates')} grey>
                 <Pane>
                     <Grid container justifyContent="flex-end" spacing={2}>
-                        <Grid item xs={9}>
+                        <Grid item xs={2}>
+                            <Select
+                                value={applicationId}
+                                onChange={(ev) => {
+                                    setApplicationId(ev.target.value);
+                                }}
+                                fullWidth
+                                items={applications.map((i) => ({
+                                    value: i.id,
+                                    label: i.name,
+                                }))}
+                            ></Select>
+                        </Grid>
+                        <Grid item xs={7}>
                             <TextField
                                 fullWidth
                                 InputProps={{
@@ -155,10 +197,13 @@ const TranslatesManager = ({ history, ...props }) => {
                         </Grid>
                         <Grid item xs={1}>
                             <Button
+                                disabled={!applicationId}
                                 color="primary"
                                 variant="contained"
                                 onClick={() => {
-                                    history.push('/translates/add');
+                                    history.push(
+                                        `/translates/${applicationId}/add`,
+                                    );
                                 }}
                             >
                                 {t('button.add')}
@@ -179,29 +224,38 @@ const TranslatesManager = ({ history, ...props }) => {
                             />
                         </Grid>
                     </Grid>
-                    <Tabs
-                        value={tab}
-                        onChange={(ev, value) => setTab(value)}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        variant="scrollable"
-                        scrollButtons="auto"
-                        classes={{ root: classes.tabsRoot }}
-                    >
-                        {tabs.map((i) => (
-                            <Tab
-                                label={i.label}
-                                value={i.value}
-                                key={i.label}
+                    {applicationId ? (
+                        <>
+                            <Tabs
+                                value={tab}
+                                onChange={(ev, value) => setTab(value)}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                variant="scrollable"
+                                scrollButtons="auto"
+                                classes={{ root: classes.tabsRoot }}
+                            >
+                                {tabs.map((i) => (
+                                    <Tab
+                                        label={i.label}
+                                        value={i.value}
+                                        key={i.label}
+                                    />
+                                ))}
+                            </Tabs>
+                            <TranslatesGrid
+                                dense={dense}
+                                data={data}
+                                history={history}
+                                onDelete={onDelete}
+                                applicationId={applicationId}
                             />
-                        ))}
-                    </Tabs>
-                    <TranslatesGrid
-                        dense={dense}
-                        data={data}
-                        history={history}
-                        onDelete={onDelete}
-                    />
+                        </>
+                    ) : (
+                        <PagePlaceholder>
+                            {t('translates.placeholder.grid')}
+                        </PagePlaceholder>
+                    )}{' '}
                 </Pane>
             </PageSkeleton>
         </>

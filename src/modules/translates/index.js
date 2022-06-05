@@ -50,10 +50,10 @@ export const deleteAllTranslatesAction = actionCreator(
     DELETE_ALL_TRANSLATES_REQUEST,
 );
 
-apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ ...params } = {}) => ({
+apiRoutes.add(GET_ALL_KEYS_REQUEST, ({ applicationId, ...params } = {}) => ({
     url: `/get-all-keys`,
     method: 'get',
-    params: { ...params, applicationId: 'appID87b9abb0d07b' },
+    params: { ...params, applicationId },
 }));
 
 apiRoutes.add(

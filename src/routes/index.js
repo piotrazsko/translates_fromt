@@ -11,6 +11,8 @@ import {
     APIPage,
     Docs,
     Billing,
+    Dashboard,
+    Applications,
 } from 'containers';
 import HomeLayout from '../containers/Home/Layout';
 
@@ -24,6 +26,20 @@ const mainRoutes = [
         showHeader: true,
         showSidebar: false,
         layout: HomeLayout,
+    },
+    {
+        path: '/dashboard',
+        exact: true,
+        component: Dashboard,
+        showHeader: true,
+        showSidebar: true,
+    },
+    {
+        path: '/applications',
+        exact: true,
+        component: Applications,
+        showHeader: true,
+        showSidebar: true,
     },
     {
         path: '/translates',
@@ -42,7 +58,7 @@ const mainRoutes = [
         showSidebar: true,
     },
     {
-        path: '/translates/:id?',
+        path: '/translates/:applicationId/:id?',
         exact: true,
         isPrivate: true,
         component: EditTranslate,

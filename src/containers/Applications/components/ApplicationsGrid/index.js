@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { lighten } from '@mui/material/styles';
 import moment from 'moment';
-
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,6 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
@@ -31,32 +32,18 @@ const useStyles = makeStyles({
 
 const headCells = (t) => [
     {
-        id: 'key',
+        id: 'id',
         numeric: false,
         disablePadding: false,
         sortable: true,
-        label: t('tableheader.key'),
-    },
-    {
-        id: 'namespace',
-        numeric: false,
-        disablePadding: false,
-        sortable: true,
-        label: t('tableheader.namespace'),
+        label: t('tableheader.id'),
     },
     {
         id: 'languages',
         numeric: false,
         sortable: false,
         disablePadding: false,
-        label: t('tableheader.langs'),
-    },
-    {
-        id: 'updated_at',
-        sortable: true,
-        numeric: false,
-        disablePadding: false,
-        label: t('tableheader.updated_at'),
+        label: t('tableheader.name'),
     },
     {
         id: 'edit_delete',
@@ -67,13 +54,7 @@ const headCells = (t) => [
     },
 ];
 
-const TranslatesGrid = ({
-    data,
-    history,
-    onDelete,
-    dense = true,
-    applicationId,
-}) => {
+const ApplicationsGrid = ({ data, history, onDelete, dense = true }) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [sort, setSort] = React.useState({
@@ -164,73 +145,22 @@ const TranslatesGrid = ({
                                 </TableSortLabel>
                             </TableCell>
                         ))}
-                        {/* <TableCell
-                            onClick={() => {
-                                setSort({
-                                    field: 'key',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                            align="center"
-                        >
-                            {t('tableheader.key')}
-                            <ArrowUpwardIcon />
-                        </TableCell> */}
-                        {/* <TableCell
-                            onClick={() => {
-                                setSort({
-                                    field: 'namespace',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                            align="center"
-                        >
-                            {t('tableheader.namespace')}
-                        </TableCell> */}
-                        {/* <TableCell align="center">
-                            {t('tableheader.langs')}
-                        </TableCell> */}
-                        {/* <TableCell
-                            align="center"
-                            onClick={() => {
-                                setSort({
-                                    field: 'updated_at',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                        >
-                            {t('tableheader.updated_at')}
-                        </TableCell> */}
-                        {/* <TableCell align="center">
-                            {t('tableheader.edit/delete')}
-                        </TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {Array.isArray(res)
                         ? res.map((row) => (
                               <TableRow key={row.key + row.namespace}>
+                                  <TableCell align="center">{row.id}</TableCell>
                                   <TableCell align="center">
-                                      {row.key}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {row.namespace || ''}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {row.langs.join(', ').slice(0, 10) +
-                                          (row.langs.length > 3 ? '...' : '')}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {moment(row.updated_at).format(
-                                          DATE_TIME_FORMAT,
-                                      ) || ''}
+                                      {row.name || ''}
                                   </TableCell>
                                   <TableCell align="center">
                                       <IconButton
                                           color="primary"
                                           onClick={() => {
                                               history.push(
-                                                  `/translates/${applicationId}/edit?${new URLSearchParams(
+                                                  `/translates/edit?${new URLSearchParams(
                                                       {
                                                           key: row.key,
                                                           namespace:
@@ -265,16 +195,14 @@ const TranslatesGrid = ({
     );
 };
 
-TranslatesGrid.propTypes = {
+ApplicationsGrid.propTypes = {
     data: PropTypes.array.isRequired,
     history: PropTypes.object,
     onDelete: PropTypes.func.isRequired,
     dense: PropTypes.bool,
-
-    // : PropTypes.
 };
-TranslatesGrid.defaultProps = {
+ApplicationsGrid.defaultProps = {
     data: [],
 };
 
-export default TranslatesGrid;
+export default ApplicationsGrid;

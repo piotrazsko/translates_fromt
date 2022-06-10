@@ -13,7 +13,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
@@ -21,8 +20,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTranslation } from 'react-i18next';
-
-import { DATE_TIME_FORMAT } from 'constants/date';
 
 const useStyles = makeStyles({
     table: {
@@ -54,7 +51,13 @@ const headCells = (t) => [
     },
 ];
 
-const ApplicationsGrid = ({ data, history, onDelete, dense = true }) => {
+const ApplicationsGrid = ({
+    data,
+    history,
+    onDelete,
+    onEdit,
+    dense = true,
+}) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [sort, setSort] = React.useState({
@@ -159,15 +162,7 @@ const ApplicationsGrid = ({ data, history, onDelete, dense = true }) => {
                                       <IconButton
                                           color="primary"
                                           onClick={() => {
-                                              history.push(
-                                                  `/translates/edit?${new URLSearchParams(
-                                                      {
-                                                          key: row.key,
-                                                          namespace:
-                                                              row.namespace,
-                                                      },
-                                                  ).toString()}`,
-                                              );
+                                              onEdit(row);
                                           }}
                                           size="large"
                                       >
@@ -175,12 +170,7 @@ const ApplicationsGrid = ({ data, history, onDelete, dense = true }) => {
                                       </IconButton>
                                       <IconButton
                                           color="warning"
-                                          onClick={() =>
-                                              onDelete({
-                                                  key: row.key,
-                                                  namespace: row.namespace,
-                                              })
-                                          }
+                                          onClick={() => onDelete(row)}
                                           size="large"
                                       >
                                           <DeleteIcon />

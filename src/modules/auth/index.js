@@ -27,7 +27,7 @@ export const LOGIN_USER_FAILED = `${modules}/LOGIN_USER_FAILED`;
 export const REGISTER_USER_REQUEST = `${modules}/REGISTER_USER_REQUEST`;
 export const REGISTER_USER_SUCCESS = `${modules}/REGISTER_USER_SUCCESS`;
 export const LOGOUT_USER_REQUEST = `${modules}/LOGOUT_USER_REQUEST`;
-export const LOGOUT_USER_SUCCESS = `${modules}/LOGOUT_USER_SUCCESS`;
+// export const LOGOUT_USER_SUCCESS = `${modules}/LOGOUT_USER_SUCCESS`;
 export const LOGOUT_USER = `${modules}/LOGOUT_USER`;
 
 export const UPDATE_USER_REQUEST = `${modules}/UPDATE_USER_REQUEST`;
@@ -130,7 +130,7 @@ export const authReducer = (state = initialState, action) => {
             } = action;
             return { ...state, ...data };
         }
-        case LOGOUT_USER_SUCCESS:
+        case LOGOUT_USER:
             return { ...initialState };
         case LOGIN_USER_FAILED: {
             return { ...initialState };

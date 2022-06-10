@@ -18,7 +18,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { PagePlaceholder, PageSkeleton, Pane, Select } from 'components';
 import {
-    getTranslatedListRequest,
+    getAllKeysByApplicarionRequest,
     getTranslatedListSelector,
     deleteTranslateByKeyRequest,
 } from 'modules/translates';
@@ -67,7 +67,7 @@ const TranslatesManager = ({
         if (applicationId) {
             const url = prepareSearchString({ applicationId });
             history.push(`${pathname}?${url}`);
-            dispatch(getTranslatedListRequest({ applicationId }));
+            dispatch(getAllKeysByApplicarionRequest({ applicationId }));
         }
     }, [applicationId, applicationidFromUrl]);
 
@@ -115,10 +115,14 @@ const TranslatesManager = ({
                 onClick: () => {
                     dispatch(
                         deleteTranslateByKeyRequest(
-                            { key, namespace },
+                            { key, namespace, applicationId },
                             {
                                 onSuccess: () => {
-                                    dispatch(getTranslatedListRequest({}));
+                                    dispatch(
+                                        getAllKeysByApplicarionRequest({
+                                            applicationId,
+                                        }),
+                                    );
                                 },
                             },
                         ),

@@ -22,7 +22,8 @@ export const DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST = `${modules}/DELETE_
 export const DELETE_TRANSLATE_BY_KEY_REQUEST = `${modules}/DELETE_TRANSLATE_BY_KEY_REQUEST`;
 export const DELETE_ALL_TRANSLATES_REQUEST = `${modules}/DELETE_ALL_TRANSLATES_REQUEST`;
 
-export const getTranslatedListRequest = actionCreator(GET_ALL_KEYS_REQUEST);
+export const getAllKeysByApplicarionRequest =
+    actionCreator(GET_ALL_KEYS_REQUEST);
 export const getRecommendedTranslateRequest = actionCreator(
     GET_RECOMMENDED_TRANSLATE_REQUEST,
 );
@@ -92,24 +93,27 @@ apiRoutes.add(POST_UPLOAD_LANG_JSON_REQUEST, (data) => {
     };
 });
 
-apiRoutes.add(GET_TRANSLATES_BY_KEY_REQUEST, ({ key, namespace = 'null' }) => ({
-    url: `/get-translate`,
-    method: 'get',
-    params: { namespace, key, applicationId: 'appID87b9abb0d07b' },
-}));
+apiRoutes.add(
+    GET_TRANSLATES_BY_KEY_REQUEST,
+    ({ key, applicationId, namespace = 'null' }) => ({
+        url: `/get-translate`,
+        method: 'get',
+        params: { namespace, key, applicationId },
+    }),
+);
 
 apiRoutes.add(
     SET_TRANSLATES_BY_KEY_REQUEST,
-    ({ key, namespace = 'null', translates }) => ({
+    ({ key, namespace = 'null', applicationId, translates }) => ({
         url: `/set-translate`,
         method: 'PUT',
-        data: { key, namespace, translates },
+        data: { key, namespace, translates, applicationId },
     }),
 );
 
 apiRoutes.add(
     DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST,
-    ({ key, namespace = 'null', language }) => {
+    ({ key, namespace = 'null', language, applicationId }) => {
         return {
             url: `/delete-translate`,
             method: 'DELETE',
@@ -117,7 +121,7 @@ apiRoutes.add(
                 key,
                 namespace,
                 language,
-                applicationId: 'appID9e20e4908641',
+                applicationId: applicationId,
             },
         };
     },
@@ -125,17 +129,16 @@ apiRoutes.add(
 
 apiRoutes.add(
     DELETE_TRANSLATE_BY_KEY_REQUEST,
-    ({ key, namespace = 'null' }) => ({
+    ({ key, namespace = 'null', applicationId }) => ({
         url: `/delete-all-translates-by-key`,
         method: 'DELETE',
-        params: { key, namespace, applicationId: 'appID9e20e4908641' },
+        params: { key, namespace, applicationId },
     }),
 );
 
 apiRoutes.add(DELETE_ALL_TRANSLATES_REQUEST, () => ({
     url: `/delete-all-translates`,
     method: 'DELETE',
-    params: { applicationId: 'appID9e20e4908641' },
 }));
 
 export const getTranslatedListSelector = apiSelector(GET_ALL_KEYS_REQUEST);

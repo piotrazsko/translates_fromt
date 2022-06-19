@@ -229,14 +229,9 @@ const TranslatesGrid = ({
                                       <IconButton
                                           color="primary"
                                           onClick={() => {
+                                              console.log(row);
                                               history.push(
-                                                  `/translates/${applicationId}/edit?${new URLSearchParams(
-                                                      {
-                                                          key: row.key,
-                                                          namespace:
-                                                              row.namespace,
-                                                      },
-                                                  ).toString()}`,
+                                                  `/translates/${applicationId}/${row.id}`,
                                               );
                                           }}
                                           size="large"
@@ -247,8 +242,7 @@ const TranslatesGrid = ({
                                           color="warning"
                                           onClick={() =>
                                               onDelete({
-                                                  key: row.key,
-                                                  namespace: row.namespace,
+                                                  translateId: row.id,
                                               })
                                           }
                                           size="large"

@@ -45,11 +45,15 @@ const TranslatesManager = ({
     location: { pathname, search },
     ...props
 }) => {
-    const { applicationId: applicationidFromUrl } =
-        getDataFromCurrentLocarion();
+    const {
+        applicationId: applicationidFromUrl,
+        ...rest
+    } = getDataFromCurrentLocarion();
+    console.log(rest, applicationidFromUrl);
 
-    const [applicationId, setApplicationId] =
-        React.useState(applicationidFromUrl);
+    const [applicationId, setApplicationId] = React.useState(
+        applicationidFromUrl,
+    );
 
     console.log(props);
 
@@ -93,20 +97,21 @@ const TranslatesManager = ({
     }, [res]);
 
     const data = React.useMemo(() => {
-        return (
-            searchText
-                ? res.filter((item) => {
-                      return (
-                          `${item.key} ${item.namespace}`
-                              .toLowerCase()
-                              .indexOf(searchText.toLowerCase()) !== -1
-                      );
-                  })
-                : res
+        return (searchText
+            ? res.filter((item) => {
+                  return (
+                      `${item.key} ${item.namespace}`
+                          .toLowerCase()
+                          .indexOf(searchText.toLowerCase()) !== -1
+                  );
+              })
+            : res
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
 
-    const onDelete = React.useCallback(({ apiKey, key, namespace }) => {
+    console.log(data);
+
+    const onDelete = React.useCallback(({ translateId }) => {
         dispatch(
             showPopupAction({
                 message: t('message.delete_translate'),
@@ -115,7 +120,7 @@ const TranslatesManager = ({
                 onClick: () => {
                     dispatch(
                         deleteTranslateByKeyRequest(
-                            { key, namespace, applicationId },
+                            { translateId, applicationId },
                             {
                                 onSuccess: () => {
                                     dispatch(

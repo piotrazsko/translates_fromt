@@ -28,25 +28,28 @@ const validationSchema = yup.object({
 export const useHook = ({ location, history, applicationId, id, classes }) => {
     const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
 
-    const { key, namespace } = React.useMemo(() => {
+    const { key, namespace, translateId } = React.useMemo(() => {
         const { search } = location;
         return getDataFromUrl(search);
     }, [location]);
+
+    console.log(translateId, applicationId, id);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        if (key) {
+        if (id !== 'add') {
             dispatch(
                 getTranslatesByKeyRequest({
                     key: key,
                     namespace: namespace,
                     applicationId,
+                    translateId: id,
                 }),
             );
         }
-    }, [key, namespace]);
+    }, [id]);
 
     const translateData = useSelector(getTranslatesByKeySelector);
 

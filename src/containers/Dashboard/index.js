@@ -9,10 +9,10 @@ const Dashboard = ({ ...props }) => {
         <PageSkeleton title={t('dashboard.title')}>
             <Grid container spacing={6}>
                 <Grid item xs={6}>
-                    <Pane title={'dashboard.pane1'}>Dashboard</Pane>
+                    <Pane title={t('dashboard.applications')}>Dashboard</Pane>
                 </Grid>
                 <Grid item xs={6}>
-                    <Pane>Dashboard</Pane>
+                    <Pane title={t('dashboard.statistics')}>Dashboard</Pane>
                 </Grid>
             </Grid>
         </PageSkeleton>

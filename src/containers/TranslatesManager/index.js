@@ -263,7 +263,7 @@ const TranslatesManager = ({
                         </>
                     ) : (
                         <PagePlaceholder>
-                            {t('translates.placeholder.grid')}
+                            {t('translates.placeholder_grid')}
                         </PagePlaceholder>
                     )}{' '}
                 </Pane>

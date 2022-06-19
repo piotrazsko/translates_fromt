@@ -6,12 +6,10 @@ import { Grid } from '@mui/material';
 const Dashboard = ({ ...props }) => {
     const { t } = useTranslation();
     return (
-        <PageSkeleton title={t('title.dashboard')}>
+        <PageSkeleton title={t('dashboard.title')}>
             <Grid container spacing={6}>
                 <Grid item xs={6}>
-                    <Pane title={'dashboard.title.applications'}>
-                        Dashboard
-                    </Pane>
+                    <Pane title={'dashboard.pane1'}>Dashboard</Pane>
                 </Grid>
                 <Grid item xs={6}>
                     <Pane>Dashboard</Pane>

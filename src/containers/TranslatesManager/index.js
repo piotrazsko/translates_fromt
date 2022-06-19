@@ -110,42 +110,44 @@ const TranslatesManager = ({
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
 
-    const onDelete = React.useCallback(({ translateId }) => {
-        dispatch(
-            showPopupAction({
-                message: t('message.delete_translate'),
-                title: t('message.delete_translate'),
+    const onDelete = React.useCallback(
+        ({ translateId }) => {
+            dispatch(
+                showPopupAction({
+                    message: t('message.delete_translate'),
+                    title: t('message.delete_translate'),
 
-                onClick: () => {
-                    dispatch(
-                        deleteTranslateByKeyRequest(
-                            { translateId, applicationId },
-                            {
-                                onSuccess: () => {
-                                    dispatch(
-                                        getAllKeysByApplicarionRequest({
-                                            applicationId,
-                                        }),
-                                    );
+                    onClick: () => {
+                        dispatch(
+                            deleteTranslateByKeyRequest(
+                                { translateId, applicationId },
+                                {
+                                    onSuccess: () => {
+                                        dispatch(
+                                            getAllKeysByApplicarionRequest({
+                                                applicationId,
+                                            }),
+                                        );
+                                    },
                                 },
-                            },
-                        ),
-                    );
-                    return true;
-                },
-                onCancel: () => true,
-                showCancel: true,
-                submitButtonText: t('button.ok'),
-                cancelButtonText: t('button.cancel'),
-                confirmButtonProps: {
-                    color: 'error',
-                    classes: { root: classes.root },
-                    style: { marginLeft: '10px' },
-                },
-                cancelButtonProps: {},
-            }),
-        );
-    }, []);
+                            ),
+                        );
+                        return true;
+                    },
+                    onCancel: () => true,
+                    showCancel: true,
+                    submitButtonText: t('button.ok'),
+                    cancelButtonText: t('button.cancel'),
+                    confirmButtonProps: {
+                        color: 'error',
+                        classes: { root: classes.root },
+                    },
+                    cancelButtonProps: {},
+                }),
+            );
+        },
+        [applicationId],
+    );
 
     const [dense, setDense] = React.useState(true);
 

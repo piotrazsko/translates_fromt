@@ -123,6 +123,7 @@ const Popup = ({ ...props }) => {
                                 type="submit"
                                 fontSize={'0.8rem'}
                                 size="large"
+                                className={styles.confirmButton}
                                 {...confirmButtonProps}
                             >
                                 {submitButtonText}

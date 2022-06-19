@@ -25,7 +25,7 @@ function* rootSaga(dispatch) {
     yield all([
         apiWatchRequest(
             {
-                additiveCallback: function*({
+                additiveCallback: function* ({
                     showLoaderFlag = false,
                     ...data
                 }) {
@@ -41,7 +41,7 @@ function* rootSaga(dispatch) {
                     }
                     return data;
                 },
-                successCallback: function*(data) {
+                successCallback: function* (data) {
                     // yield put(hideLoader());
                     if (
                         data.config.method === 'put' ||
@@ -61,7 +61,7 @@ function* rootSaga(dispatch) {
                         }
                     }
                 },
-                failedCallback: function*(data) {
+                failedCallback: function* (data) {
                     const dataStatus = data.status;
                     // redirect to login
                     // yield put(hideLoader());
@@ -69,6 +69,11 @@ function* rootSaga(dispatch) {
                     switch (true) {
                         case typeof error === 'object' &&
                             error.type === 'popup': {
+                            yield put(showError({ message: error.message }));
+                            return;
+                        }
+                        case typeof error === 'object' &&
+                            error.type === 'snack': {
                             yield put(showError({ message: error.message }));
                             return;
                         }

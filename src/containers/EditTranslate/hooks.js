@@ -9,8 +9,9 @@ import {
     getTranslatesByKeyRequest,
     getTranslatesByKeySelector,
     setTranslatesByKeyRequest,
-    deleteTranslatesByKeyAndLangRequest,
+    deleteTranslatesByIdAndLangRequest,
     getRecommendedTranslateRequest,
+    updateTranslatesByKeyRequest,
 } from 'modules/translates';
 
 import get from 'lodash/get';
@@ -28,12 +29,10 @@ const validationSchema = yup.object({
 export const useHook = ({ location, history, applicationId, id, classes }) => {
     const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
 
-    const { key, namespace, translateId } = React.useMemo(() => {
+    const { key, namespace } = React.useMemo(() => {
         const { search } = location;
         return getDataFromUrl(search);
     }, [location]);
-
-    console.log(translateId, applicationId, id);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -42,8 +41,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         if (id !== 'add') {
             dispatch(
                 getTranslatesByKeyRequest({
-                    key: key,
-                    namespace: namespace,
                     applicationId,
                     translateId: id,
                 }),
@@ -52,7 +49,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     }, [id]);
 
     const translateData = useSelector(getTranslatesByKeySelector);
-
     const {
         handleChange,
         handleBlur,
@@ -72,28 +68,51 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            dispatch(
-                setTranslatesByKeyRequest(
-                    { ...values, applicationId },
-                    {
-                        onSuccess: () => {
-                            history.goBack();
+            if (id === 'add') {
+                dispatch(
+                    setTranslatesByKeyRequest(
+                        { ...values, applicationId },
+                        {
+                            onSuccess: () => {
+                                history.goBack();
+                            },
+                            onFailure: (data) => {
+                                setErrors({
+                                    ...errors,
+                                    ...get(data, 'response.data.error'),
+                                });
+                            },
                         },
-                        onFailure: (data) => {
-                            setErrors({
-                                ...errors,
-                                ...get(data, 'response.data.error'),
-                            });
+                    ),
+                );
+            } else {
+                console.log(values);
+                dispatch(
+                    updateTranslatesByKeyRequest(
+                        {
+                            ...values,
+                            applicationId,
+                            translateId: id,
                         },
-                    },
-                ),
-            );
-            // alert(JSON.stringify(values, null, 2));
+                        {
+                            onSuccess: () => {
+                                history.goBack();
+                            },
+                            onFailure: (data) => {
+                                setErrors({
+                                    ...errors,
+                                    ...get(data, 'response.data.error'),
+                                });
+                            },
+                        },
+                    ),
+                );
+            }
         },
     });
 
     React.useEffect(() => {
-        if (translateData.loaded && id == 'edit') {
+        if (translateData.loaded && id !== 'add') {
             for (const key in translateData) {
                 if (
                     Object.hasOwnProperty.call(translateData, key) &&
@@ -132,19 +151,18 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                                     ),
                                 ]);
                                 dispatch(
-                                    deleteTranslatesByKeyAndLangRequest(
+                                    deleteTranslatesByIdAndLangRequest(
                                         {
-                                            key,
-                                            namespace,
                                             language,
                                             applicationId,
+                                            translateId: id,
                                         },
                                         {
                                             onSuccess: () => {
                                                 dispatch(
                                                     getTranslatesByKeyRequest({
-                                                        key: key,
-                                                        namespace: namespace,
+                                                        applicationId,
+                                                        translateId: id,
                                                     }),
                                                 );
                                             },

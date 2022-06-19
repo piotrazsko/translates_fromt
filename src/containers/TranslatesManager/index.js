@@ -45,17 +45,11 @@ const TranslatesManager = ({
     location: { pathname, search },
     ...props
 }) => {
-    const {
-        applicationId: applicationidFromUrl,
-        ...rest
-    } = getDataFromCurrentLocarion();
-    console.log(rest, applicationidFromUrl);
+    const { applicationId: applicationidFromUrl, ...rest } =
+        getDataFromCurrentLocarion();
 
-    const [applicationId, setApplicationId] = React.useState(
-        applicationidFromUrl,
-    );
-
-    console.log(props);
+    const [applicationId, setApplicationId] =
+        React.useState(applicationidFromUrl);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -66,6 +60,12 @@ const TranslatesManager = ({
     React.useEffect(() => {
         dispatch(getApplicationsListRequest());
     }, []);
+
+    React.useEffect(() => {
+        if (applications.length === 1 && !applicationId) {
+            setApplicationId(applications[0].id);
+        }
+    }, [applications, applicationId]);
 
     React.useEffect(() => {
         if (applicationId) {
@@ -97,19 +97,18 @@ const TranslatesManager = ({
     }, [res]);
 
     const data = React.useMemo(() => {
-        return (searchText
-            ? res.filter((item) => {
-                  return (
-                      `${item.key} ${item.namespace}`
-                          .toLowerCase()
-                          .indexOf(searchText.toLowerCase()) !== -1
-                  );
-              })
-            : res
+        return (
+            searchText
+                ? res.filter((item) => {
+                      return (
+                          `${item.key} ${item.namespace}`
+                              .toLowerCase()
+                              .indexOf(searchText.toLowerCase()) !== -1
+                      );
+                  })
+                : res
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
-
-    console.log(data);
 
     const onDelete = React.useCallback(({ translateId }) => {
         dispatch(

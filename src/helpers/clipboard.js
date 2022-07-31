@@ -1,15 +1,10 @@
-export const saveToClipBoard = async (str) => {
-    return await navigator.clipboard.writeText(str);
-    // const range = new Range();
-    // const div = document.createElement('div');
-    // div.textContent = 'str';
-    // div.style = {
-    //     display: 'none',
-    // };
-    // document.body.appendChild(div);
-    // const selection = window.getSelection();
-    // selection.removeAllRanges();
-    // range.selectNode(div);
-    // selection.addRange(range);
-    // document.execCommand('copy');
+import { showInfo } from 'modules/notification';
+
+export const saveToClipBoard = (dispatch, t) => (str) => {
+    navigator.clipboard.writeText(str);
+    dispatch(
+        showInfo({
+            message: t('message.copied_to_clipboard'),
+        }),
+    );
 };

@@ -1,7 +1,7 @@
 import {
     Home,
     TranslatesManager,
-    EditTranslate,
+    TranslateEdit,
     Auth,
     LayoutEmpty,
     SignUp,
@@ -13,6 +13,7 @@ import {
     Billing,
     Dashboard,
     Applications,
+    ApplicationEdit,
 } from 'containers';
 import HomeLayout from '../containers/Home/Layout';
 
@@ -42,6 +43,13 @@ const mainRoutes = [
         showSidebar: true,
     },
     {
+        path: '/applications/:id',
+        exact: true,
+        component: ApplicationEdit,
+        showHeader: true,
+        showSidebar: true,
+    },
+    {
         path: '/translates',
         exact: true,
         component: TranslatesManager,
@@ -61,7 +69,7 @@ const mainRoutes = [
         path: '/translates/:applicationId/:id?',
         exact: true,
         isPrivate: true,
-        component: EditTranslate,
+        component: TranslateEdit,
     },
     {
         path: '/login',

@@ -7,6 +7,7 @@ export { default as SearchField } from './SearchField';
 export { default as Popup } from './Popup';
 export { default as Pane } from './Pane';
 export { default as PagePlaceholder } from './PagePlaceholder';
+export { default as EditPageSkeleton } from './EditPageSkeleton';
 
 export * from './Inputs';
 export * from './Selects';

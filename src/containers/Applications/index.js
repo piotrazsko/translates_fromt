@@ -33,6 +33,7 @@ const Applications = ({ history, ...props }) => {
     const onCancel = () => {
         switchPopup(!showPopup);
     };
+
     const onSubmitPopup = (data) => {
         dispatch(
             addApplicationRequest(data, {
@@ -77,8 +78,7 @@ const Applications = ({ history, ...props }) => {
     };
 
     const onEdit = (data) => {
-        setApplicationName(data.name);
-        onCancel();
+        history.push(`/applications/${data.id}`);
     };
 
     return (

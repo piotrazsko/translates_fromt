@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
-import { showInfo } from 'modules/notification';
 import { saveToClipBoard } from 'helpers/clipboard';
 
 const APIPage = ({ ...props }) => {
@@ -19,12 +18,7 @@ const APIPage = ({ ...props }) => {
     }, []);
     const saveToClipBoadrdAndMessage = React.useCallback(
         (str) => (ev) => {
-            saveToClipBoard(str);
-            dispatch(
-                showInfo({
-                    message: t('message.copied_to_clipboard'),
-                }),
-            );
+            saveToClipBoard(dispatch, t)(str);
         },
         [],
     );

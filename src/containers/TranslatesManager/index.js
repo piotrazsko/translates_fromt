@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import makeStyles from '@mui/styles/makeStyles';
-import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Grid';
@@ -16,7 +15,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { PagePlaceholder, PageSkeleton, Pane, Select } from 'components';
+
+import {
+    PagePlaceholder,
+    PageSkeleton,
+    Pane,
+    Select,
+    SearchField,
+} from 'components';
 import {
     getAllKeysByApplicarionRequest,
     getTranslatedListSelector,
@@ -45,11 +51,12 @@ const TranslatesManager = ({
     location: { pathname, search },
     ...props
 }) => {
-    const { applicationId: applicationidFromUrl, ...rest } =
+    const { applicationId: applicationIdFromUrl, ...rest } =
         getDataFromCurrentLocarion();
 
-    const [applicationId, setApplicationId] =
-        React.useState(applicationidFromUrl);
+    const [applicationId, setApplicationId] = React.useState(null);
+
+    console.log(applicationId, applicationIdFromUrl);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -73,7 +80,7 @@ const TranslatesManager = ({
             history.push(`${pathname}?${url}`);
             dispatch(getAllKeysByApplicarionRequest({ applicationId }));
         }
-    }, [applicationId, applicationidFromUrl]);
+    }, [applicationId, applicationIdFromUrl]);
 
     const [tab, setTab] = React.useState(null);
     const [searchText, setSearchText] = React.useState();
@@ -158,6 +165,7 @@ const TranslatesManager = ({
                     <Grid container justifyContent="flex-end" spacing={2}>
                         <Grid item xs={2}>
                             <Select
+                                defaultValue={applicationId}
                                 value={applicationId}
                                 onChange={(ev) => {
                                     setApplicationId(ev.target.value);
@@ -170,38 +178,10 @@ const TranslatesManager = ({
                             ></Select>
                         </Grid>
                         <Grid item xs={7}>
-                            <TextField
+                            <SearchField
                                 fullWidth
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment
-                                            position="start"
-                                            color="primary"
-                                        >
-                                            <SearchIcon />
-                                        </InputAdornment>
-                                    ),
-                                    endAdornment: searchText ? (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                onClick={() =>
-                                                    setSearchText('')
-                                                }
-                                                size="small"
-                                            >
-                                                <ClearIcon />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ) : (
-                                        false
-                                    ),
-                                }}
-                                required
-                                value={searchText}
-                                onChange={(ev) =>
-                                    setSearchText(ev.target.value)
-                                }
-                                variant="outlined"
+                                searchText={searchText}
+                                setSearchText={setSearchText}
                                 placeholder={t('input.searchplaceholder')}
                             />
                         </Grid>

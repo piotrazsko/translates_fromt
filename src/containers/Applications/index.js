@@ -1,17 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    Grid,
-    TextField,
-    InputAdornment,
-    IconButton,
-    Button,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
+import { Grid, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PageSkeleton, Pane, LanguageSelect } from 'components';
+import { PageSkeleton, Pane, SearchField } from 'components';
 import { showPopupAction } from 'modules/popups';
 import {
     getApplicationsListRequest,
@@ -31,9 +23,13 @@ const Applications = ({ history, ...props }) => {
     React.useEffect(() => {
         dispatch(getApplicationsListRequest());
     }, []);
+
     const applications = useSelector(getApplicationsListSelector);
+
     console.log(applications);
+
     const [searchText, setSearchText] = React.useState();
+
     const onCancel = () => {
         switchPopup(!showPopup);
     };
@@ -49,12 +45,12 @@ const Applications = ({ history, ...props }) => {
     };
 
     const [applicationName, setApplicationName] = React.useState('');
+
     const onDelete = (data) => {
         dispatch(
             showPopupAction({
                 // message: t('message.delete_application'),
                 title: t('title.delete_application'),
-
                 onClick: () => {
                     dispatch(
                         deleteApplicationRequest(
@@ -79,6 +75,7 @@ const Applications = ({ history, ...props }) => {
             }),
         );
     };
+
     const onEdit = (data) => {
         setApplicationName(data.name);
         onCancel();
@@ -100,40 +97,11 @@ const Applications = ({ history, ...props }) => {
                         <Pane title={'applications.title.applications'}>
                             <Grid container spacing={6}>
                                 <Grid item xs={10}>
-                                    <TextField
-                                        fullWidth
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment
-                                                    position="start"
-                                                    color="primary"
-                                                >
-                                                    <SearchIcon />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: searchText ? (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        onClick={() =>
-                                                            setSearchText('')
-                                                        }
-                                                        size="small"
-                                                    >
-                                                        <ClearIcon />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ) : (
-                                                false
-                                            ),
-                                        }}
-                                        required
-                                        value={searchText}
-                                        onChange={(ev) =>
-                                            setSearchText(ev.target.value)
-                                        }
-                                        variant="outlined"
+                                    <SearchField
+                                        setSearchText={setSearchText}
+                                        searchText={searchText}
                                         placeholder={t(
-                                            'applications.input.searchplaceholder',
+                                            'applications.searchplaceholder',
                                         )}
                                     />
                                 </Grid>

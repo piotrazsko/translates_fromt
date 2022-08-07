@@ -14,6 +14,7 @@ export const GET_APPLICATION_BY_ID_REQUEST = `${modules}/GET_APPLICATION_BY_ID_R
 export const ADD_APPLICATION_REQUEST = `${modules}/ADD_APPLICATION_REQUEST`;
 export const UPDATE_APPLICATION_REQUEST = `${modules}/UPDATE_APPLICATION_REQUEST`;
 export const DELETE_APPLICATION_REQUEST = `${modules}/DELETE_APPLICATION_REQUEST`;
+export const GET_FULL_URL_BY_APPLICATION_REQUEST = `${modules}/GET_FULL_URL_BY_APPLICATION_REQUEST`;
 
 export const getApplicationsListRequest = actionCreator(
     GET_ALL_APPLICATIONS_REQUEST,
@@ -27,6 +28,19 @@ export const getApplicationByIdRequest = actionCreator(
 );
 export const updateApplicationRequest = actionCreator(
     UPDATE_APPLICATION_REQUEST,
+);
+
+export const getFullUrlRequest = actionCreator(
+    GET_FULL_URL_BY_APPLICATION_REQUEST,
+);
+
+apiRoutes.add(
+    GET_FULL_URL_BY_APPLICATION_REQUEST,
+    ({ applicationId } = {}) => ({
+        url: `/url-of-translates`,
+        method: 'get',
+        params: { applicationId },
+    }),
 );
 
 apiRoutes.add(GET_ALL_APPLICATIONS_REQUEST, ({ ...params } = {}) => ({
@@ -64,4 +78,8 @@ export const getApplicationsListSelector = apiSelector(
 
 export const getApplicationByIdSelector = apiSelector(
     GET_APPLICATION_BY_ID_REQUEST,
+);
+
+export const getFullUrlSelector = apiSelector(
+    GET_FULL_URL_BY_APPLICATION_REQUEST,
 );

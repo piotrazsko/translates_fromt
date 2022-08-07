@@ -3,26 +3,22 @@ import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import CardHeader from '@mui/material/CardHeader';
 
-import style from './style.scss';
+import styles from './style.scss';
 
-const Pane = ({ children, title = '' }) => {
+const Pane = ({ children, title = '', className, style = {} }) => {
     return (
-        <Card>
-            <CardContent>
-                {title ? (
-                    <Typography
-                        className={style.title}
-                        gutterBottom
-                        variant="h2"
-                        component="div"
-                    >
-                        {title}
-                    </Typography>
-                ) : null}
-                {children}
-            </CardContent>
+        <Card className={className} style={style}>
+            <CardHeader
+                title={title}
+                titleTypographyProps={{
+                    variant: 'h2',
+                    gutterBottom: true,
+                    className: styles.title,
+                }}
+            />
+            <CardContent>{children}</CardContent>
         </Card>
     );
 };

@@ -82,7 +82,7 @@ export const theme = createTheme({
             defaultProps: { size: 'medium' },
             styleOverrides: {
                 root: {
-                    height: 40,
+                    minHeight: 40,
                 },
                 sizeSmall: {
                     height: 32,

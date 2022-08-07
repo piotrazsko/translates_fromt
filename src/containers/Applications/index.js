@@ -91,10 +91,10 @@ const Applications = ({ history, ...props }) => {
                     onCancel={onCancel}
                 />
             ) : null}
-            <PageSkeleton title={t('title.applications')}>
+            <PageSkeleton title={t('title_applications')}>
                 <Grid container spacing={6}>
                     <Grid item xs={12}>
-                        <Pane title={'applications.title.applications'}>
+                        <Pane title={'applications.title_applications'}>
                             <Grid container spacing={6}>
                                 <Grid item xs={10}>
                                     <SearchField

@@ -7,7 +7,8 @@ import {
     getApplicationByIdRequest,
     getApplicationByIdSelector,
     updateApplicationRequest,
-    deleteApplicationRequest,
+    getFullUrlRequest,
+    getFullUrlSelector,
 } from 'modules/applications';
 import { getTextfieldErrorFromResponse } from 'helpers/error';
 import { saveToClipBoard } from 'helpers/clipboard';
@@ -24,10 +25,12 @@ export const useHook = ({ id, location, history, classes }) => {
     React.useEffect(() => {
         if (id) {
             dispatch(getApplicationByIdRequest({ applicationId: id }));
+            dispatch(getFullUrlRequest({ applicationId: id }));
         }
     }, [id]);
 
     const applicationData = useSelector(getApplicationByIdSelector) || {};
+    const { url } = useSelector(getFullUrlSelector);
 
     const { handleSubmit, values, handleChange, errors, setErrors } = useFormik(
         {
@@ -48,6 +51,7 @@ export const useHook = ({ id, location, history, classes }) => {
             },
             initialValues: {
                 applicationName: applicationData.name,
+                url: url,
             },
             enableReinitialize: true,
             validationSchema: validationSchema,
@@ -59,7 +63,6 @@ export const useHook = ({ id, location, history, classes }) => {
     const onSaveToClipBoard = (str) => {
         saveToClipBoard(dispatch, t)(str);
     };
-
     return {
         t,
         handleSubmit,

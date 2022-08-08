@@ -46,9 +46,10 @@ const Grid = ({
     setCellStyleAttr = () => ({}),
     gap = [0, 0],
     showGrid = false,
+    mountGrid = false,
 }) => {
     const divs = rows * cols;
-    const arr = Array(divs).fill(1);
+    const arr = mountGrid ? Array(divs).fill(1) : [];
 
     const [mouseDownCell, setMouseDown] = React.useState(null);
     const [mouseEnterCell, setMouseEnter] = React.useState([]);

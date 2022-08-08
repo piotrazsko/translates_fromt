@@ -1,38 +1,25 @@
 import React from 'react';
-import { Pane, GridGenerator, Cell } from 'components';
+import { Pane, GridGenerator, Cell, Chart } from 'components';
 import { Typography } from '@material-ui/core';
 
 import style from './style.scss';
 
 const Statistic = ({ data = {}, t, style }) => {
+    console.log(data);
+    const { maxTranslates, countTranslates } = data;
     return (
         <Pane style={style} title={t('application.statistic_block')}>
-            <GridGenerator
-                cols={4}
-                rows={4}
-                // showGrid
-                cellProps={{
-                    children: ({ col, row }) => <></>,
-                }}
-                gap={[12, 12]}
+            <Chart
+                percent={(countTranslates / maxTranslates) * 100}
+                max={t(
+                    'application.chart_diff',
+                    { max: maxTranslates },
+                    'from ${max}',
+                )}
+                count={countTranslates}
             >
-                <>
-                    <Cell
-                        col={0}
-                        row={0}
-                        colSpan={3}
-                        rowSpan={1}
-                        component={<div>statistics</div>}
-                    />
-                    <Cell
-                        col={3}
-                        row={0}
-                        colSpan={0}
-                        rowSpan={1}
-                        component={<div>10</div>}
-                    />
-                </>
-            </GridGenerator>
+                {t('application.translation_exist_statistic')}
+            </Chart>
         </Pane>
     );
 };

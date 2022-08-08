@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = makeStyles((theme) => ({
@@ -12,6 +13,10 @@ export const useStyles = makeStyles((theme) => ({
         margin: '30px 0 0 0 !important',
         whiteSpace: 'pre-wrap',
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
 }));
 
 const PageSkeleton = ({
@@ -19,12 +24,19 @@ const PageSkeleton = ({
     children,
     verticalOffset = 0,
     grey = false,
+    buttonProps = {},
+    showButton = false,
+    headerControlls = null,
 }) => {
     const classes = useStyles();
     return (
         <Grid container classes={{ root: classes.container }}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
                 <Typography variant="h1">{title}</Typography>
+            </Grid>
+            <Grid xs={6} className={classes.buttonContainer}>
+                {headerControlls}
+                {showButton ? <Button {...buttonProps}></Button> : null}
             </Grid>
             <Grid
                 classes={{

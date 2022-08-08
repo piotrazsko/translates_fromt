@@ -1,0 +1,28 @@
+@import '/src/style/theme.scss';
+$height: 16px;
+$radius: 40px;
+
+.container {
+}
+.chart {
+    background-color: $purple;
+    height: $height;
+    border-radius: $radius;
+}
+.chartContainer {
+    background-color: $lightGrey;
+    height: $height;
+    border-radius: $radius;
+}
+.title {
+    margin-bottom: 18px;
+}
+.countContainer {
+    margin-top: 16px;
+    .count {
+        color: $black;
+    }
+    .max {
+        color: $purple;
+    }
+}

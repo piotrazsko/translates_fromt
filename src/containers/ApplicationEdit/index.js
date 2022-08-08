@@ -8,6 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IconButton from '@mui/material/IconButton';
 import Statistic from './components/Statistic';
+import Export from './components/Export';
 
 import {
     PageSkeleton,
@@ -46,6 +47,7 @@ const ApplicationEdit = ({
         onCancel,
         onSaveToClipBoard,
         url,
+        applicationData,
     } = useHook({
         id,
         location,
@@ -55,16 +57,26 @@ const ApplicationEdit = ({
     });
 
     return (
-        <PageSkeleton title={t('application.edit')}>
+        <PageSkeleton
+            title={t('application.edit')}
+            showButton
+            buttonProps={{
+                color: 'error',
+                children: 'test',
+                variant: 'outlined',
+            }}
+        >
             <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>
                 <GridGenerator
                     cols={12}
-                    rows={1}
+                    rows={2}
                     // showGrid
-                    cellProps={{
-                        children: ({ col, row }) => <div></div>,
-                    }}
-                    gap={[12, 12]}
+                    cellProps={
+                        {
+                            // children: ({ col, row }) => <div></div>,
+                        }
+                    }
+                    gap={[48, 24]}
                 >
                     <Cell
                         col={0}
@@ -165,7 +177,14 @@ const ApplicationEdit = ({
                         row={0}
                         colSpan={5}
                         rowSpan={1}
-                        component={<Statistic t={t} />}
+                        component={<Statistic data={applicationData} t={t} />}
+                    />
+                    <Cell
+                        col={0}
+                        row={1}
+                        colSpan={12}
+                        rowSpan={1}
+                        component={<Export t={t} />}
                     />
                 </GridGenerator>
             </EditPageSkeleton>

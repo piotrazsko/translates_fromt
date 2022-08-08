@@ -13,7 +13,7 @@ export const Cell = ({
         colSpan + col + 1
     }`;
     return component ? (
-        React.cloneElement(component, { style: { gridArea } })
+        React.cloneElement(component, { style: { gridArea } }, children)
     ) : (
         <div style={{ gridArea: gridArea }}>{children}</div>
     );

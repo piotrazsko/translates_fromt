@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import style from './style.scss';
 
 const Export = ({ data = {}, t, style }) => {
-    return <Pane style={style} title={t('application.export_block')}></Pane>;
+    return <></>;
 };
 
 export default Export;

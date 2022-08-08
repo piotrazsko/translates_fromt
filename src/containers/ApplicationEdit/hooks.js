@@ -72,5 +72,6 @@ export const useHook = ({ id, location, history, classes }) => {
         onCancel,
         onSaveToClipBoard,
         applicationData,
+        url,
     };
 };

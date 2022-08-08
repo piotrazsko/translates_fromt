@@ -1,22 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import makeStyles from '@mui/styles/makeStyles';
-import InputAdornment from '@mui/material/InputAdornment';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import IconButton from '@mui/material/IconButton';
+
 import Statistic from './components/Statistic';
 import Export from './components/Export';
-
+import ApplicationData from './components/ApplicationData';
 import {
     PageSkeleton,
-    Pane,
     EditPageSkeleton,
     GridGenerator,
     Cell,
+    Pane,
 } from 'components';
+
 import { useHook } from './hooks';
 
 import style from './style.scss';
@@ -69,7 +65,7 @@ const ApplicationEdit = ({
             <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>
                 <GridGenerator
                     cols={12}
-                    rows={2}
+                    rows={3}
                     // showGrid
                     cellProps={
                         {
@@ -82,110 +78,43 @@ const ApplicationEdit = ({
                         col={0}
                         row={0}
                         colSpan={7}
-                        rowSpan={1}
-                        component={
-                            <Pane title={t('application.edit_block')}>
-                                <Grid container spacing={3}>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            fullWidth
-                                            value={id}
-                                            variant="standard"
-                                            placeholder={t(
-                                                'application.application_id',
-                                            )}
-                                            label={t(
-                                                'application.application_id',
-                                            )}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={() =>
-                                                                onSaveToClipBoard(
-                                                                    id,
-                                                                )
-                                                            }
-                                                            size="small"
-                                                        >
-                                                            <ContentCopyIcon />
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            fullWidth
-                                            variant="standard"
-                                            InputLabelProps={{ shrink: true }}
-                                            placeholder={t(
-                                                'application.application_name',
-                                            )}
-                                            label={t(
-                                                'application.application_name',
-                                            )}
-                                            value={values.applicationName}
-                                            onChange={handleChange(
-                                                'applicationName',
-                                            )}
-                                            helperText={errors.applicationName}
-                                            error={errors.applicationName}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            fullWidth
-                                            variant="standard"
-                                            multiline
-                                            rows={4}
-                                            InputLabelProps={{ shrink: true }}
-                                            placeholder={t(
-                                                'application.application_full_link',
-                                            )}
-                                            label={t(
-                                                'application.application_full_link',
-                                            )}
-                                            value={values.url}
-                                            helperText={errors.url}
-                                            error={errors.url}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={() =>
-                                                                onSaveToClipBoard(
-                                                                    url,
-                                                                )
-                                                            }
-                                                            size="small"
-                                                        >
-                                                            <ContentCopyIcon />
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Pane>
-                        }
-                    />
+                        rowSpan={2}
+                        component={<Pane title={t('application.edit_block')} />}
+                    >
+                        <ApplicationData
+                            t={t}
+                            {...{
+                                values,
+                                handleChange,
+                                errors,
+                                onSaveToClipBoard,
+                                url,
+                                id,
+                            }}
+                        />
+                    </Cell>
                     <Cell
                         col={7}
                         row={0}
                         colSpan={5}
-                        rowSpan={1}
-                        component={<Statistic data={applicationData} t={t} />}
-                    />
+                        rowSpan={2}
+                        component={
+                            <Pane title={t('application.statistic_block')} />
+                        }
+                    >
+                        <Statistic data={applicationData} t={t} />
+                    </Cell>
                     <Cell
                         col={0}
-                        row={1}
+                        row={2}
                         colSpan={12}
                         rowSpan={1}
-                        component={<Export t={t} />}
-                    />
+                        component={
+                            <Pane title={t('application.export_block')} />
+                        }
+                    >
+                        <Export t={t} />
+                    </Cell>
                 </GridGenerator>
             </EditPageSkeleton>
         </PageSkeleton>

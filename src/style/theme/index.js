@@ -78,20 +78,26 @@ export const theme = createTheme({
                 },
             },
         },
-        MuiInputBase: {
-            defaultProps: { size: 'medium' },
+        MuiTextField: {
+            defaultProps: { size: 'small' },
+        },
+        MuiSelect: {
+            defaultProps: { size: 'small' },
+        },
+        MuiInput: {
+            defaultProps: { size: 'small' },
             styleOverrides: {
-                root: {
+                // root: {
+                //     minHeight: 40,
+                // },
+                sizeSmall: {
                     minHeight: 40,
                 },
-                sizeSmall: {
-                    height: 32,
-                },
                 sizeMedium: {
-                    height: 40,
+                    minHeight: 44,
                 },
                 sizeLarge: {
-                    height: 48,
+                    minHeight: 48,
                 },
                 inputMultiline: {
                     height: 80,

@@ -36,6 +36,7 @@ const AddApplicationPopup = ({
                     error={errors.name}
                     value={values.name}
                     helperText={errors.name}
+                    fullWidth
                 />
             </Popup>
         </form>

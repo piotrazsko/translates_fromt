@@ -60,6 +60,8 @@ const ApplicationData = ({
                     variant="standard"
                     multiline
                     rows={4}
+                    minRows={4}
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
                     placeholder={t('application.application_full_link')}
                     label={t('application.application_full_link')}

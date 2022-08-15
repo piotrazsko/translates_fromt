@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import style from './style.scss';
 import Typography from '@mui/material/Typography';
 
-const Chart = ({ percent = 10, color, max, count, children }) => {
+const Chart = ({ percent = 10, color, max, count, children, className }) => {
     return (
-        <div className={style.container}>
-            <Typography className={style.title}>{children}</Typography>
+        <div className={[style.container, className].join(' ')}>
+            <Typography className={style.title} variant="body2">
+                {children}
+            </Typography>
 
             <div className={style.chartContainer}>
                 <div

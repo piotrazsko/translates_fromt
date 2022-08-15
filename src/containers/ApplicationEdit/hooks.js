@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { showPopupAction } from 'modules/popups';
-
+import get from 'lodash/get';
 import {
     getApplicationByIdRequest,
     getApplicationByIdSelector,
@@ -13,9 +13,76 @@ import {
     getFullUrlSelector,
     deleteApplicationRequest,
 } from 'modules/applications';
+import {
+    getExportJsonRequest,
+    postImportJsonRequest,
+} from 'modules/translates';
+import {
+    getStatisticsByApplicationRequest,
+    getStatisticsByApplicationSelector,
+} from 'modules/statistics';
 
 import { getTextfieldErrorFromResponse } from 'helpers/error';
 import { saveToClipBoard } from 'helpers/clipboard';
+
+const getFullData = (dispatch, applicationId) => {
+    if (applicationId) {
+        dispatch(getApplicationByIdRequest({ applicationId }));
+        dispatch(getFullUrlRequest({ applicationId }));
+        dispatch(getStatisticsByApplicationRequest({ applicationId }));
+    }
+};
+
+export const useUploadTranslates = ({ applicationId, onSuccess }) => {
+    const ref = React.useRef(null);
+    const dispatch = useDispatch();
+    const uploadAction = React.useCallback(() => {
+        if (ref.current) {
+            const upload = function() {
+                // setTranzactionsFile(ref.current.files[0]);
+                const fd = new FormData();
+                fd.append('translate', ref.current.files[0]);
+                fd.append('applicationId', applicationId);
+                dispatch(
+                    postImportJsonRequest(fd, {
+                        onSuccess: () => {
+                            getFullData(dispatch, applicationId);
+                        },
+                    }),
+                );
+                ref.current.removeEventListener('change', upload);
+            };
+            ref.current.addEventListener('change', upload);
+            ref.current.click();
+        }
+    }, []);
+    return { onUpload: uploadAction, inputFileRef: ref };
+};
+
+export const useDownloadTranslates = ({ applicationId }) => {
+    const dispatch = useDispatch();
+    const onDownload = React.useCallback(() => {
+        dispatch(
+            getExportJsonRequest(
+                { applicationId },
+                {
+                    onSuccess: (response) => {
+                        const exportJson = get(response, 'data');
+                        const resJson = JSON.stringify(exportJson);
+                        const data =
+                            'text/json;charset=utf-8,' +
+                            encodeURIComponent(resJson);
+                        const link = document.createElement('a');
+                        link.href = 'data:' + data;
+                        link.download = 'data.json';
+                        link.click();
+                    },
+                },
+            ),
+        );
+    }, []);
+    return { onDownload };
+};
 
 export const useDeleteApllication = ({ onSuccess = () => {} }) => {
     const { t } = useTranslation();
@@ -60,18 +127,22 @@ const validationSchema = yup.object({
         .required(),
 });
 
+export const useGetFullData = (id) => {
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        getFullData(dispatch, id);
+    }, [id]);
+};
+
 export const useHook = ({ id, location, history, classes }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-
-    React.useEffect(() => {
-        if (id) {
-            dispatch(getApplicationByIdRequest({ applicationId: id }));
-            dispatch(getFullUrlRequest({ applicationId: id }));
-        }
-    }, [id]);
+    useGetFullData(id);
 
     const applicationData = useSelector(getApplicationByIdSelector) || {};
+    const applicationStatistics = useSelector(
+        getStatisticsByApplicationSelector,
+    );
     const { url } = useSelector(getFullUrlSelector);
 
     const { handleSubmit, values, handleChange, errors, setErrors } = useFormik(
@@ -115,5 +186,6 @@ export const useHook = ({ id, location, history, classes }) => {
         onSaveToClipBoard,
         applicationData,
         url,
+        applicationStatistics,
     };
 };

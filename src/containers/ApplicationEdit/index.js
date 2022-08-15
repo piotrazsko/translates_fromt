@@ -13,7 +13,12 @@ import {
     Pane,
 } from 'components';
 
-import { useHook, useDeleteApllication } from './hooks';
+import {
+    useHook,
+    useDeleteApllication,
+    useDownloadTranslates,
+    useUploadTranslates,
+} from './hooks';
 
 import style from './style.scss';
 import { push } from 'react-router-redux';
@@ -45,6 +50,7 @@ const ApplicationEdit = ({
         onSaveToClipBoard,
         url,
         applicationData,
+        applicationStatistics,
     } = useHook({
         id,
         location,
@@ -57,7 +63,10 @@ const ApplicationEdit = ({
             history.push('/applications');
         },
     });
-
+    const { onDownload } = useDownloadTranslates({ applicationId: id });
+    const { onUpload, inputFileRef } = useUploadTranslates({
+        applicationId: id,
+    });
     return (
         <PageSkeleton
             title={t('application.edit')}
@@ -109,7 +118,11 @@ const ApplicationEdit = ({
                             <Pane title={t('application.statistic_block')} />
                         }
                     >
-                        <Statistic data={applicationData} t={t} />
+                        <Statistic
+                            data={applicationData}
+                            applicationStatistics={applicationStatistics}
+                            t={t}
+                        />
                     </Cell>
                     <Cell
                         col={0}
@@ -120,7 +133,12 @@ const ApplicationEdit = ({
                             <Pane title={t('application.export_block')} />
                         }
                     >
-                        <Export t={t} />
+                        <Export
+                            t={t}
+                            inputFileRef={inputFileRef}
+                            onDownload={onDownload}
+                            onUpload={onUpload}
+                        />
                     </Cell>
                 </GridGenerator>
             </EditPageSkeleton>

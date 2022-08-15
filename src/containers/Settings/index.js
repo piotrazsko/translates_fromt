@@ -32,31 +32,10 @@ const validationSchema = yup.object({
 const Settings = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const onDownload = React.useCallback(() => {
-        dispatch(
-            getExportJsonRequest(
-                {},
-                {
-                    onSuccess: (response) => {
-                        console.log(response);
-                        const exportJson = get(response, 'data');
-                        const resJson = JSON.stringify(exportJson);
-                        const data =
-                            'text/json;charset=utf-8,' +
-                            encodeURIComponent(resJson);
-                        const link = document.createElement('a');
-                        link.href = 'data:' + data;
-                        link.download = 'data.json';
-                        link.click();
-                    },
-                },
-            ),
-        );
-    }, []);
 
-    const ref = React.useRef(null);
     const ref2 = React.useRef(null);
 
+    const ref = React.useRef(null);
     const uploadAction = React.useCallback(() => {
         if (ref.current) {
             const upload = function() {
@@ -70,6 +49,7 @@ const Settings = ({ ...props }) => {
             ref.current.click();
         }
     }, []);
+
     const onDelete = () => {
         dispatch(
             showPopupAction({
@@ -149,11 +129,6 @@ const Settings = ({ ...props }) => {
                     {t('text.manage_your_translates')}
                 </Typography>
                 <Grid container spacing={6}>
-                    <Grid item xs={4}>
-                        <Button variant="contained" onClick={onDownload}>
-                            {t('button.download_json')}
-                        </Button>
-                    </Grid>
                     <Grid item xs={4}>
                         <Button variant="contained" onClick={uploadAction}>
                             {t('button.upload_json')}

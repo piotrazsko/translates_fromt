@@ -51,8 +51,10 @@ const TranslatesManager = ({
     location: { pathname, search },
     ...props
 }) => {
-    const { applicationId: applicationIdFromUrl, ...rest } =
-        getDataFromCurrentLocarion();
+    const {
+        applicationId: applicationIdFromUrl,
+        ...rest
+    } = getDataFromCurrentLocarion();
 
     const [applicationId, setApplicationId] = React.useState(null);
 
@@ -104,16 +106,15 @@ const TranslatesManager = ({
     }, [res]);
 
     const data = React.useMemo(() => {
-        return (
-            searchText
-                ? res.filter((item) => {
-                      return (
-                          `${item.key} ${item.namespace}`
-                              .toLowerCase()
-                              .indexOf(searchText.toLowerCase()) !== -1
-                      );
-                  })
-                : res
+        return (searchText
+            ? res.filter((item) => {
+                  return (
+                      `${item.key} ${item.namespace}`
+                          .toLowerCase()
+                          .indexOf(searchText.toLowerCase()) !== -1
+                  );
+              })
+            : res
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
 
@@ -165,6 +166,7 @@ const TranslatesManager = ({
                     <Grid container justifyContent="flex-end" spacing={2}>
                         <Grid item xs={2}>
                             <Select
+                                defaultOpen
                                 defaultValue={applicationId}
                                 value={applicationId}
                                 onChange={(ev) => {

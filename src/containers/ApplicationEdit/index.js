@@ -13,9 +13,10 @@ import {
     Pane,
 } from 'components';
 
-import { useHook } from './hooks';
+import { useHook, useDeleteApllication } from './hooks';
 
 import style from './style.scss';
+import { push } from 'react-router-redux';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -51,6 +52,11 @@ const ApplicationEdit = ({
         classes,
         applicationId,
     });
+    const { onDelete } = useDeleteApllication({
+        onSuccess: () => {
+            history.push('/applications');
+        },
+    });
 
     return (
         <PageSkeleton
@@ -58,8 +64,9 @@ const ApplicationEdit = ({
             showButton
             buttonProps={{
                 color: 'error',
-                children: 'test',
+                children: t('application.button_delete'),
                 variant: 'outlined',
+                onClick: () => onDelete({ id }),
             }}
         >
             <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>

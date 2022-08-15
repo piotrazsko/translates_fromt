@@ -3,19 +3,61 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import { showPopupAction } from 'modules/popups';
+
 import {
     getApplicationByIdRequest,
     getApplicationByIdSelector,
     updateApplicationRequest,
     getFullUrlRequest,
     getFullUrlSelector,
+    deleteApplicationRequest,
 } from 'modules/applications';
+
 import { getTextfieldErrorFromResponse } from 'helpers/error';
 import { saveToClipBoard } from 'helpers/clipboard';
-import { showInfo } from 'modules/notification';
+
+export const useDeleteApllication = ({ onSuccess = () => {} }) => {
+    const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const onDelete = (data) => {
+        dispatch(
+            showPopupAction({
+                // message: t('message.delete_application'),
+                title: t('title.delete_application'),
+                onClick: () => {
+                    dispatch(
+                        deleteApplicationRequest(
+                            { applicationId: data.id },
+                            {
+                                onSuccess: () => {
+                                    dispatch(onSuccess());
+                                },
+                            },
+                        ),
+                    );
+                    return true;
+                },
+                onCancel: () => true,
+                showCancel: true,
+                submitButtonText: t('button.ok'),
+                cancelButtonText: t('button.cancel'),
+                confirmButtonProps: {
+                    color: 'error',
+                },
+                cancelButtonProps: {},
+            }),
+        );
+    };
+    return { onDelete };
+};
 
 const validationSchema = yup.object({
-    applicationName: yup.string().min(6).max(16).required(),
+    applicationName: yup
+        .string()
+        .min(6)
+        .max(16)
+        .required(),
 });
 
 export const useHook = ({ id, location, history, classes }) => {

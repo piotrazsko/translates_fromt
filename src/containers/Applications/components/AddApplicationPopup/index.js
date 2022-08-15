@@ -5,7 +5,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-    name: yup.string().min(3).max(16).required(),
+    name: yup
+        .string()
+        .min(3)
+        .max(16)
+        .required(),
 });
 
 const AddApplicationPopup = ({
@@ -31,6 +35,7 @@ const AddApplicationPopup = ({
         <form onSubmit={handleSubmit}>
             <Popup onCancel={onCancel} confirmButtonProps={{ type: 'submit' }}>
                 <TextField
+                    inputRef={(input) => input && input.focus()}
                     label={t(`translates.label.popup`)}
                     onChange={handleChange('name')}
                     error={errors.name}

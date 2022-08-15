@@ -4,10 +4,12 @@ $radius: 40px;
 
 .container {
 }
+
 .chart {
     background-color: $purple;
     height: $height;
     border-radius: $radius;
+    min-width: 10px;
 }
 .chartContainer {
     background-color: $lightGrey;

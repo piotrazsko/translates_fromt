@@ -171,39 +171,6 @@ const Settings = ({ ...props }) => {
                 </Grid>
                 <input accept=".json" hidden ref={ref} type="file" />
             </PageSkeleton>
-            {/* <PageSkeleton>
-                <Typography variant="body1">
-                    {t('text.upload_translates')}
-                </Typography>
-                <Grid container>
-                    <Grid item xs={2}>
-                        <Box>{fileName}</Box>
-                        <Button
-                            variant="contained"
-                            onClick={onUploadTranslatesByLang}
-                        >
-                            {t('button.download_json')}
-                        </Button>
-                        <input accept=".json" hidden ref={ref2} type="file" />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <LangAutocompleate
-                            variant="outlined"
-                            value={values.language}
-                            placeholder={t('placeholder.language_key')}
-                            onChange={handleChange('language')}
-                            helperText={errors.language}
-                            error={errors.language}
-                        />
-                       
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Button variant="contained" onClick={handleSubmit}>
-                            {t('button.save')}
-                        </Button>
-                    </Grid>
-                </Grid>
-            </PageSkeleton> */}
         </>
     );
 };

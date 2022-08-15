@@ -11,6 +11,7 @@ import {
     addApplicationRequest,
     deleteApplicationRequest,
 } from 'modules/applications';
+import { useDeleteApllication } from 'containers/ApplicationEdit/hooks';
 
 import ApplicationsGrid from './components/ApplicationsGrid';
 import AddApplicationPopup from './components/AddApplicationPopup';
@@ -24,9 +25,13 @@ const Applications = ({ history, ...props }) => {
         dispatch(getApplicationsListRequest());
     }, []);
 
-    const applications = useSelector(getApplicationsListSelector);
+    const { onDelete } = useDeleteApllication({
+        onSuccess: () => {
+            dispatch(getApplicationsListRequest());
+        },
+    });
 
-    console.log(applications);
+    const applications = useSelector(getApplicationsListSelector);
 
     const [searchText, setSearchText] = React.useState();
 
@@ -46,36 +51,6 @@ const Applications = ({ history, ...props }) => {
     };
 
     const [applicationName, setApplicationName] = React.useState('');
-
-    const onDelete = (data) => {
-        dispatch(
-            showPopupAction({
-                // message: t('message.delete_application'),
-                title: t('title.delete_application'),
-                onClick: () => {
-                    dispatch(
-                        deleteApplicationRequest(
-                            { applicationId: data.id },
-                            {
-                                onSuccess: () => {
-                                    dispatch(getApplicationsListRequest());
-                                },
-                            },
-                        ),
-                    );
-                    return true;
-                },
-                onCancel: () => true,
-                showCancel: true,
-                submitButtonText: t('button.ok'),
-                cancelButtonText: t('button.cancel'),
-                confirmButtonProps: {
-                    color: 'error',
-                },
-                cancelButtonProps: {},
-            }),
-        );
-    };
 
     const onEdit = (data) => {
         history.push(`/applications/${data.id}`);

@@ -10,22 +10,30 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import markdown from './index.md';
+// const markdown = `A paragraph with *emphasis* and **strong importance**.
 
-const markdown = `A paragraph with *emphasis* and **strong importance**.
+// > A block quote with ~strikethrough~ and a URL: https://reactjs.org.
 
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+// * Lists
+// * [ ] todo
+// * [x] done
 
-* Lists
-* [ ] todo
-* [x] done
+// A table:
 
-A table:
-
-| a | b |
-| - | - |
-`;
+// | a | b |
+// | - | - |
+// `;
 
 const Docs = ({ ...props }) => {
+    const [doc, setDoc] = React.useState('');
+    React.useEffect(() => {
+        fetch(markdown)
+            .then((response) => response.text())
+            .then((text) => {
+                setDoc(text);
+            });
+    }, []);
     const { t } = useTranslation();
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -38,7 +46,7 @@ const Docs = ({ ...props }) => {
                 <Pane>
                     <Box>
                         <ReactMarkdown
-                            children={markdown}
+                            children={doc}
                             remarkPlugins={[remarkGfm]}
                         />
                     </Box>

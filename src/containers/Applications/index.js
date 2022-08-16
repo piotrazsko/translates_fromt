@@ -67,39 +67,35 @@ const Applications = ({ history, ...props }) => {
                 />
             ) : null}
             <PageSkeleton title={t('title.applications')}>
-                <Grid container spacing={6}>
-                    <Grid item xs={12}>
-                        <Pane title={'applications.title_applications'}>
-                            <Grid container spacing={6}>
-                                <Grid item xs={10}>
-                                    <SearchField
-                                        setSearchText={setSearchText}
-                                        searchText={searchText}
-                                        placeholder={t(
-                                            'applications.searchplaceholder',
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button
-                                        color="primary"
-                                        variant="contained"
-                                        onClick={() => {
-                                            switchPopup(!showPopup);
-                                        }}
-                                    >
-                                        {t('button.add')}
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                            <ApplicationsGrid
-                                data={applications}
-                                onDelete={onDelete}
-                                onEdit={onEdit}
+                <Pane title={'applications.title_applications'}>
+                    <Grid container spacing={6}>
+                        <Grid item xs={10}>
+                            <SearchField
+                                setSearchText={setSearchText}
+                                searchText={searchText}
+                                placeholder={t(
+                                    'applications.searchplaceholder',
+                                )}
                             />
-                        </Pane>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={() => {
+                                    switchPopup(!showPopup);
+                                }}
+                            >
+                                {t('button.add')}
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
+                    <ApplicationsGrid
+                        data={applications}
+                        onDelete={onDelete}
+                        onEdit={onEdit}
+                    />
+                </Pane>
             </PageSkeleton>
         </>
     );

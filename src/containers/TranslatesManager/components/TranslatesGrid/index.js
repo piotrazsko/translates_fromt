@@ -22,6 +22,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_FORMAT } from 'constants/date';
+import { sliceLangsStr } from 'helpers/translates';
 
 const useStyles = makeStyles({
     table: {
@@ -179,10 +180,7 @@ const TranslatesGrid = ({
                                           {row.namespace || ''}
                                       </TableCell>
                                       <TableCell align="center">
-                                          {row.langs.join(', ').slice(0, 10) +
-                                              (row.langs.length > 3
-                                                  ? '...'
-                                                  : '')}
+                                          {sliceLangsStr(row.langs)}
                                       </TableCell>
                                       <TableCell align="center">
                                           {moment(row.updated_at).format(

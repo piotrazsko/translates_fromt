@@ -21,6 +21,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTranslation } from 'react-i18next';
 
+import { sliceLangsStr } from 'helpers/translates';
+
 const useStyles = makeStyles({
     table: {
         minWidth: 700,
@@ -36,11 +38,25 @@ const headCells = (t) => [
         label: t('tableheader.id'),
     },
     {
-        id: 'languages',
+        id: 'name',
         numeric: false,
         sortable: false,
         disablePadding: false,
         label: t('tableheader.name'),
+    },
+    {
+        id: 'count',
+        numeric: false,
+        sortable: false,
+        disablePadding: false,
+        label: t('tableheader.translates_count'),
+    },
+    {
+        id: 'languages',
+        numeric: false,
+        sortable: false,
+        disablePadding: false,
+        label: t('tableheader.languages'),
     },
     {
         id: 'edit_delete',
@@ -157,6 +173,13 @@ const ApplicationsGrid = ({
                                   <TableCell align="center">{row.id}</TableCell>
                                   <TableCell align="center">
                                       {row.name || ''}
+                                  </TableCell>
+                                  <TableCell align="center">
+                                      {row.count}
+                                  </TableCell>
+                                  <TableCell align="center">
+                                      {sliceLangsStr(row.languages || []) ||
+                                          '-'}
                                   </TableCell>
                                   <TableCell align="center">
                                       <IconButton

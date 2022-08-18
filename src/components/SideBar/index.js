@@ -67,12 +67,6 @@ const getSideBarItems = (t, history) => [
         },
     },
     {
-        title: t('sidebar.api'),
-        onClick: () => {
-            history.push('/api');
-        },
-    },
-    {
         title: t('sidebar.docs'),
         onClick: () => {
             history.push('/docs');

@@ -22,6 +22,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_FORMAT } from 'constants/date';
+import { sliceLangsStr } from 'helpers/translates';
 
 const useStyles = makeStyles({
     table: {
@@ -164,94 +165,56 @@ const TranslatesGrid = ({
                                 </TableSortLabel>
                             </TableCell>
                         ))}
-                        {/* <TableCell
-                            onClick={() => {
-                                setSort({
-                                    field: 'key',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                            align="center"
-                        >
-                            {t('tableheader.key')}
-                            <ArrowUpwardIcon />
-                        </TableCell> */}
-                        {/* <TableCell
-                            onClick={() => {
-                                setSort({
-                                    field: 'namespace',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                            align="center"
-                        >
-                            {t('tableheader.namespace')}
-                        </TableCell> */}
-                        {/* <TableCell align="center">
-                            {t('tableheader.langs')}
-                        </TableCell> */}
-                        {/* <TableCell
-                            align="center"
-                            onClick={() => {
-                                setSort({
-                                    field: 'updated_at',
-                                    direct: sort.direct * -1,
-                                });
-                            }}
-                        >
-                            {t('tableheader.updated_at')}
-                        </TableCell> */}
-                        {/* <TableCell align="center">
-                            {t('tableheader.edit/delete')}
-                        </TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {Array.isArray(res)
-                        ? res.map((row) => (
-                              <TableRow key={row.key + row.namespace}>
-                                  <TableCell align="center">
-                                      {row.key}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {row.namespace || ''}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {row.langs.join(', ').slice(0, 10) +
-                                          (row.langs.length > 3 ? '...' : '')}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      {moment(row.updated_at).format(
-                                          DATE_TIME_FORMAT,
-                                      ) || ''}
-                                  </TableCell>
-                                  <TableCell align="center">
-                                      <IconButton
-                                          color="primary"
-                                          onClick={() => {
-                                              console.log(row);
-                                              history.push(
-                                                  `/translates/${applicationId}/${row.id}`,
-                                              );
-                                          }}
-                                          size="large"
-                                      >
-                                          <EditIcon />
-                                      </IconButton>
-                                      <IconButton
-                                          color="warning"
-                                          onClick={() =>
-                                              onDelete({
-                                                  translateId: row.id,
-                                              })
-                                          }
-                                          size="large"
-                                      >
-                                          <DeleteIcon />
-                                      </IconButton>
-                                  </TableCell>
-                              </TableRow>
-                          ))
+                        ? res.map((row) => {
+                              console.log(row);
+                              return (
+                                  <TableRow key={row.key + row.namespace}>
+                                      <TableCell align="center">
+                                          {row.key}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                          {row.namespace || ''}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                          {sliceLangsStr(row.langs)}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                          {moment(row.updated_at).format(
+                                              DATE_TIME_FORMAT,
+                                          ) || ''}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                          <IconButton
+                                              color="primary"
+                                              onClick={() => {
+                                                  console.log(row);
+                                                  history.push(
+                                                      `/translates/${applicationId}/${row.id}`,
+                                                  );
+                                              }}
+                                              size="large"
+                                          >
+                                              <EditIcon />
+                                          </IconButton>
+                                          <IconButton
+                                              color="warning"
+                                              onClick={() =>
+                                                  onDelete({
+                                                      translateId: row.id,
+                                                  })
+                                              }
+                                              size="large"
+                                          >
+                                              <DeleteIcon />
+                                          </IconButton>
+                                      </TableCell>
+                                  </TableRow>
+                              );
+                          })
                         : null}
                 </TableBody>
             </Table>

@@ -96,12 +96,6 @@ const mainRoutes = [
         isPrivate: true,
     },
     {
-        path: '/api',
-        exact: true,
-        component: APIPage,
-        isPrivate: true,
-    },
-    {
         path: '/docs',
         exact: true,
         component: Docs,

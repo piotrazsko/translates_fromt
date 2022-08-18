@@ -3,13 +3,37 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import { PageSkeleton } from 'components';
+import { PageSkeleton, Pane } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import markdown from './index.md';
+// const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+// > A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+// * Lists
+// * [ ] todo
+// * [x] done
+
+// A table:
+
+// | a | b |
+// | - | - |
+// `;
 
 const Docs = ({ ...props }) => {
+    const [doc, setDoc] = React.useState('');
+    React.useEffect(() => {
+        fetch(markdown)
+            .then((response) => response.text())
+            .then((text) => {
+                setDoc(text);
+            });
+    }, []);
     const { t } = useTranslation();
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -19,11 +43,14 @@ const Docs = ({ ...props }) => {
     return (
         <>
             <PageSkeleton title={t('title.docs')}>
-                <Box>
-                    <Typography gutterBottom variant="body1" display="inline">
-                        {t('text.documentation')}
-                    </Typography>
-                </Box>
+                <Pane>
+                    <Box>
+                        <ReactMarkdown
+                            children={doc}
+                            remarkPlugins={[remarkGfm]}
+                        />
+                    </Box>
+                </Pane>
             </PageSkeleton>
         </>
     );

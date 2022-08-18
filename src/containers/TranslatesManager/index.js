@@ -51,14 +51,10 @@ const TranslatesManager = ({
     location: { pathname, search },
     ...props
 }) => {
-    const {
-        applicationId: applicationIdFromUrl,
-        ...rest
-    } = getDataFromCurrentLocarion();
+    const { applicationId: applicationIdFromUrl, ...rest } =
+        getDataFromCurrentLocarion();
 
     const [applicationId, setApplicationId] = React.useState(null);
-
-    console.log(applicationId, applicationIdFromUrl);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -106,15 +102,16 @@ const TranslatesManager = ({
     }, [res]);
 
     const data = React.useMemo(() => {
-        return (searchText
-            ? res.filter((item) => {
-                  return (
-                      `${item.key} ${item.namespace}`
-                          .toLowerCase()
-                          .indexOf(searchText.toLowerCase()) !== -1
-                  );
-              })
-            : res
+        return (
+            searchText
+                ? res.filter((item) => {
+                      return (
+                          `${item.key} ${item.namespace}`
+                              .toLowerCase()
+                              .indexOf(searchText.toLowerCase()) !== -1
+                      );
+                  })
+                : res
         ).filter((i) => (tab === null ? true : tab === i.namespace));
     }, [res, searchText, tab]);
 

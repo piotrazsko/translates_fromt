@@ -52,6 +52,18 @@ const Applications = ({ history, ...props }) => {
 
     const [applicationName, setApplicationName] = React.useState('');
 
+    const data = React.useMemo(() => {
+        return searchText
+            ? applications.filter((item) => {
+                  return (
+                      `${item.name} ${item.id}`
+                          .toLowerCase()
+                          .indexOf(searchText.toLowerCase()) !== -1
+                  );
+              })
+            : applications;
+    }, [searchText, applications]);
+
     const onEdit = (data) => {
         history.push(`/applications/${data.id}`);
     };
@@ -91,7 +103,7 @@ const Applications = ({ history, ...props }) => {
                         </Grid>
                     </Grid>
                     <ApplicationsGrid
-                        data={applications}
+                        data={data}
                         onDelete={onDelete}
                         onEdit={onEdit}
                     />

@@ -40,7 +40,7 @@ const headCells = (t) => [
     {
         id: 'name',
         numeric: false,
-        sortable: false,
+        sortable: true,
         disablePadding: false,
         label: t('tableheader.name'),
     },

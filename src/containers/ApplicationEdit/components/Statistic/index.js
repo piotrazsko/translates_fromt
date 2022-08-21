@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pane, GridGenerator, Cell, Chart } from 'components';
 import { Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 
 import style from './style.scss';
 
@@ -57,7 +58,7 @@ const colorArray = [
     '#6666FF',
 ];
 
-const Statistic = ({ data = {}, t, style, applicationStatistics }) => {
+const Statistic = ({ data = {}, t, applicationStatistics }) => {
     const { maxTranslates, countTranslates } = data;
     const { languagesList = [], translates = {} } = applicationStatistics;
     console.log(applicationStatistics);
@@ -74,24 +75,26 @@ const Statistic = ({ data = {}, t, style, applicationStatistics }) => {
             >
                 {t('application.translation_exist_statistic')}
             </Chart>
-            {languagesList.map((i, index) => {
-                const max = countTranslates;
-                return (
-                    <Chart
-                        percent={(translates[i] / max) * 100}
-                        max={t(
-                            'application.chart_diff',
-                            { max: max },
-                            'from {{max}}',
-                        )}
-                        key={i}
-                        color={colorArray[index]}
-                        count={translates[i]}
-                    >
-                        {(i || '').toUpperCase()}
-                    </Chart>
-                );
-            })}
+            <Box className={style.languages}>
+                {languagesList.map((i, index) => {
+                    const max = countTranslates;
+                    return (
+                        <Chart
+                            percent={(translates[i] / max) * 100}
+                            max={t(
+                                'application.chart_diff',
+                                { max: max },
+                                'from {{max}}',
+                            )}
+                            key={i}
+                            color={colorArray[index]}
+                            count={translates[i]}
+                        >
+                            {(i || '').toUpperCase()}
+                        </Chart>
+                    );
+                })}
+            </Box>
         </>
     );
 };

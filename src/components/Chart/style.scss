@@ -1,5 +1,5 @@
 @import '/src/style/theme.scss';
-$height: 16px;
+$height: 10px;
 $radius: 40px;
 
 .container {
@@ -18,14 +18,16 @@ $radius: 40px;
     border-radius: $radius;
 }
 .title {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
 }
 .countContainer {
     margin-top: 8px;
+    font-size: 12px;
     .count {
         color: $black;
     }
     .max {
-        color: $purple;
+        color: $black;
     }
 }

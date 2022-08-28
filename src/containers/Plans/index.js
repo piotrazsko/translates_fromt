@@ -2,7 +2,7 @@
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { PageSkeleton, GridGenerator, Cell, Pane } from 'components';
+import { PageSkeleton, GridGenerator, Cell } from 'components';
 import Card from './components/Card';
 import { useHook } from './hooks';
 

@@ -1,20 +1,69 @@
 import React from 'react';
-import { PageSkeleton, Pane, LanguageSelect } from 'components';
+import {
+    PageSkeleton,
+    Pane,
+    LanguageSelect,
+    GridGenerator,
+    Cell,
+} from 'components';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@mui/material';
+import Applications from './components/Applications';
+import Statistics from './components/Statistics';
+import MyBalance from './components/MyBalance';
+import MyPlan from './components/MyPlan';
+import Transactions from './components/Transactions';
 
 const Dashboard = ({ ...props }) => {
     const { t } = useTranslation();
     return (
         <PageSkeleton title={t('dashboard.title')}>
-            <Grid container spacing={6}>
-                <Grid item xs={6}>
-                    <Pane title={t('dashboard.applications')}>Dashboard</Pane>
-                </Grid>
-                <Grid item xs={6}>
-                    <Pane title={t('dashboard.statistics')}>Dashboard</Pane>
-                </Grid>
-            </Grid>
+            <GridGenerator
+                cols={12}
+                rows={4}
+                cellProps={
+                    {
+                        // children: ({ col, row }) => <div></div>,
+                    }
+                }
+                gap={[48, 24]}
+            >
+                <Cell
+                    col={0}
+                    row={0}
+                    colSpan={4}
+                    rowSpan={1}
+                    component={<MyBalance />}
+                ></Cell>
+                <Cell
+                    col={4}
+                    row={0}
+                    colSpan={8}
+                    rowSpan={1}
+                    component={<Applications />}
+                ></Cell>
+                <Cell
+                    col={0}
+                    row={1}
+                    colSpan={6}
+                    rowSpan={1}
+                    component={<Statistics />}
+                ></Cell>
+                <Cell
+                    col={6}
+                    row={1}
+                    colSpan={6}
+                    rowSpan={1}
+                    component={<MyPlan />}
+                ></Cell>
+                <Cell
+                    col={0}
+                    row={2}
+                    colSpan={12}
+                    rowSpan={2}
+                    component={<Transactions />}
+                ></Cell>
+            </GridGenerator>
         </PageSkeleton>
     );
 };

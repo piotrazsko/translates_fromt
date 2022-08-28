@@ -1,0 +1,19 @@
+@import '/src/style/theme.scss';
+
+.subtitle {
+    font-size: 12px;
+    font-weight: 500;
+}
+.container {
+    background-color: $purple !important;
+    color: $white;
+    padding: 12px 12px;
+    background-image: url('./image.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+.link {
+    text-decoration: none;
+    color: $white;
+}

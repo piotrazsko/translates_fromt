@@ -16,7 +16,9 @@ const Pane = ({
 }) => {
     return (
         <Card
-            className={[className, classes.container].join(' ')}
+            className={[className, classes.container, styles.container].join(
+                ' ',
+            )}
             style={style}
         >
             <CardHeader

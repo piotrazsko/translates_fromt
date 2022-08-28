@@ -1,7 +1,6 @@
 import React from 'react';
-import { Pane, GridGenerator, Cell, Chart } from 'components';
-import { Typography } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
+import { Pane, GridGenerator, Cell, Chart, UpdatePlanLink } from 'components';
+import Box from '@mui/material/Box';
 
 import style from './style.scss';
 
@@ -60,37 +59,52 @@ const colorArray = [
 
 const Statistic = ({ data = {}, t, applicationStatistics }) => {
     const { maxTranslates, countTranslates } = data;
-    const { languagesList = [], translates = {} } = applicationStatistics;
-    console.log(applicationStatistics);
+    const {
+        languagesList = [],
+        translates = {},
+        total,
+    } = applicationStatistics;
     return (
         <>
             <Chart
                 percent={(countTranslates / maxTranslates) * 100}
-                max={t(
-                    'application.chart_diff',
-                    { max: maxTranslates },
-                    'from {{max}}',
-                )}
+                max={
+                    <>
+                        {t(
+                            'application.chart_diff',
+                            { max: maxTranslates },
+                            'from {{max}}',
+                        )}
+                    </>
+                }
                 count={countTranslates}
             >
-                {t('application.translation_exist_statistic')}
+                <span className={style.updatePlan}>
+                    {t('application.translation_exist_statistic')}
+                    <UpdatePlanLink t={t} />
+                </span>
             </Chart>
             <Box className={style.languages}>
                 {languagesList.map((i, index) => {
-                    const max = countTranslates;
+                    const max = total;
                     return (
                         <Chart
                             percent={(translates[i] / max) * 100}
-                            max={t(
-                                'application.chart_diff',
-                                { max: max },
-                                'from {{max}}',
-                            )}
+                            max={''}
                             key={i}
                             color={colorArray[index]}
-                            count={translates[i]}
+                            count={
+                                `${(translates[i] / max) * 100}`.slice(0, 4) +
+                                '%'
+                            }
                         >
-                            {(i || '').toUpperCase()}
+                            {t(
+                                'application.percent_full',
+                                {
+                                    lang_code: (i || '').toUpperCase(),
+                                },
+                                '{{lang_code}} full',
+                            )}
                         </Chart>
                     );
                 })}

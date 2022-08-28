@@ -14,6 +14,7 @@ import {
     Dashboard,
     Applications,
     ApplicationEdit,
+    Plans,
 } from 'containers';
 import HomeLayout from '../containers/Home/Layout';
 
@@ -105,6 +106,12 @@ const mainRoutes = [
         path: '/billing',
         exact: true,
         component: Billing,
+        isPrivate: true,
+    },
+    {
+        path: '/update-plan',
+        exact: true,
+        component: Plans,
         isPrivate: true,
     },
 ];

@@ -17,3 +17,4 @@ export { default as ConfirmEmailPopup } from './ConfirmEmailPopup';
 export { default as Dashboard } from './Dashboard';
 export { default as Applications } from './Applications';
 export { default as ApplicationEdit } from './ApplicationEdit';
+export { default as Plans } from './Plans';

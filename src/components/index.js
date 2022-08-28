@@ -10,6 +10,7 @@ export { default as PagePlaceholder } from './PagePlaceholder';
 export { default as EditPageSkeleton } from './EditPageSkeleton';
 export { default as GridGenerator, Cell } from './GridGenerator';
 export { default as Chart } from './Chart';
+export { default as UpdatePlanLink } from './UpdatePlanLink';
 
 export * from './Inputs';
 export * from './Selects';

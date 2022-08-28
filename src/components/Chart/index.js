@@ -21,7 +21,7 @@ const Chart = ({ percent = 10, color, max, count, children, className }) => {
             </div>
             <div className={style.countContainer}>
                 <span className={style.count}>{count}</span>
-                <span className={style.max}> / {max}</span>
+                <span className={style.max}> {max}</span>
             </div>
         </div>
     );

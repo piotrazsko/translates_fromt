@@ -7,9 +7,18 @@ import CardHeader from '@mui/material/CardHeader';
 
 import styles from './style.scss';
 
-const Pane = ({ children, title = '', className, style = {} }) => {
+const Pane = ({
+    children,
+    title = '',
+    className,
+    classes = {},
+    style = {},
+}) => {
     return (
-        <Card className={className} style={style}>
+        <Card
+            className={[className, classes.container].join(' ')}
+            style={style}
+        >
             <CardHeader
                 title={title}
                 titleTypographyProps={{
@@ -18,7 +27,7 @@ const Pane = ({ children, title = '', className, style = {} }) => {
                     className: styles.title,
                 }}
             />
-            <CardContent>{children}</CardContent>
+            <CardContent className={classes.content}>{children}</CardContent>
         </Card>
     );
 };

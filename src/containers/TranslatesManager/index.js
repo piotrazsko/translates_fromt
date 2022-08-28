@@ -7,12 +7,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
@@ -67,10 +62,12 @@ const TranslatesManager = ({
     }, []);
 
     React.useEffect(() => {
-        if (applications.length === 1 && !applicationId) {
+        if (applicationIdFromUrl && !applicationId) {
+            setApplicationId(applicationIdFromUrl);
+        } else if (applications.length === 1 && !applicationId) {
             setApplicationId(applications[0].id);
         }
-    }, [applications, applicationId]);
+    }, [applications, applicationId, applicationIdFromUrl]);
 
     React.useEffect(() => {
         if (applicationId) {
@@ -163,7 +160,7 @@ const TranslatesManager = ({
                     <Grid container justifyContent="flex-end" spacing={2}>
                         <Grid item xs={2}>
                             <Select
-                                defaultOpen
+                                defaultOpen={!applicationIdFromUrl}
                                 defaultValue={applicationId}
                                 value={applicationId}
                                 onChange={(ev) => {

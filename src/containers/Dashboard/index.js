@@ -40,7 +40,7 @@ const Dashboard = ({ ...props }) => {
                     row={0}
                     colSpan={8}
                     rowSpan={1}
-                    component={<Applications />}
+                    component={<Statistics />}
                 ></Cell>
                 <Cell
                     col={0}

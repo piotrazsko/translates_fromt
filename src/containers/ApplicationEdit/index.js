@@ -115,7 +115,19 @@ const ApplicationEdit = ({
                         colSpan={5}
                         rowSpan={2}
                         component={
-                            <Pane title={t('application.statistic_block')} />
+                            <Pane
+                                title={t('application.statistic_block')}
+                                menuItems={[
+                                    {
+                                        title: t('dashboard.go_to_application'),
+                                        onClick: () => {
+                                            history.push(
+                                                `/translates?applicationId="${id}"`,
+                                            );
+                                        },
+                                    },
+                                ]}
+                            />
                         }
                     >
                         <Statistic

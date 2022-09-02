@@ -17,6 +17,7 @@ import {
     getExportJsonRequest,
     postImportJsonRequest,
 } from 'modules/translates';
+
 import {
     getStatisticsByApplicationRequest,
     getStatisticsByApplicationSelector,
@@ -38,7 +39,7 @@ export const useUploadTranslates = ({ applicationId, onSuccess }) => {
     const dispatch = useDispatch();
     const uploadAction = React.useCallback(() => {
         if (ref.current) {
-            const upload = function() {
+            const upload = function () {
                 // setTranzactionsFile(ref.current.files[0]);
                 const fd = new FormData();
                 fd.append('translate', ref.current.files[0]);
@@ -120,11 +121,7 @@ export const useDeleteApllication = ({ onSuccess = () => {} }) => {
 };
 
 const validationSchema = yup.object({
-    applicationName: yup
-        .string()
-        .min(6)
-        .max(16)
-        .required(),
+    applicationName: yup.string().min(6).max(16).required(),
 });
 
 export const useGetFullData = (id) => {

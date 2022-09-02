@@ -4,13 +4,13 @@ import { Grid, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PageSkeleton, Pane, SearchField } from 'components';
-import { showPopupAction } from 'modules/popups';
 import {
     getApplicationsListRequest,
     getApplicationsListSelector,
     addApplicationRequest,
-    deleteApplicationRequest,
 } from 'modules/applications';
+
+//INFO - import delete hook from edit page
 import { useDeleteApllication } from 'containers/ApplicationEdit/hooks';
 
 import ApplicationsGrid from './components/ApplicationsGrid';

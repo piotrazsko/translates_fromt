@@ -7,20 +7,19 @@ import {
     Cell,
 } from 'components';
 import { useTranslation } from 'react-i18next';
-import { Grid } from '@mui/material';
-import Applications from './components/Applications';
 import Statistics from './components/Statistics';
+import Applications from './components/Applications';
 import MyBalance from './components/MyBalance';
 import MyPlan from './components/MyPlan';
 import Transactions from './components/Transactions';
 
-const Dashboard = ({ ...props }) => {
+const Dashboard = ({ history, ...props }) => {
     const { t } = useTranslation();
     return (
         <PageSkeleton title={t('dashboard.title')}>
             <GridGenerator
                 cols={12}
-                rows={4}
+                rows={2}
                 cellProps={
                     {
                         // children: ({ col, row }) => <div></div>,
@@ -40,7 +39,7 @@ const Dashboard = ({ ...props }) => {
                     row={0}
                     colSpan={8}
                     rowSpan={1}
-                    component={<Statistics />}
+                    component={<Applications history={history} />}
                 ></Cell>
                 <Cell
                     col={0}
@@ -56,13 +55,13 @@ const Dashboard = ({ ...props }) => {
                     rowSpan={1}
                     component={<MyPlan />}
                 ></Cell>
-                <Cell
+                {/* <Cell
                     col={0}
                     row={2}
                     colSpan={12}
                     rowSpan={2}
                     component={<Transactions />}
-                ></Cell>
+                ></Cell> */}
             </GridGenerator>
         </PageSkeleton>
     );

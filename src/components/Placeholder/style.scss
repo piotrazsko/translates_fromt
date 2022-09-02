@@ -1,0 +1,10 @@
+@import '/src/style/theme.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.text {
+    color: $black;
+}

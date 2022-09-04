@@ -77,7 +77,11 @@ const Pane = ({
                     ) : null
                 }
             ></CardHeader>
-            <CardContent className={classes.content}>{children}</CardContent>
+            <CardContent
+                className={[classes.content, styles.content].join(' ')}
+            >
+                {children}
+            </CardContent>
         </Card>
     );
 };

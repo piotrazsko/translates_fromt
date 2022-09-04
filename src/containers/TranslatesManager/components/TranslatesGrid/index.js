@@ -170,7 +170,6 @@ const TranslatesGrid = ({
                 <TableBody>
                     {Array.isArray(res)
                         ? res.map((row) => {
-                              console.log(row);
                               return (
                                   <TableRow key={row.key + row.namespace}>
                                       <TableCell align="center">

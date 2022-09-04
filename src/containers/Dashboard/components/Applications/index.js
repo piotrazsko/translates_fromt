@@ -5,11 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Pane } from 'components';
 
 import {
-    getApplicationsStatisticsRequest,
-    getApplicationsStatisticsSelector,
-} from 'modules/statistics';
-
-import {
     BarChart,
     Bar,
     XAxis,
@@ -23,15 +18,8 @@ import { colorArray } from 'helpers/colors';
 
 import style from './style.scss';
 
-const Applications = ({ style, history }) => {
+const Applications = ({ style, history, applications = [] }) => {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const applications = useSelector(getApplicationsStatisticsSelector);
-    console.log(applications);
-
-    React.useEffect(() => {
-        dispatch(getApplicationsStatisticsRequest());
-    }, []);
 
     const { preparedData, languages, ids } = React.useMemo(() => {
         const languages = new Set();
@@ -41,7 +29,9 @@ const Applications = ({ style, history }) => {
                     const langs = Object.keys(i.languages).reduce(
                         (acc, item) => {
                             languages.add(item);
-                            acc[item] = (i.languages[item] / i.total) * 100;
+                            acc[item] = Math.round(
+                                (i.languages[item] / i.total) * 100,
+                            );
                             return acc;
                         },
                         {},
@@ -69,10 +59,10 @@ const Applications = ({ style, history }) => {
                 },
             ]}
         >
-            <ResponsiveContainer width="90%" height={250}>
+            <ResponsiveContainer width="100%" height={250}>
                 <BarChart
                     onClick={(ev, data) => {
-                        if (ev?.activeTooltipIndex) {
+                        if (ev) {
                             history.push(
                                 `/applications/${ids[ev.activeTooltipIndex]}`,
                             );
@@ -89,12 +79,13 @@ const Applications = ({ style, history }) => {
                     }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="name" name="langs" />
                     <YAxis unit="%" />
                     <Tooltip />
                     <Legend />
                     {languages.map((i, index) => (
                         <Bar
+                            unit="%"
                             dataKey={i}
                             key={i}
                             fill={colorArray[index] || '#FF6633'}

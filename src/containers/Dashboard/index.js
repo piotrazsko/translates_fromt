@@ -15,6 +15,8 @@ import {
     getApplicationsStatisticsRequest,
     getApplicationsStatisticsSelector,
 } from 'modules/statistics';
+import { getCurrentUserSelector } from 'modules/auth';
+import { getPlanByIdRequest, getPlanByIdSelector } from 'modules/plans';
 
 import Statistics from './components/Statistics';
 import Applications from './components/Applications';
@@ -30,11 +32,19 @@ const Dashboard = ({ history, ...props }) => {
     const { loaded, ...commonStatistic } = useSelector(
         getCommonStatisticsSelector,
     );
-    console.log(commonStatistic);
+    const user = useSelector(getCurrentUserSelector);
+    const currentPlan = useSelector(getPlanByIdSelector);
+
     React.useEffect(() => {
         dispatch(getApplicationsStatisticsRequest());
         dispatch(getCommonStatissticsRequset());
     }, []);
+
+    React.useEffect(() => {
+        if (user?.plan) {
+            dispatch(getPlanByIdRequest({ planId: user.plan }));
+        }
+    }, [user]);
     return (
         <PageSkeleton title={t('dashboard.title')}>
             <GridGenerator
@@ -78,7 +88,7 @@ const Dashboard = ({ history, ...props }) => {
                     row={3}
                     colSpan={6}
                     rowSpan={3}
-                    component={<MyPlan />}
+                    component={<MyPlan data={currentPlan} history={history} />}
                 ></Cell>
                 {/* <Cell
                     col={0}

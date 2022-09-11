@@ -14,6 +14,8 @@ import {
     updateTranslatesByKeyRequest,
 } from 'modules/translates';
 
+import { useGetMissingLangs } from './components/missingLanguages';
+
 import get from 'lodash/get';
 
 const validationSchema = yup.object({
@@ -49,6 +51,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     }, [id]);
 
     const translateData = useSelector(getTranslatesByKeySelector);
+
     const {
         handleChange,
         handleBlur,
@@ -86,7 +89,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                     ),
                 );
             } else {
-                console.log(values);
                 dispatch(
                     updateTranslatesByKeyRequest(
                         {
@@ -109,6 +111,11 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                 );
             }
         },
+    });
+
+    const { missingLanguages } = useGetMissingLangs({
+        applicationId,
+        data: values,
     });
 
     React.useEffect(() => {
@@ -238,5 +245,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         key,
         namespace,
         onAdd,
+        missingLanguages,
     };
 };

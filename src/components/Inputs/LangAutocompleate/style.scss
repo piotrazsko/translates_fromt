@@ -1,0 +1,21 @@
+@import '/src/style/theme.scss';
+
+.optionContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    &:hover {
+        background-color: $lightGrey;
+    }
+    .optionContent {
+        display: flex;
+        .text {
+            font-weight: normal;
+            margin-left: 16px;
+        }
+    }
+    .extra {
+        color: $grey;
+    }
+}

@@ -48,7 +48,6 @@ function* rootSaga(dispatch) {
                         data.config.method === 'post' ||
                         data.config.method === 'delete'
                     ) {
-                        console.log(data);
                         const message = get(data, 'data.message');
                         if (message) {
                             yield put(showSuccess({ message }));

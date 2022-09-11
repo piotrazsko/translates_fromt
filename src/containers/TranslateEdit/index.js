@@ -5,6 +5,7 @@ import get from 'lodash/get';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import makeStyles from '@mui/styles/makeStyles';
 import IconButton from '@mui/material/IconButton';
 import Add from '@mui/icons-material/Add';
@@ -12,10 +13,14 @@ import Delete from '@mui/icons-material/Delete';
 
 import { PageSkeleton, LangAutocompleate } from 'components';
 import { useHook } from './hooks';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingBottom: '20px',
+    },
+    missingOption: {
+        fontSize: '12px',
     },
 }));
 
@@ -42,10 +47,25 @@ const EditTranslate = ({
         key,
         namespace,
         onAdd,
+        missingLanguages,
     } = useHook({ id, location, history, classes, applicationId });
 
     return (
-        <PageSkeleton title={t('title.edit')}>
+        <PageSkeleton
+            headerControlls={
+                missingLanguages.length > 0 ? (
+                    <Box>
+                        <Typography>
+                            {t('translates.missing_translates')}
+                        </Typography>
+                        <Typography color="error">
+                            {missingLanguages.join(', ')}
+                        </Typography>
+                    </Box>
+                ) : null
+            }
+            title={t('title.edit')}
+        >
             <form onSubmit={handleSubmit}>
                 <Grid
                     container
@@ -91,6 +111,25 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
+                                            extraOptions={[
+                                                ...missingLanguages.map(
+                                                    (i) => ({
+                                                        id: i,
+                                                        label: i,
+                                                        isExtra: (
+                                                            <Typography
+                                                                className={
+                                                                    classes.missingOption
+                                                                }
+                                                            >
+                                                                {t(
+                                                                    'translates.missing_translate',
+                                                                )}
+                                                            </Typography>
+                                                        ),
+                                                    }),
+                                                ),
+                                            ]}
                                             size="small"
                                             onBlur={(ev, value) =>
                                                 onBlur(ev, index)
@@ -99,12 +138,19 @@ const EditTranslate = ({
                                             label={t('input.language')}
                                             variant="outlined"
                                             onChange={(ev, value) => {
-                                                setFieldValue(
-                                                    `translates.${index}.language`,
-                                                    ev.target.value ||
-                                                        value ||
-                                                        undefined, // fixed bug with validation null
-                                                );
+                                                if (typeof value === 'object') {
+                                                    setFieldValue(
+                                                        `translates.${index}.language`,
+                                                        value.id,
+                                                    );
+                                                } else {
+                                                    setFieldValue(
+                                                        `translates.${index}.language`,
+                                                        ev.target.value ||
+                                                            value ||
+                                                            undefined, // fixed bug with validation null
+                                                    );
+                                                }
                                             }}
                                             value={get(
                                                 values,

@@ -42,6 +42,7 @@ const Pane = ({
                     gutterBottom: true,
                     className: styles.title,
                 }}
+                classes={{ root: styles.rootHader }}
                 action={
                     menuItems.length ? (
                         <>

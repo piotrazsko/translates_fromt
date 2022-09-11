@@ -10,6 +10,8 @@
     }
     .optionContent {
         display: flex;
+        align-items: center;
+        line-height: 1;
         .text {
             font-weight: normal;
             margin-left: 16px;
@@ -17,5 +19,11 @@
     }
     .extra {
         color: $grey;
+    }
+    .name {
+        font-size: 11px;
+        color: $grey;
+        line-height: 1;
+        padding-left: 4px;
     }
 }

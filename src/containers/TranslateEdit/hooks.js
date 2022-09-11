@@ -14,7 +14,7 @@ import {
     updateTranslatesByKeyRequest,
 } from 'modules/translates';
 
-import { useGetMissingLangs } from './components/missingLanguages';
+import { useGetMissingLangs } from './missingLanguages';
 
 import get from 'lodash/get';
 
@@ -113,9 +113,10 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
     });
 
-    const { missingLanguages } = useGetMissingLangs({
+    const { missingLanguages, translatesOnServer } = useGetMissingLangs({
         applicationId,
         data: values,
+        translateData,
     });
 
     React.useEffect(() => {
@@ -145,7 +146,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     const onDelete = React.useCallback(
         (itemIndex, { key, namespace, language, value }) => {
             if (values.translates.length > 1) {
-                if (value || language) {
+                if (translatesOnServer.includes(language) && language) {
                     dispatch(
                         showPopupAction({
                             message: t('message.delete_translate_item'),
@@ -199,10 +200,10 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                 }
             }
         },
-        [values.translates],
+        [values.translates, missingLanguages],
     );
 
-    const onBlur = React.useCallback(
+    const onGetReccomendedTranslation = React.useCallback(
         (ev, index) => {
             if (index > 0) {
                 const currentLang = get(values, 'translates[0].language');
@@ -232,14 +233,29 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
         [values.translates],
     );
+
+    const onChangeLanguage = React.useCallback(
+        (index) => (ev, value) => {
+            if (typeof value === 'object') {
+                setFieldValue(`translates.${index}.language`, value.id);
+            } else {
+                setFieldValue(
+                    `translates.${index}.language`,
+                    ev.target.value || value || undefined, // fixed bug with validation null
+                );
+            }
+        },
+        [],
+    );
     return {
         handleSubmit,
+        onChangeLanguage,
         t,
         handleChange,
         handleBlur,
         values,
         errors,
-        onBlur,
+        onGetReccomendedTranslation,
         setFieldValue,
         onDelete,
         key,

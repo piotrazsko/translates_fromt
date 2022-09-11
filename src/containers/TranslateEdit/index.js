@@ -41,15 +41,15 @@ const EditTranslate = ({
         handleBlur,
         values,
         errors,
-        onBlur,
+        onGetReccomendedTranslation,
         setFieldValue,
         onDelete,
         key,
         namespace,
         onAdd,
         missingLanguages,
+        onChangeLanguage,
     } = useHook({ id, location, history, classes, applicationId });
-
     return (
         <PageSkeleton
             headerControlls={
@@ -111,47 +111,31 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
+                                            optionsExtraData={
+                                                <Typography
+                                                    className={
+                                                        classes.missingOption
+                                                    }
+                                                >
+                                                    {t(
+                                                        'translates.missing_translate',
+                                                    )}
+                                                </Typography>
+                                            }
                                             extraOptions={[
                                                 ...missingLanguages.map(
                                                     (i) => ({
                                                         id: i,
                                                         label: i,
-                                                        isExtra: (
-                                                            <Typography
-                                                                className={
-                                                                    classes.missingOption
-                                                                }
-                                                            >
-                                                                {t(
-                                                                    'translates.missing_translate',
-                                                                )}
-                                                            </Typography>
-                                                        ),
+                                                        isExtra: true,
                                                     }),
                                                 ),
                                             ]}
                                             size="small"
-                                            onBlur={(ev, value) =>
-                                                onBlur(ev, index)
-                                            }
                                             placeholder={t('input.language')}
                                             label={t('input.language')}
                                             variant="outlined"
-                                            onChange={(ev, value) => {
-                                                if (typeof value === 'object') {
-                                                    setFieldValue(
-                                                        `translates.${index}.language`,
-                                                        value.id,
-                                                    );
-                                                } else {
-                                                    setFieldValue(
-                                                        `translates.${index}.language`,
-                                                        ev.target.value ||
-                                                            value ||
-                                                            undefined, // fixed bug with validation null
-                                                    );
-                                                }
-                                            }}
+                                            onChange={onChangeLanguage(index)}
                                             value={get(
                                                 values,
                                                 `translates.${index}.language`,

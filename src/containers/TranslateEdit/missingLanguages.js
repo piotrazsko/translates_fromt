@@ -21,21 +21,25 @@ export const useGetMissingLangs = ({ applicationId, data, translateData }) => {
 
     const { languagesList } = useSelector(getStatisticsByApplicationSelector);
 
-    const { missingLanguages, translatesOnServer } = React.useMemo(() => {
-        const translatesOnServer = get(translateData, 'translates', []).map(
-            (i) => i.language,
-        );
-        if (data && languagesList) {
-            const existLangs = data.translates.map((i) => i.language);
-            return {
-                missingLanguages: languagesList.filter(
-                    (i) => !existLangs.includes(i),
-                ),
-                translatesOnServer,
-            };
-        }
-        return { missingLanguages: [], translatesOnServer };
-    }, [data, languagesList, translateData]);
+    const { missingLanguages, translatesOnServer, existLangs } =
+        React.useMemo(() => {
+            const translatesOnServer = get(translateData, 'translates', []).map(
+                (i) => i.language,
+            );
+            if (data && languagesList) {
+                const existLangs = data.translates
+                    .map((i) => i.language)
+                    .filter((i) => i);
+                return {
+                    missingLanguages: languagesList.filter(
+                        (i) => !existLangs.includes(i),
+                    ),
+                    translatesOnServer,
+                    existLangs,
+                };
+            }
+            return { missingLanguages: [], translatesOnServer, existLangs: [] };
+        }, [data, languagesList, translateData]);
 
-    return { missingLanguages, translatesOnServer };
+    return { missingLanguages, translatesOnServer, existLangs };
 };

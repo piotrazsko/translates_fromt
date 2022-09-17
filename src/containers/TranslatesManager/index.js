@@ -27,10 +27,8 @@ import {
     getApplicationsListRequest,
     getApplicationsListSelector,
 } from 'modules/applications';
-
-import { prepareSearchString, getDataFromCurrentLocarion } from 'helpers/url';
-
 import { showPopupAction } from 'modules/popups';
+import { prepareSearchString, getDataFromCurrentLocarion } from 'helpers/url';
 
 import TranslatesGrid from './components/TranslatesGrid';
 
@@ -50,12 +48,15 @@ const TranslatesManager = ({
         getDataFromCurrentLocarion();
 
     const [applicationId, setApplicationId] = React.useState(null);
+    const [tab, setTab] = React.useState(null);
+    const [searchText, setSearchText] = React.useState();
+
+    const res = useSelector(getTranslatedListSelector);
+    const applications = useSelector(getApplicationsListSelector);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const classes = useStyle();
-    const res = useSelector(getTranslatedListSelector);
-    const applications = useSelector(getApplicationsListSelector);
 
     React.useEffect(() => {
         dispatch(getApplicationsListRequest());
@@ -76,9 +77,6 @@ const TranslatesManager = ({
             dispatch(getAllKeysByApplicarionRequest({ applicationId }));
         }
     }, [applicationId, applicationIdFromUrl]);
-
-    const [tab, setTab] = React.useState(null);
-    const [searchText, setSearchText] = React.useState();
 
     const { tabs } = React.useMemo(() => {
         const tabs = new Set();
@@ -151,14 +149,17 @@ const TranslatesManager = ({
         [applicationId],
     );
 
-    const [dense, setDense] = React.useState(true);
-
+    const applicationData = React.useMemo(() => {
+        if (applicationId && applications.length > 0) {
+            return applications.find((i) => i.id === applicationId);
+        }
+    }, [applicationId, applications]);
     return (
         <>
             <PageSkeleton title={t('title.translates')} grey>
                 <Pane>
                     <Grid container justifyContent="flex-end" spacing={2}>
-                        <Grid item xs={2}>
+                        <Grid item xs={3}>
                             <Select
                                 defaultOpen={!applicationIdFromUrl}
                                 defaultValue={applicationId}
@@ -181,11 +182,12 @@ const TranslatesManager = ({
                                 placeholder={t('input.searchplaceholder')}
                             />
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={2}>
                             <Button
                                 disabled={!applicationId}
                                 color="primary"
                                 variant="contained"
+                                fullWidth
                                 onClick={() => {
                                     history.push(
                                         `/translates/${applicationId}/add`,
@@ -194,20 +196,6 @@ const TranslatesManager = ({
                             >
                                 {t('button.add')}
                             </Button>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        color="primary"
-                                        checked={dense}
-                                        onChange={() => {
-                                            setDense(!dense);
-                                        }}
-                                    />
-                                }
-                                label="Dense padding"
-                            />
                         </Grid>
                     </Grid>
                     {applicationId ? (
@@ -230,18 +218,18 @@ const TranslatesManager = ({
                                 ))}
                             </Tabs>
                             <TranslatesGrid
-                                dense={dense}
+                                dense
                                 data={data}
                                 history={history}
                                 onDelete={onDelete}
-                                applicationId={applicationId}
+                                applicationData={applicationData}
                             />
                         </>
                     ) : (
                         <PagePlaceholder>
                             {t('translates.placeholder_grid')}
                         </PagePlaceholder>
-                    )}{' '}
+                    )}
                 </Pane>
             </PageSkeleton>
         </>

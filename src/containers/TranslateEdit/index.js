@@ -42,13 +42,14 @@ const EditTranslate = ({
         values,
         errors,
         onGetReccomendedTranslation,
-        setFieldValue,
         onDelete,
         key,
         namespace,
         onAdd,
         missingLanguages,
         onChangeLanguage,
+        translatesOnServer,
+        existLangs,
     } = useHook({ id, location, history, classes, applicationId });
     return (
         <PageSkeleton
@@ -111,6 +112,8 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
+                                            // showFlags={false}
+                                            // showFlags
                                             optionsExtraData={
                                                 <Typography
                                                     className={
@@ -122,6 +125,10 @@ const EditTranslate = ({
                                                     )}
                                                 </Typography>
                                             }
+                                            disabledOptions={existLangs}
+                                            disabled={translatesOnServer.includes(
+                                                i.language,
+                                            )}
                                             extraOptions={[
                                                 ...missingLanguages.map(
                                                     (i) => ({

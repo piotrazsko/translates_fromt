@@ -113,11 +113,12 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
     });
 
-    const { missingLanguages, translatesOnServer } = useGetMissingLangs({
-        applicationId,
-        data: values,
-        translateData,
-    });
+    const { missingLanguages, translatesOnServer, existLangs } =
+        useGetMissingLangs({
+            applicationId,
+            data: values,
+            translateData,
+        });
 
     React.useEffect(() => {
         if (translateData.loaded && id !== 'add') {
@@ -234,6 +235,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         [values.translates],
     );
 
+    // BUG: fix onchange  have error with null and undefined
     const onChangeLanguage = React.useCallback(
         (index) => (ev, value) => {
             if (typeof value === 'object') {
@@ -262,5 +264,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         namespace,
         onAdd,
         missingLanguages,
+        translatesOnServer,
+        existLangs,
     };
 };

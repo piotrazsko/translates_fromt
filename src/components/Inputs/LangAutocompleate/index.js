@@ -13,6 +13,8 @@ import style from './style.scss';
 const LangAutocompleate = ({
     extraOptions = [],
     optionsExtraData,
+    disabledOptions = [],
+    showFlags = false,
     ...props
 }) => {
     const optionsPrepared = React.useMemo(() => {
@@ -46,8 +48,10 @@ const LangAutocompleate = ({
         const withoutFlag = options
             .filter((i) => !i.srcFlag)
             .sort((a, b) => (a.id > b.id ? 1 : 0));
-        return [...extraOptionsPrepared, ...withFlags, ...withoutFlag];
-    }, [codes, flags, extraOptions]);
+        return [...extraOptionsPrepared, ...withFlags, ...withoutFlag].filter(
+            (i) => !disabledOptions.includes(i.id),
+        );
+    }, [codes, flags, extraOptions, disabledOptions]);
 
     return (
         <Autocomplete
@@ -64,9 +68,14 @@ const LangAutocompleate = ({
                         className={style.optionContainer}
                     >
                         <Box className={style.optionContent}>
-                            {<Flag code={option.id} src={option.srcFlag} /> || (
-                                <Box minWidth={'24px'} />
-                            )}
+                            {showFlags
+                                ? (
+                                      <Flag
+                                          code={option.id}
+                                          src={option.srcFlag}
+                                      />
+                                  ) || <Box minWidth={'24px'} />
+                                : null}
                             <Typography className={style.text}>
                                 {option.label}
                             </Typography>

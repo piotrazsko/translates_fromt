@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
@@ -23,6 +25,8 @@ import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_FORMAT } from 'constants/date';
 import { sliceLangsStr } from 'helpers/translates';
+
+import style from './style.scss';
 
 const useStyles = makeStyles({
     table: {
@@ -60,6 +64,13 @@ const headCells = (t) => [
         label: t('tableheader.updated_at'),
     },
     {
+        id: 'is_full_tranlated',
+        numeric: false,
+        disablePadding: false,
+        sortable: false,
+        label: t('tableheader.is_full_tranlated'),
+    },
+    {
         id: 'edit_delete',
         numeric: false,
         disablePadding: false,
@@ -73,7 +84,7 @@ const TranslatesGrid = ({
     history,
     onDelete,
     dense = true,
-    applicationId,
+    applicationData = {},
 }) => {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -81,6 +92,8 @@ const TranslatesGrid = ({
         field: 'key',
         direct: 1,
     });
+    const { id: applicationId, languages = [] } = applicationData;
+    console.log(applicationData);
 
     const res = React.useMemo(() => {
         return data.sort((a, b) => {
@@ -170,6 +183,8 @@ const TranslatesGrid = ({
                 <TableBody>
                     {Array.isArray(res)
                         ? res.map((row) => {
+                              const isFull =
+                                  row.langs.length === languages.length;
                               return (
                                   <TableRow key={row.key + row.namespace}>
                                       <TableCell align="center">
@@ -185,6 +200,21 @@ const TranslatesGrid = ({
                                           {moment(row.updated_at).format(
                                               DATE_TIME_FORMAT,
                                           ) || ''}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                          {isFull ? (
+                                              <CheckCircleOutlineIcon
+                                                  className={
+                                                      style.iconFullTranclate
+                                                  }
+                                              />
+                                          ) : (
+                                              <ErrorOutlineIcon
+                                                  className={
+                                                      style.iconNotFullTranclate
+                                                  }
+                                              />
+                                          )}
                                       </TableCell>
                                       <TableCell align="center">
                                           <IconButton

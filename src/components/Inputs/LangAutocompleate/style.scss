@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 16px;
+    padding: 4px 8px;
     &:hover {
         background-color: $lightGrey;
     }
@@ -14,7 +14,7 @@
         line-height: 1;
         .text {
             font-weight: normal;
-            margin-left: 16px;
+            margin-left: 8px;
         }
     }
     .extra {

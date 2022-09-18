@@ -54,20 +54,18 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
 
     const {
         handleChange,
-        handleBlur,
-        handleReset,
-        touched,
         values,
         handleSubmit,
         setFieldValue,
         setErrors,
         errors,
-        ...data
     } = useFormik({
         initialValues: {
             key: '',
             namespace: '',
-            translates: [{ id: Math.random(), language: '', value: '' }],
+            translates: [
+                { id: Math.random().toString(), language: '', value: '' },
+            ],
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -134,18 +132,19 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         }
     }, [translateData]);
 
-    const onAdd = React.useCallback(
-        (data) => {
-            setFieldValue('translates', [
-                ...values.translates,
-                { id: Math.random(), language: '', value: '' },
-            ]);
-        },
-        [values.translates],
-    );
+    const onAdd = React.useCallback((data, values) => {
+        setFieldValue('translates', [
+            ...values.translates,
+            { id: Math.random().toString(), language: '', value: '' },
+        ]);
+    }, []);
 
     const onDelete = React.useCallback(
-        (itemIndex, { key, namespace, language, value }) => {
+        (
+            itemIndex,
+            { key, namespace, language, value },
+            { values, translatesOnServer },
+        ) => {
             if (values.translates.length > 1) {
                 if (translatesOnServer.includes(language) && language) {
                     dispatch(
@@ -201,11 +200,11 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                 }
             }
         },
-        [values.translates, missingLanguages],
+        [],
     );
 
     const onGetReccomendedTranslation = React.useCallback(
-        (ev, index) => {
+        (ev, index, values) => {
             if (index > 0) {
                 const currentLang = get(values, 'translates[0].language');
                 const text = get(values, 'translates[0].value');
@@ -232,7 +231,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                 }
             }
         },
-        [values.translates],
+        [],
     );
 
     // BUG: fix onchange  have error with null and undefined
@@ -249,12 +248,12 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
         [],
     );
+
     return {
         handleSubmit,
         onChangeLanguage,
         t,
         handleChange,
-        handleBlur,
         values,
         errors,
         onGetReccomendedTranslation,

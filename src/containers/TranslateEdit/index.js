@@ -38,7 +38,6 @@ const EditTranslate = ({
         handleSubmit,
         t,
         handleChange,
-        handleBlur,
         values,
         errors,
         onGetReccomendedTranslation,
@@ -51,6 +50,7 @@ const EditTranslate = ({
         translatesOnServer,
         existLangs,
     } = useHook({ id, location, history, classes, applicationId });
+
     return (
         <PageSkeleton
             headerControlls={
@@ -84,7 +84,6 @@ const EditTranslate = ({
                             required
                             id="outlined-error"
                             onChange={handleChange('key')}
-                            onBlur={handleBlur('key')}
                             value={values.key}
                             error={Boolean(errors.key)}
                             helperText={errors.key}
@@ -99,7 +98,6 @@ const EditTranslate = ({
                             label={t('input.namespace')}
                             variant="outlined"
                             onChange={handleChange('namespace')}
-                            onBlur={handleBlur('namespace')}
                             value={values.namespace}
                             error={Boolean(errors.namespace)}
                             helperText={errors.namespace}
@@ -112,8 +110,6 @@ const EditTranslate = ({
                                     <Grid item xs={4}>
                                         <LangAutocompleate
                                             fullWidth
-                                            // showFlags={false}
-                                            // showFlags
                                             optionsExtraData={
                                                 <Typography
                                                     className={
@@ -174,9 +170,6 @@ const EditTranslate = ({
                                             onChange={handleChange(
                                                 `translates.${index}.value`,
                                             )}
-                                            onBlur={handleBlur(
-                                                `translates.${index}.value`,
-                                            )}
                                             value={get(
                                                 values,
                                                 `translates.${index}.value`,
@@ -202,20 +195,27 @@ const EditTranslate = ({
                                                 tabIndex={-1}
                                                 color="error"
                                                 onClick={() =>
-                                                    onDelete(index, {
-                                                        language: get(
+                                                    onDelete(
+                                                        index,
+                                                        {
+                                                            language: get(
+                                                                values,
+                                                                `translates.${index}.language`,
+                                                                null,
+                                                            ),
+                                                            key,
+                                                            namespace,
+                                                            value: get(
+                                                                values,
+                                                                `translates.${index}.value`,
+                                                                null,
+                                                            ),
+                                                        },
+                                                        {
                                                             values,
-                                                            `translates.${index}.language`,
-                                                            null,
-                                                        ),
-                                                        key,
-                                                        namespace,
-                                                        value: get(
-                                                            values,
-                                                            `translates.${index}.value`,
-                                                            null,
-                                                        ),
-                                                    })
+                                                            translatesOnServer,
+                                                        },
+                                                    )
                                                 }
                                                 size="large"
                                             >
@@ -230,7 +230,7 @@ const EditTranslate = ({
                     <Grid item xs={1}>
                         <IconButton
                             color="primary"
-                            onClick={onAdd}
+                            onClick={(data) => onAdd(data, values)}
                             size="large"
                         >
                             <Add />

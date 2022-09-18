@@ -237,7 +237,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     // BUG: fix onchange  have error with null and undefined
     const onChangeLanguage = React.useCallback(
         (index) => (ev, value) => {
-            if (typeof value === 'object') {
+            if (typeof value === 'object' && value !== null) {
+                console.log(value);
                 setFieldValue(`translates.${index}.language`, value.id);
             } else {
                 setFieldValue(

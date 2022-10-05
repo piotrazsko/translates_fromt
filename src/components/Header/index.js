@@ -15,24 +15,25 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 
 import { logoutAction, userIsAuthSelector } from 'modules/auth';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        position: 'static',
+        borderRadius: 0,
+    },
+    toolbar: {
+        padding: '0 30px',
+    },
     grow: {
         flexGrow: 1,
-        zIndex: 3,
-        position: 'static',
-    },
-    root: {
-        borderRadius: 0,
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
-        display: 'none',
+        display: 'block',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     sectionDesktop: {
-        display: 'none',
+        display: 'block',
         [theme.breakpoints.up('md')]: {
             display: 'flex',
         },
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-const Header = ({ history, ...props }) => {
+const Header = ({ history, title, ...props }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const { t } = useTranslation();
@@ -100,78 +101,66 @@ const Header = ({ history, ...props }) => {
     );
 
     return (
-        <div className={classes.grow}>
-            <AppBar
-                color="default"
-                classes={{ root: classes.root }}
-                elevation="1"
-            >
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        size="large">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        onClick={() => {
-                            history.push('/');
-                        }}
-                        className={classes.title}
-                        variant="h6"
-                        noWrap
-                    >
-                        Goman Live
-                    </Typography>
+        <AppBar color="default" classes={{ root: classes.root }} elevation="0">
+            <Toolbar className={classes.toolbar}>
+                <Typography variant="h2">{title}</Typography>
 
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        {userIsAuth ? (
-                            <IconButton aria-label="show 4 new mails" color="inherit" size="large">
-                                <Badge badgeContent={4} color="secondary">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                        ) : null}
-                        {userIsAuth ? (
-                            <IconButton aria-label="show 17 new notifications" color="inherit" size="large">
-                                <Badge badgeContent={17} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        ) : null}
-                        {userIsAuth ? (
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit"
-                                size="large">
-                                <AccountCircle />
-                            </IconButton>
-                        ) : (
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={() => {
-                                    history.push('/login');
-                                }}
-                                color="inherit"
-                                size="large">
-                                <ExitToAppOutlinedIcon />
-                            </IconButton>
-                        )}
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {renderMenu}
-        </div>
+                <div className={classes.grow} />
+                <div className={classes.sectionDesktop}>
+                    {userIsAuth ? (
+                        <IconButton
+                            aria-label="show 4 new mails"
+                            color="inherit"
+                            size="large"
+                        >
+                            <Badge badgeContent={4} color="secondary">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                    ) : null}
+                    {userIsAuth ? (
+                        <IconButton
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            size="large"
+                        >
+                            <Badge badgeContent={17} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                    ) : null}
+                    {userIsAuth ? (
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                            size="large"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    ) : (
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={() => {
+                                history.push('/login');
+                            }}
+                            color="inherit"
+                            size="large"
+                        >
+                            <ExitToAppOutlinedIcon />
+                        </IconButton>
+                    )}
+                </div>
+            </Toolbar>
+        </AppBar>
+        // {renderMenu}
+        // </div>
     );
 };
 

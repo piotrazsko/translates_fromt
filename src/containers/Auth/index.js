@@ -9,7 +9,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -19,22 +18,14 @@ import { useTranslation } from 'react-i18next';
 import { loginRequest, resetPasswordRequest } from 'modules/auth';
 import { Popup } from 'components';
 import style from './style.scss';
+
 const validationSchema = yup.object({
-    email: yup
-        .string()
-        .email()
-        .required(),
-    password: yup
-        .string()
-        .min(6)
-        .max(16)
-        .required(),
+    email: yup.string().email().required(),
+    password: yup.string().min(6).max(16).required(),
 });
+
 const validationSchemaEmail = yup.object({
-    email: yup
-        .string()
-        .email()
-        .required(),
+    email: yup.string().email().required(),
 });
 
 const Auth = ({ history }) => {
@@ -42,37 +33,34 @@ const Auth = ({ history }) => {
     const { t } = useTranslation();
     const [emailForReset, setResetForEmail] = React.useState('');
 
-    const {
-        handleChange,
-        handleBlur,
-        handleReset,
-        touched,
-        values,
-        handleSubmit,
-        setErrors,
-        errors,
-    } = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
+    const { handleChange, values, handleSubmit, setErrors, errors } = useFormik(
+        {
+            initialValues: {
+                email: '',
+                password: '',
+            },
+            validationSchema: validationSchema,
+            onSubmit: (values) => {
+                dispatch(
+                    loginRequest(
+                        { ...values },
+                        {
+                            onSuccess: () => {
+                                history.push('/');
+                            },
+                            onFailure: (data) => {
+                                setErrors({
+                                    ...errors,
+                                    ...get(data, 'response.data.error'),
+                                });
+                            },
+                        },
+                    ),
+                );
+            },
         },
-        validationSchema: validationSchema,
-        onSubmit: (values) => {
-            dispatch(
-                loginRequest(values, {
-                    onSuccess: () => {
-                        history.push('/');
-                    },
-                    onFailure: (data) => {
-                        setErrors({
-                            ...errors,
-                            ...get(data, 'response.data.error'),
-                        });
-                    },
-                }),
-            );
-        },
-    });
+    );
+
     const [showPopup, setShowPopup] = React.useState(false);
     const [errorEmail, setErrorEmail] = React.useState(false);
 
@@ -92,7 +80,6 @@ const Auth = ({ history }) => {
                     submitButtonText={t('button.send')}
                     cancelButtonText={t('button.cancel')}
                     onSubmit={(ev) => {
-                        console.log(emailForReset);
                         validationSchemaEmail
                             .isValid({ email: emailForReset })
                             .then((valid) => {

@@ -18,6 +18,7 @@ const Pane = ({
     classes = {},
     style = {},
     menuItems = [],
+    showHeader = true,
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -35,49 +36,51 @@ const Pane = ({
             )}
             style={style}
         >
-            <CardHeader
-                title={title}
-                titleTypographyProps={{
-                    variant: 'h3',
-                    gutterBottom: true,
-                    className: styles.title,
-                }}
-                classes={{ root: styles.rootHader }}
-                action={
-                    menuItems.length ? (
-                        <>
-                            <IconButton
-                                aria-label="settings"
-                                color="primary"
-                                onClick={handleClick}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                                id="basic-menu"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                MenuListProps={{
-                                    'aria-labelledby': 'basic-button',
-                                }}
-                            >
-                                {menuItems.map((i) => (
-                                    <MenuItem
-                                        key={i.title}
-                                        onClick={() => {
-                                            i.onClick();
-                                            handleClose();
-                                        }}
-                                    >
-                                        {i.title}
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </>
-                    ) : null
-                }
-            ></CardHeader>
+            {showHeader ? (
+                <CardHeader
+                    title={title}
+                    titleTypographyProps={{
+                        variant: 'h3',
+                        gutterBottom: true,
+                        className: styles.title,
+                    }}
+                    classes={{ root: styles.rootHader }}
+                    action={
+                        menuItems.length ? (
+                            <>
+                                <IconButton
+                                    aria-label="settings"
+                                    color="primary"
+                                    onClick={handleClick}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    {menuItems.map((i) => (
+                                        <MenuItem
+                                            key={i.title}
+                                            onClick={() => {
+                                                i.onClick();
+                                                handleClose();
+                                            }}
+                                        >
+                                            {i.title}
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </>
+                        ) : null
+                    }
+                ></CardHeader>
+            ) : null}
             <CardContent
                 className={[classes.content, styles.content].join(' ')}
             >

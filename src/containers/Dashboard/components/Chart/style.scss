@@ -1,0 +1,20 @@
+.chartContainer {
+    height: 80%;
+    width: 100%;
+    & div {
+        display: flex;
+        justify-content: center;
+    }
+}
+.content {
+    height: 100%;
+    padding: 16px 0;
+}
+.title {
+    text-align: center;
+    white-space: nowrap;
+}
+.bottomText {
+    text-align: center;
+    font-size: 12px;
+}

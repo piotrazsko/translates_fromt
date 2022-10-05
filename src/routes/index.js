@@ -35,6 +35,7 @@ const mainRoutes = [
         component: Dashboard,
         showHeader: true,
         showSidebar: true,
+        defaultTitle: 'Dashboard',
     },
     {
         path: '/applications',

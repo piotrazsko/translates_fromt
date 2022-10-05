@@ -6,11 +6,9 @@ import Button from '@mui/material/Button';
 import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = makeStyles((theme) => ({
-    container: {
-        padding: '30px 30px 45px 30px',
-    },
+    container: {},
     content: {
-        margin: '30px 0 0 0 !important',
+        // margin: '30px 0 0 0 !important',
         whiteSpace: 'pre-wrap',
     },
     buttonContainer: {
@@ -31,9 +29,6 @@ const PageSkeleton = ({
     const classes = useStyles();
     return (
         <Grid container classes={{ root: classes.container }}>
-            <Grid item xs={6}>
-                <Typography variant="h1">{title}</Typography>
-            </Grid>
             <Grid xs={6} className={classes.buttonContainer}>
                 {headerControlls}
                 {showButton ? <Button {...buttonProps}></Button> : null}

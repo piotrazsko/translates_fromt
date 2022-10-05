@@ -1,19 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
 
 import { SideBar, Header } from 'components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '80px',
-        display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: '240px repeat(23, 1fr)',
+        gridTemplateRows: '64px repeat(23, 1fr)',
+        gridColumnGap: '30px',
+        gridRowGap: '30px',
+        minHeight: '100vh',
+        height: '100%',
+        width: '100vw',
+    },
+    page: {
+        gridArea: '2 / 2 / 25 / 25',
+        paddingRight: '30px',
+        paddingBottom: '30px',
+    },
+    sideBar: {
+        gridArea: '1 / 1 / 25 / 2',
+    },
+    header: {
+        gridArea: '1 / 2 / 2 / 25',
+        position: 'sticky',
+        top: '0px',
+        marginLeft: '-30px',
+        zIndex: 3,
     },
 }));
 
@@ -23,13 +42,13 @@ const Layout = ({
     viewPort,
     currentLocalization,
     history,
-    route: { showHeader = true, showSidebar = true },
+    route: { showHeader = true, showSidebar = true, defaultTitle },
     ...rest
 }) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { isMobile } = viewPort ?? {};
-
+    const [title, setTitle] = React.useState(defaultTitle);
     const [isEndOfPage, setEndOfPage] = React.useState(false);
     const restWithPermissons = {
         viewPort,
@@ -45,29 +64,26 @@ const Layout = ({
             <Helmet>
                 <title>{t('default.user_name')}</title>
             </Helmet>
-            {showHeader ? <Header history={history} /> : null}
-            <Container maxWidth="" classes={{ root: classes.root }}>
-                <Grid container spacing={2}>
+            <Box className={classes.root}>
+                <Box className={classes.sideBar}>
                     {showSidebar ? (
-                        <Grid item md={2} lg={2}>
-                            <SideBar
-                                isMobile={isMobile}
-                                {...restWithPermissons}
-                            />
-                        </Grid>
+                        <SideBar isMobile={isMobile} {...restWithPermissons} />
                     ) : null}
-                    <Grid item md={10} lg={10}>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                {React.createElement(
-                                    children,
-                                    restWithPermissons,
-                                )}
-                            </Grid>
-                        </Grid>
+                </Box>
+                <Box className={classes.header}>
+                    {showHeader ? (
+                        <Header history={history} title={title} />
+                    ) : null}
+                </Box>
+                <Grid container className={classes.page}>
+                    <Grid item xs={12}>
+                        {React.createElement(children, {
+                            ...restWithPermissons,
+                            setTitle,
+                        })}
                     </Grid>
                 </Grid>
-            </Container>
+            </Box>
         </>
     );
 };

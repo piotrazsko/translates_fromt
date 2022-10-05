@@ -130,8 +130,9 @@ export const theme = createTheme({
         MuiCard: {
             styleOverrides: {
                 root: {
-                    borderRadius: '40px',
+                    borderRadius: '20px',
                     padding: '32px',
+                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.03);',
                 },
             },
         },

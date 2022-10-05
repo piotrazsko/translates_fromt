@@ -2,7 +2,6 @@ import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,7 +9,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useTranslation } from 'react-i18next';
 
-const drawerWidth = 240;
+const drawerWidth = '100%';
 
 const useStyles = makeStyles((theme) => ({
     // appBar: {
@@ -20,11 +19,16 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+        display: 'block',
+        height: '100vh',
+        position: 'sticky',
+        top: 0,
     },
     drawerPaper: {
         background: theme.palette.primary.main,
         width: drawerWidth,
         borderRadius: 0,
+        position: 'static',
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,

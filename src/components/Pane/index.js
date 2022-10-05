@@ -44,7 +44,11 @@ const Pane = ({
                         gutterBottom: true,
                         className: styles.title,
                     }}
-                    classes={{ root: styles.rootHader }}
+                    classes={{
+                        root: [styles.rootHader, classes.header || ''].join(
+                            ' ',
+                        ),
+                    }}
                     action={
                         menuItems.length ? (
                             <>

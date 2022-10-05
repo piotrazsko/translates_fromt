@@ -1,14 +1,15 @@
-$padding: 16px;
+$padding: 20px 30px;
 .title {
     // padding-bottom: 20px;
     padding-top: 0;
 }
 .container {
-    padding: 18px;
+    // padding: 20px 30px;
 }
 .content {
     padding: $padding;
 }
 .rootHader {
-    padding: 16px $padding;
+    padding: 20px 30px;
+    border-bottom: 1px solid #ededed;
 }

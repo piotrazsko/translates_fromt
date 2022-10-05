@@ -67,7 +67,7 @@ export const Chart = ({
                         },
                         offsetY: 12,
                         color: color,
-                        fontSize: !isTablet ? '36px' : '24px',
+                        fontSize: !isTablet ? '32px' : '24px',
                         show: true,
                     },
                 },
@@ -101,7 +101,7 @@ export const Chart = ({
     return (
         <Pane
             showHeader={false}
-            classes={{ content: styles.content }}
+            classes={{ content: styles.content, header: styles.header }}
             style={style}
         >
             <Typography className={styles.title} variant="body2">
@@ -117,7 +117,7 @@ export const Chart = ({
                 />
             </div>
             <div className={styles.bottomText}>
-                {(t('chart.from', { count: count }), `${count} from`)}
+                {t('chart.count_from', { count: count })}
                 <span style={{ color: color }}> {maxCount}</span>
             </div>
         </Pane>

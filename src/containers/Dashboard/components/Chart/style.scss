@@ -1,14 +1,18 @@
 .chartContainer {
     height: 80%;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     & div {
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 }
 .content {
     height: 100%;
-    padding: 16px 0;
+    padding-top: 30px;
 }
 .title {
     text-align: center;
@@ -17,4 +21,6 @@
 .bottomText {
     text-align: center;
     font-size: 12px;
+}
+.header {
 }

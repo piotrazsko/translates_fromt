@@ -131,14 +131,14 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '20px',
-                    padding: '32px',
+                    padding: '20px 30px',
                     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.03);',
                 },
             },
         },
         MuiTypography: {
             styleOverrides: {
-                h1: { fontWeight: 700, fontSize: '36px' },
+                h1: { fontWeight: 600, fontSize: '30px' },
                 h2: { fontWeight: 700, fontSize: '24px' },
                 h3: { fontWeight: 700, fontSize: '22px' },
                 h4: { fontWeight: 700, fontSize: '16px' },

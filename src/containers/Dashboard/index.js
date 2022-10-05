@@ -13,20 +13,23 @@ import { getCurrentUserSelector } from 'modules/auth';
 import { getPlanByIdRequest, getPlanByIdSelector } from 'modules/plans';
 
 import Applications from './components/Applications';
-import MyBalance from './components/MyBalance';
+import MyPlan from './components/MyPlan';
 import { Chart } from './components/Chart';
 
 const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
     const { t } = useTranslation();
-    setTitle(t('dashboard.title'));
+
     const dispatch = useDispatch();
+
     const applications = useSelector(getApplicationsStatisticsSelector);
-    const { loaded, ...commonStatistic } = useSelector(
-        getCommonStatisticsSelector,
-    );
+    const { loaded, languagesCount, countTranslates, applicationsCount } =
+        useSelector(getCommonStatisticsSelector);
     const user = useSelector(getCurrentUserSelector);
-    const { maxApplications = 0, maxTranslates = 0 } =
-        useSelector(getPlanByIdSelector);
+    const currentPlan = useSelector(getPlanByIdSelector);
+
+    const { maxApplications, maxTranslates } = currentPlan;
+
+    setTitle(t('dashboard.title'));
 
     React.useEffect(() => {
         dispatch(getApplicationsStatisticsRequest());
@@ -38,7 +41,6 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
             dispatch(getPlanByIdRequest({ planId: user.plan }));
         }
     }, [user]);
-    console.log(commonStatistic);
     return (
         <PageSkeleton>
             <GridGenerator
@@ -59,7 +61,9 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
                     component={
                         <Chart
                             viewPort={viewPort}
-                            title={'Existing Languages'}
+                            title={t('dashboard.existing_languages')}
+                            maxCount={50}
+                            count={languagesCount}
                         />
                     }
                 ></Cell>
@@ -71,9 +75,10 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
                     component={
                         <Chart
                             viewPort={viewPort}
-                            title={'Existing Translates'}
+                            title={t('dashboard.existing_translates')}
                             color="#3D7FFF"
                             maxCount={maxTranslates}
+                            count={countTranslates}
                         />
                     }
                 ></Cell>
@@ -85,9 +90,10 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
                     component={
                         <Chart
                             viewPort={viewPort}
-                            title={'Existing Applications'}
+                            title={t('dashboard.existing_applications')}
                             color="#9747FF"
                             maxCount={maxApplications}
+                            count={applicationsCount}
                         />
                     }
                 ></Cell>
@@ -96,41 +102,20 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
                     row={0}
                     colSpan={2}
                     rowSpan={2}
-                    component={<MyBalance />}
+                    component={<MyPlan data={currentPlan} />}
                 ></Cell>
                 <Cell
                     col={0}
                     row={2}
                     colSpan={5}
                     rowSpan={3}
-                    component={
-                        <Applications
-                            history={history}
-                            applications={applications}
-                        />
-                    }
-                ></Cell>
-                {/* <Cell
-                    col={0}
-                    row={3}
-                    colSpan={6}
-                    rowSpan={3}
-                    component={<Statistics data={commonStatistic} />}
-                ></Cell> */}
-                {/* <Cell
-                    col={6}
-                    row={3}
-                    colSpan={6}
-                    rowSpan={3}
-                    component={<MyPlan data={currentPlan} history={history} />}
-                ></Cell> */}
-                {/* <Cell
-                    col={0}
-                    row={2}
-                    colSpan={12}
-                    rowSpan={2}
-                    component={<Transactions />}
-                ></Cell> */}
+                    component={<div></div>}
+                >
+                    <Applications
+                        history={history}
+                        applications={applications}
+                    />
+                </Cell>
             </GridGenerator>
         </PageSkeleton>
     );

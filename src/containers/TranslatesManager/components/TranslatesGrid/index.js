@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -217,6 +217,17 @@ const TranslatesGrid = ({
                                           )}
                                       </TableCell>
                                       <TableCell align="center">
+                                          <IconButton
+                                              color="primary"
+                                              onClick={() => {
+                                                  navigator.clipboard.writeText(
+                                                      `t('${row.namespace}.${row.key}')`,
+                                                  );
+                                              }}
+                                              size="large"
+                                          >
+                                              <ContentCopyIcon />
+                                          </IconButton>
                                           <IconButton
                                               color="primary"
                                               onClick={() => {

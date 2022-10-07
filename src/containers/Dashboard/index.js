@@ -27,7 +27,7 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
     const user = useSelector(getCurrentUserSelector);
     const currentPlan = useSelector(getPlanByIdSelector);
 
-    const { maxApplications, maxTranslates } = currentPlan;
+    const { maxApplications, maxTranslates, maxLanguages } = currentPlan;
 
     setTitle(t('dashboard.title'));
 
@@ -62,7 +62,7 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
                         <Chart
                             viewPort={viewPort}
                             title={t('dashboard.existing_languages')}
-                            maxCount={50}
+                            maxCount={maxLanguages}
                             count={languagesCount}
                         />
                     }

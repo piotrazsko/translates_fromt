@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -19,6 +20,7 @@ const Pane = ({
     style = {},
     menuItems = [],
     showHeader = true,
+    action = null,
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -50,7 +52,9 @@ const Pane = ({
                         ),
                     }}
                     action={
-                        menuItems.length ? (
+                        action ? (
+                            action
+                        ) : menuItems.length ? (
                             <>
                                 <IconButton
                                     aria-label="settings"

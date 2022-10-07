@@ -69,7 +69,7 @@ export const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: '40px',
+                    borderRadius: '10px',
                     'box-shadow': '0px 20px 50px rgba(191, 21, 108, 0.05)',
                     minWidth: '80px',
                 },
@@ -86,12 +86,16 @@ export const theme = createTheme({
         },
         MuiInput: {
             defaultProps: { size: 'small' },
+            styleOverrides: {},
+        },
+        MuiInputBase: {
             styleOverrides: {
-                // root: {
-                //     minHeight: 40,
-                // },
+                root: { backgroundColor: '#FAFAFA;', minWidth: '80px' },
+
                 sizeSmall: {
-                    minHeight: 40,
+                    height: 36,
+                    minHeight: 36,
+                    fontSize: '14px',
                 },
                 sizeMedium: {
                     minHeight: 44,
@@ -123,7 +127,44 @@ export const theme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    borderRadius: '40px',
+                    borderRadius: '10px',
+                    // borderWidth: '1px !important',
+                },
+                notchedOutline: {
+                    borderWidth: '1px !important',
+                },
+            },
+        },
+        MuiFilledInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '10px',
+                    backgroundColor: '#FAFAFA',
+                    '&::before': {
+                        borderBottom: 'none !important',
+                    },
+                    '&::after': {
+                        borderBottom: 'none !important',
+                    },
+                    '&:hover': {
+                        border: '1px solid #7675ED',
+                    },
+                    // borderWidth: '1px !important',
+                    '&.Mui-disabled': {
+                        backgroundColor: '#FAFAFA',
+                        color: '#BFBFBF',
+                    },
+
+                    // underline: {
+                    // borderBottom: 'none !important',
+                    // },
+                },
+                input: {
+                    paddingTop: '4px',
+                    paddingLeft: '16px',
+                },
+                notchedOutline: {
+                    borderWidth: '1px !important',
                 },
             },
         },
@@ -145,7 +186,10 @@ export const theme = createTheme({
                 h5: { fontWeight: 700, fontSize: '14px' },
                 body1: { fontWeight: 500, fontSize: '18px' },
                 body2: { fontWeight: 500, fontSize: '14px' },
-                subtitle1: { fontSize: '24px', color: '#8E8EA1' },
+                subtitle1: {
+                    fontSize: '16px',
+                    color: '#BFBFBF',
+                },
             },
         },
     },

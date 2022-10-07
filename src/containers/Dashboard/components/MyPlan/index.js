@@ -11,7 +11,7 @@ import styles from './style.scss';
 
 const MyBalance = ({
     style,
-    data: { name, maxTranslates, maxApplications, ...data } = {},
+    data: { name, maxTranslates, maxApplications, maxLanguages, ...data } = {},
 }) => {
     const { t } = useTranslation();
 
@@ -52,7 +52,7 @@ const MyBalance = ({
                 <Typography className={styles.bullet}>
                     <Bullet />
                     <span className={styles.item}>
-                        {t('dashboard.max_languages', { count: maxTranslates })}
+                        {t('dashboard.max_languages', { count: maxLanguages })}
                     </span>
                 </Typography>
             </Box>

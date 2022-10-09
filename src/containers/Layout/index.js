@@ -5,13 +5,30 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import Grid from '@mui/material/Grid';
 import makeStyles from '@mui/styles/makeStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    sideBarSelector,
+    expandSidebarAction,
+    collapseSidebarAction,
+} from 'modules/sidebar';
+import { logoutAction } from 'modules/auth';
 
 import { SideBar, Header } from 'components';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    rootExpanded: {
         display: 'grid',
         gridTemplateColumns: '240px repeat(23, 1fr)',
+        gridTemplateRows: '64px repeat(23, 1fr)',
+        gridColumnGap: '30px',
+        gridRowGap: '30px',
+        minHeight: '100vh',
+        height: '100%',
+        width: '100vw',
+    },
+    root: {
+        display: 'grid',
+        gridTemplateColumns: '80px repeat(23, 1fr)',
         gridTemplateRows: '64px repeat(23, 1fr)',
         gridColumnGap: '30px',
         gridRowGap: '30px',
@@ -49,6 +66,17 @@ const Layout = ({
     const classes = useStyles();
     const { isMobile } = viewPort ?? {};
     const [title, setTitle] = React.useState(defaultTitle);
+
+    const dispatch = useDispatch();
+    const sidebarExpanded = useSelector(sideBarSelector);
+    const setSidebarExpanded = () => {
+        if (sidebarExpanded) {
+            dispatch(collapseSidebarAction());
+        } else {
+            dispatch(expandSidebarAction());
+        }
+    };
+
     const [isEndOfPage, setEndOfPage] = React.useState(false);
     const restWithPermissons = {
         viewPort,
@@ -58,16 +86,29 @@ const Layout = ({
         history,
         ...rest,
     };
+    // const [sidebarExpanded, setSidebarExpanded] = React.useState(true);
 
     return (
         <>
             <Helmet>
                 <title>{t('default.user_name')}</title>
             </Helmet>
-            <Box className={classes.root}>
+            <Box
+                className={
+                    sidebarExpanded ? classes.rootExpanded : classes.root
+                }
+            >
                 <Box className={classes.sideBar}>
                     {showSidebar ? (
-                        <SideBar isMobile={isMobile} {...restWithPermissons} />
+                        <SideBar
+                            onLogout={() => {
+                                dispatch(logoutAction());
+                            }}
+                            isExpanded={sidebarExpanded}
+                            onChangeExpand={setSidebarExpanded}
+                            isMobile={isMobile}
+                            {...restWithPermissons}
+                        />
                     ) : null}
                 </Box>
                 <Box className={classes.header}>

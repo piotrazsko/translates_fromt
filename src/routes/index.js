@@ -36,6 +36,7 @@ const mainRoutes = [
         showHeader: true,
         showSidebar: true,
         defaultTitle: 'Dashboard',
+        isPrivate: true,
     },
     {
         path: '/applications',
@@ -43,6 +44,7 @@ const mainRoutes = [
         component: Applications,
         showHeader: true,
         showSidebar: true,
+        isPrivate: true,
     },
     {
         path: '/applications/:id',
@@ -50,6 +52,7 @@ const mainRoutes = [
         component: ApplicationEdit,
         showHeader: true,
         showSidebar: true,
+        isPrivate: true,
     },
     {
         path: '/translates',

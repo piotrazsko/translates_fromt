@@ -4,6 +4,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({ input: { paddingLeft: '8px' } });
 
 const SearchField = ({
     searchText,
@@ -12,13 +15,15 @@ const SearchField = ({
     label,
     ...props
 }) => {
+    const classes = useStyles();
+    console.log(classes);
     return (
         <TextField
             fullWidth
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start" color="primary">
-                        <SearchIcon />
+                        <SearchIcon color="primary" />
                     </InputAdornment>
                 ),
                 endAdornment: searchText ? (
@@ -33,11 +38,14 @@ const SearchField = ({
                 ) : (
                     false
                 ),
+                classes: {
+                    input: classes.input,
+                },
             }}
             // required
             value={searchText}
             onChange={(ev) => setSearchText(ev.target.value)}
-            variant="outlined"
+            variant="filled"
             placeholder={placeholder}
             label={label}
             {...props}

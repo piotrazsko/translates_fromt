@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { alpha } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import AppBar from '@mui/material/AppBar';
@@ -9,14 +8,11 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
-import { logoutAction, userIsAuthSelector } from 'modules/auth';
+import { userIsAuthSelector, getCurrentUserSelector } from 'modules/auth';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    notificationIcon: {
+        color: '#909090',
+        height: 25,
+    },
     title: {
         display: 'block',
         [theme.breakpoints.up('sm')]: {
@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
     sectionDesktop: {
-        display: 'block',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-        },
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 30,
     },
     sectionMobile: {
         display: 'flex',
@@ -53,52 +53,46 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
+
+function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+
+    for (i = 0; i < 3; i += 1) {
+        const value = (hash >> (i * 8)) & 0xff;
+        color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+}
+
+function stringAvatar(name) {
+    return {
+        sx: {
+            bgcolor: stringToColor(name),
+            width: 30,
+            height: 30,
+            fontSize: '0.8em',
+            cursor: 'pointer',
+        },
+        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+}
+
 const Header = ({ history, title, ...props }) => {
-    const dispatch = useDispatch();
     const classes = useStyles();
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const userIsAuth = useSelector(userIsAuthSelector);
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const isMenuOpen = Boolean(anchorEl);
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = (i) => {
-        switch (i) {
-            case 0:
-                history.push('/profile');
-                break;
-            case 1:
-                dispatch(logoutAction());
-                history.push('/');
-                break;
-
-            default:
-                break;
-        }
-        setAnchorEl(null);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={() => handleMenuClose(0)}>Profile</MenuItem>
-            <MenuItem onClick={() => handleMenuClose(1)}>
-                {t('menuitem.logout')}
-            </MenuItem>
-        </Menu>
-    );
+    const userData = useSelector(getCurrentUserSelector);
 
     return (
         <AppBar color="default" classes={{ root: classes.root }} elevation="0">
@@ -107,7 +101,7 @@ const Header = ({ history, title, ...props }) => {
 
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                    {userIsAuth ? (
+                    {/* {userIsAuth ? (
                         <IconButton
                             aria-label="show 4 new mails"
                             color="inherit"
@@ -117,41 +111,44 @@ const Header = ({ history, title, ...props }) => {
                                 <MailIcon />
                             </Badge>
                         </IconButton>
-                    ) : null}
+                    ) : null} */}
                     {userIsAuth ? (
                         <IconButton
                             aria-label="show 17 new notifications"
                             color="inherit"
-                            size="large"
+                            edge="end"
+                            // size="large"
                         >
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
+                            <Badge
+                                badgeContent={null}
+                                color="secondary"
+                                variant="dot"
+                                invisible
+                            >
+                                <NotificationsNoneIcon
+                                    className={classes.notificationIcon}
+                                />
                             </Badge>
                         </IconButton>
                     ) : null}
+                    <Divider orientation="vertical" flexItem />
                     {userIsAuth ? (
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                            size="large"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        <Avatar
+                            {...stringAvatar(
+                                [userData.first_name, userData.last_name]
+                                    .join(' ')
+                                    .toUpperCase(),
+                            )}
+                            onClick={() => history.push('/profile')}
+                        ></Avatar>
                     ) : (
                         <IconButton
                             edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
                             onClick={() => {
                                 history.push('/login');
                             }}
                             color="inherit"
-                            size="large"
+                            // size="large"
                         >
                             <ExitToAppOutlinedIcon />
                         </IconButton>

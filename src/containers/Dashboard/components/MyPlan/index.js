@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
-import SvgIcon from '@mui/material/SvgIcon';
 
 import { Pane } from 'components';
 import { ReactComponent as Bullet } from './item.svg';

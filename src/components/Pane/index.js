@@ -42,7 +42,7 @@ const Pane = ({
                 <CardHeader
                     title={title}
                     titleTypographyProps={{
-                        variant: 'h3',
+                        variant: 'body1',
                         gutterBottom: true,
                         className: styles.title,
                     }}

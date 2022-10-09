@@ -16,11 +16,13 @@ import { useDeleteApllication } from 'containers/ApplicationEdit/hooks';
 import ApplicationsGrid from './components/ApplicationsGrid';
 import AddApplicationPopup from './components/AddApplicationPopup';
 
-const Applications = ({ history, ...props }) => {
+const Applications = ({ history, setTitle, ...props }) => {
     const dispatch = useDispatch();
     const [showPopup, switchPopup] = React.useState(false);
 
     const { t } = useTranslation();
+
+    setTitle(t('applications.title_applications'));
     React.useEffect(() => {
         dispatch(getApplicationsListRequest());
     }, []);
@@ -67,7 +69,11 @@ const Applications = ({ history, ...props }) => {
     const onEdit = (data) => {
         history.push(`/applications/${data.id}`);
     };
+    const onAdd = (data) => {
+        history.push(`/translates/${data.id}/add`);
+    };
 
+    console.log(applications);
     return (
         <>
             {showPopup ? (
@@ -78,10 +84,23 @@ const Applications = ({ history, ...props }) => {
                     onCancel={onCancel}
                 />
             ) : null}
-            <PageSkeleton title={t('title.applications')}>
-                <Pane title={'applications.title_applications'}>
-                    <Grid container spacing={6}>
-                        <Grid item xs={10}>
+            <PageSkeleton>
+                <Pane
+                    title={t('applications.title_applications')}
+                    action={
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => {
+                                switchPopup(!showPopup);
+                            }}
+                        >
+                            {t('applications.add_button')}
+                        </Button>
+                    }
+                >
+                    <Grid container>
+                        <Grid item xs={6}>
                             <SearchField
                                 setSearchText={setSearchText}
                                 searchText={searchText}
@@ -90,22 +109,12 @@ const Applications = ({ history, ...props }) => {
                                 )}
                             />
                         </Grid>
-                        <Grid item xs={2}>
-                            <Button
-                                color="primary"
-                                variant="contained"
-                                onClick={() => {
-                                    switchPopup(!showPopup);
-                                }}
-                            >
-                                {t('button.add')}
-                            </Button>
-                        </Grid>
                     </Grid>
                     <ApplicationsGrid
                         data={data}
                         onDelete={onDelete}
                         onEdit={onEdit}
+                        onAdd={onAdd}
                     />
                 </Pane>
             </PageSkeleton>

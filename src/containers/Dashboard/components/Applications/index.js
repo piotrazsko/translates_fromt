@@ -26,15 +26,21 @@ import { colorArray } from 'helpers/colors';
 import { Tooltip as CustomTooltip } from './components/Tooltip';
 import styles from './style.scss';
 
+const defaultSelectValue = 'all';
+
 const Applications = ({ style, history, applications = [] }) => {
     const { t } = useTranslation();
-    const [application, setApplication] = React.useState();
+    const [application, setApplication] = React.useState(defaultSelectValue);
     const { preparedData, languages, ids } = React.useMemo(() => {
         const languages = new Set();
         if (applications.loaded) {
             return {
                 preparedData: applications
-                    .filter((i) => (application ? application === i.id : true))
+                    .filter((i) =>
+                        application !== defaultSelectValue && application
+                            ? application === i.id
+                            : true,
+                    )
                     .map((i) => {
                         const langs = Object.keys(i.languages).reduce(
                             (acc, item) => {
@@ -51,14 +57,13 @@ const Applications = ({ style, history, applications = [] }) => {
                     }),
                 languages: Array.from(languages),
                 ids: applications
-                    .filter((i) =>
-                        application ? application.id === i.id : true,
-                    )
+                    // .filter((i) => (application ? application === i.id : true))
                     .map((i) => i.id),
             };
         }
         return { languages: [] };
     }, [applications, application]);
+    console.log(ids);
 
     return (
         <Pane
@@ -84,10 +89,11 @@ const Applications = ({ style, history, applications = [] }) => {
                     onChange={(ev, value) => {
                         setApplication(ev.target.value);
                     }}
+                    defaultValue={'all'}
                     autoWidth
                     variant="filled"
                 >
-                    <MenuItem value="">
+                    <MenuItem value={defaultSelectValue}>
                         {t('dashboard.all_items_select')}
                     </MenuItem>
                     {applications.loaded

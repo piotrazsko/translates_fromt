@@ -18,6 +18,7 @@ import viewport from 'modules/viewport';
 import { i18nextReducer } from 'modules/i18next';
 import { authReducer } from 'modules/auth';
 import notificationsReducer from 'modules/notification';
+import { sidebarReducer, sideBarSelector } from 'modules/sidebar';
 
 const SetTransform = createTransform((inboundState) => {
     const { saveToPersist = true, ...state } = inboundState;
@@ -32,7 +33,7 @@ const persistConfig = {
     key: 'root',
     storage,
     version: 1,
-    whitelist: ['auth'],
+    whitelist: ['auth', 'sidebar'],
     // transforms: [SetTransform],
 };
 
@@ -44,4 +45,5 @@ export default persistCombineReducers(persistConfig, {
     locale: i18nextReducer,
     auth: authReducer,
     notification: notificationsReducer,
+    sidebar: sidebarReducer,
 });

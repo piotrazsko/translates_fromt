@@ -66,39 +66,60 @@ export const theme = createTheme({
         borderWidth: borderWidth,
     },
     components: {
+        MuiTableCell: {
+            styleOverrides: {
+                head: {
+                    backgroundColor: '#FAFAFA',
+                },
+            },
+        },
+
         MuiButton: {
+            // defaultProps: { size: 'small' },
             styleOverrides: {
                 root: {
                     borderRadius: '10px',
                     'box-shadow': '0px 20px 50px rgba(191, 21, 108, 0.05)',
                     minWidth: '80px',
+                    textTransform: 'none',
+                    fontSize: '14px',
                 },
                 sizeMedium: {
-                    height: 40,
+                    height: 36,
+                },
+                sizeSmall: {
+                    height: 32,
                 },
             },
         },
         MuiTextField: {
-            defaultProps: { size: 'small' },
+            // defaultProps: { size: 'small' },
         },
         MuiSelect: {
-            defaultProps: { size: 'small' },
+            // defaultProps: { size: 'small' },
         },
         MuiInput: {
             defaultProps: { size: 'small' },
             styleOverrides: {},
         },
         MuiInputBase: {
+            defaultProps: { size: 'medium' },
             styleOverrides: {
-                root: { backgroundColor: '#FAFAFA;', minWidth: '80px' },
+                root: {
+                    backgroundColor: '#FAFAFA;',
+                    minWidth: '80px',
+                    height: 36,
+                },
 
                 sizeSmall: {
-                    height: 36,
-                    minHeight: 36,
+                    height: 32,
+                    minHeight: 32,
                     fontSize: '14px',
                 },
                 sizeMedium: {
-                    minHeight: 44,
+                    height: 36,
+                    fontSize: '14px',
+                    minHeight: 36,
                 },
                 sizeLarge: {
                     minHeight: 48,
@@ -135,11 +156,17 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiInputAdornment: {
+            styleOverrides: {
+                root: { marginTop: '0px !important' },
+            },
+        },
         MuiFilledInput: {
             styleOverrides: {
                 root: {
                     borderRadius: '10px',
                     backgroundColor: '#FAFAFA',
+                    border: '1px solid transparent',
                     '&::before': {
                         borderBottom: 'none !important',
                     },

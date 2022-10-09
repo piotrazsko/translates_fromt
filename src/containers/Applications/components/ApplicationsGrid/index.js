@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,7 +9,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -16,52 +17,76 @@ import { visuallyHidden } from '@mui/utils';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { useTranslation } from 'react-i18next';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { sliceLangsStr } from 'helpers/translates';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 700,
+        borderCollapse: 'collapse',
     },
-});
+    container: {
+        marginTop: 20,
+        boxShadow: 'none',
+    },
+    row: {
+        borderBottom: `1px solid #EDEDED`,
+        '&:hover': {
+            borderBottom: `1px solid #7675ED`,
+        },
+    },
+    cell: {
+        borderBottom: `none`,
+    },
+    '&:hover': {},
+}));
 
 const headCells = (t) => [
-    {
-        id: 'id',
-        numeric: false,
-        disablePadding: false,
-        sortable: true,
-        label: t('tableheader.id'),
-    },
     {
         id: 'name',
         numeric: false,
         sortable: true,
         disablePadding: false,
-        label: t('tableheader.name'),
-    },
-    {
-        id: 'count',
-        numeric: false,
-        sortable: false,
-        disablePadding: false,
-        label: t('tableheader.translates_count'),
+        label: t('applications.name'),
     },
     {
         id: 'languages',
         numeric: false,
         sortable: false,
         disablePadding: false,
-        label: t('tableheader.languages'),
+        label: t('applications.languages'),
     },
     {
-        id: 'edit_delete',
+        id: 'translations_count',
+        numeric: false,
+        sortable: false,
+        disablePadding: false,
+        label: t('applications.count'),
+    },
+    {
+        id: 'add_translate',
+        numeric: false,
+        sortable: false,
+        disablePadding: false,
+        label: t('applications.add_translations'),
+        props: { width: '10%' },
+    },
+    {
+        id: 'edit',
         numeric: false,
         disablePadding: false,
         sortable: false,
-        label: t('tableheader.edit/delete'),
+        label: t('applications.edit'),
+        props: { width: '10%' },
+    },
+    {
+        id: 'delete',
+        numeric: false,
+        disablePadding: false,
+        sortable: false,
+        label: t('applications.delete'),
+        props: { width: '10%' },
     },
 ];
 
@@ -70,6 +95,7 @@ const ApplicationsGrid = ({
     history,
     onDelete,
     onEdit,
+    onAdd,
     dense = true,
 }) => {
     const { t } = useTranslation();
@@ -86,8 +112,6 @@ const ApplicationsGrid = ({
         });
     }, [sort, data]);
 
-    const [expanded, switchExpanded] = React.useState();
-
     const createSortHandler = (id, sortable) => () => {
         if (sortable) {
             setSort({ field: id, direct: sort.direct * -1 });
@@ -95,20 +119,9 @@ const ApplicationsGrid = ({
     };
 
     return (
-        <TableContainer component={Paper}>
-            <Toolbar>
-                <Box>
-                    <IconButton
-                        onClick={() => switchExpanded(!expanded)}
-                        size="large"
-                    >
-                        <FilterListIcon />
-                    </IconButton>
-                </Box>
-                {expanded ? <Box>-a-a-a</Box> : null}
-            </Toolbar>
+        <TableContainer className={classes.container} component={Paper}>
             <Table
-                size={dense ? 'small' : 'medium'}
+                size={'small'}
                 stickyHeader
                 className={classes.table}
                 aria-label="spanning table"
@@ -129,6 +142,7 @@ const ApplicationsGrid = ({
                                             : 'asc'
                                         : 'asc'
                                 }
+                                {...(headCell.props || {})}
                             >
                                 <TableSortLabel
                                     active={
@@ -167,19 +181,47 @@ const ApplicationsGrid = ({
                 <TableBody>
                     {Array.isArray(res)
                         ? res.map((row) => (
-                              <TableRow key={row.key + row.namespace}>
-                                  <TableCell align="center">{row.id}</TableCell>
-                                  <TableCell align="center">
+                              <TableRow
+                                  key={row.key + row.namespace}
+                                  className={classes.row}
+                              >
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
                                       {row.name || ''}
                                   </TableCell>
-                                  <TableCell align="center">
-                                      {row.count}
-                                  </TableCell>
-                                  <TableCell align="center">
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
                                       {sliceLangsStr(row.languages || []) ||
                                           '-'}
                                   </TableCell>
-                                  <TableCell align="center">
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
+                                      {row.count}
+                                  </TableCell>
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
+                                      <IconButton
+                                          color="primary"
+                                          onClick={() => {
+                                              onAdd(row);
+                                          }}
+                                          size="large"
+                                      >
+                                          <AddCircleOutlineIcon />
+                                      </IconButton>
+                                  </TableCell>
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
                                       <IconButton
                                           color="primary"
                                           onClick={() => {
@@ -189,6 +231,11 @@ const ApplicationsGrid = ({
                                       >
                                           <EditIcon />
                                       </IconButton>
+                                  </TableCell>
+                                  <TableCell
+                                      align="center"
+                                      className={classes.cell}
+                                  >
                                       <IconButton
                                           color="warning"
                                           onClick={() => onDelete(row)}

@@ -1,14 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
 import { Pane, PagePlaceholder } from 'components';
 import {
@@ -16,14 +12,13 @@ import {
     Bar,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
     Legend,
     ResponsiveContainer,
 } from 'recharts';
 
 import { colorArray } from 'helpers/colors';
-import { Tooltip as CustomTooltip } from './components/Tooltip';
+
 import styles from './style.scss';
 
 const defaultSelectValue = 'all';

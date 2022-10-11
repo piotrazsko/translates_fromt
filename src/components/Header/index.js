@@ -132,7 +132,7 @@ const Header = ({ history, title, ...props }) => {
                         </IconButton>
                     ) : null}
                     <Divider orientation="vertical" flexItem />
-                    {userIsAuth ? (
+                    {userIsAuth && userData.loaded ? (
                         <Avatar
                             {...stringAvatar(
                                 [userData.first_name, userData.last_name]

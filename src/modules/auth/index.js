@@ -152,7 +152,7 @@ export function* getUserSaga() {
 
 export function* authSaga(dispatch) {
     yield all([takeEvery(LOGOUT_USER, logoutSaga)]);
-    yield all([takeEvery(INIT_DATA, getUserSaga)]);
+    yield all([takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga)]);
 }
 
 export const userDataSelector = (state) => state.auth;

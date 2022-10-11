@@ -86,6 +86,7 @@ export const theme = createTheme({
                 },
                 sizeMedium: {
                     height: 36,
+                    minWidth: 146,
                 },
                 sizeSmall: {
                     height: 32,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PageSkeleton, Pane, SearchField } from 'components';
@@ -16,13 +17,21 @@ import { useDeleteApllication } from 'containers/ApplicationEdit/hooks';
 import ApplicationsGrid from './components/ApplicationsGrid';
 import AddApplicationPopup from './components/AddApplicationPopup';
 
+const useStyles = makeStyles({
+    addButton: {
+        minWidth: '170px',
+    },
+});
+
 const Applications = ({ history, setTitle, ...props }) => {
     const dispatch = useDispatch();
+    const classes = useStyles();
     const [showPopup, switchPopup] = React.useState(false);
 
     const { t } = useTranslation();
 
     setTitle(t('applications.title_applications'));
+
     React.useEffect(() => {
         dispatch(getApplicationsListRequest());
     }, []);
@@ -52,8 +61,6 @@ const Applications = ({ history, setTitle, ...props }) => {
         );
     };
 
-    const [applicationName, setApplicationName] = React.useState('');
-
     const data = React.useMemo(() => {
         return searchText
             ? applications.filter((item) => {
@@ -79,7 +86,6 @@ const Applications = ({ history, setTitle, ...props }) => {
             {showPopup ? (
                 <AddApplicationPopup
                     t={t}
-                    applicationName={applicationName}
                     onSubmit={onSubmitPopup}
                     onCancel={onCancel}
                 />
@@ -89,6 +95,7 @@ const Applications = ({ history, setTitle, ...props }) => {
                     title={t('applications.title_applications')}
                     action={
                         <Button
+                            classes={{ root: classes.addButton }}
                             color="primary"
                             variant="contained"
                             onClick={() => {

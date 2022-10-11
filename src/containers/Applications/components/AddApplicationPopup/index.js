@@ -5,38 +5,28 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-    name: yup
-        .string()
-        .min(3)
-        .max(16)
-        .required(),
+    name: yup.string().min(3).max(32).required(),
 });
 
-const AddApplicationPopup = ({
-    t,
-    applicationName = '',
-    onCancel,
-    onSubmit,
-}) => {
-    const { handleChange, setValues, errors, handleSubmit, values } = useFormik(
-        {
-            initialValues: { name: applicationName },
-            validationSchema,
-            onSubmit,
-        },
-    );
-    React.useEffect(() => {
-        if (applicationName) {
-            setValues({ name: applicationName });
-        }
-    }, [applicationName]);
+const AddApplicationPopup = ({ t, onCancel, onSubmit }) => {
+    const { handleChange, errors, handleSubmit, values } = useFormik({
+        initialValues: { name: '' },
+        validationSchema,
+        onSubmit,
+    });
 
     return (
         <form onSubmit={handleSubmit}>
-            <Popup onCancel={onCancel} confirmButtonProps={{ type: 'submit' }}>
+            <Popup
+                align="center"
+                onCancel={onCancel}
+                confirmButtonProps={{ type: 'submit' }}
+                title={t('applications.add_application_title')}
+                subtitle={t('applications.add_application_name_subtitle')}
+                submitButtonText={t('applications.save_application_button')}
+            >
                 <TextField
                     inputRef={(input) => input && input.focus()}
-                    label={t(`translates.label.popup`)}
                     onChange={handleChange('name')}
                     error={errors.name}
                     value={values.name}

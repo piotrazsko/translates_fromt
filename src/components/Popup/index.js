@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-
+import { useTranslation } from 'react-i18next';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import PopupBackground from '../PopupBackground';
@@ -28,15 +28,12 @@ const Popup = ({ ...props }) => {
         confirmButtonProps = {},
         cancelButtonProps = {},
         style,
-        childrenContainerClassName = '',
         showSubmit,
         showCancel,
         showClear = false,
         popupBackgroundsProps,
-        message = '',
-        textError = '',
-        textInfo = '',
         title,
+        subtitle,
     } = props;
     const handleSubmit = () => {
         onSubmit();
@@ -44,6 +41,7 @@ const Popup = ({ ...props }) => {
     const handleCancell = () => {
         onCancel();
     };
+    const { t } = useTranslation();
     return (
         <PopupBackground
             visible={showPopup}
@@ -72,8 +70,20 @@ const Popup = ({ ...props }) => {
                 )}
 
                 {title && (
-                    <Grid item xs={12} className={styles.title}>
-                        <Typography variant={'h4'}>{title}</Typography>
+                    <Grid item xs={12} className={styles.titleContainer}>
+                        <Typography variant={'h4'} className={styles.title}>
+                            {title}
+                        </Typography>
+                    </Grid>
+                )}
+                {subtitle && (
+                    <Grid item xs={12} className={styles.subtitleContainer}>
+                        <Typography
+                            variant={'body2'}
+                            className={styles.subtitle}
+                        >
+                            {subtitle}
+                        </Typography>
                     </Grid>
                 )}
 
@@ -81,13 +91,11 @@ const Popup = ({ ...props }) => {
                     item
                     className={[
                         styles.dataContainer,
-                        classes.dataContainer,
-                        childrenContainerClassName,
+                        classes.dataContainer || '',
                     ].join(' ')}
                     xs={12}
                 >
                     {children}
-                    {message}
                 </Grid>
                 {(showCancel || showSubmit) && (
                     <Grid
@@ -96,8 +104,10 @@ const Popup = ({ ...props }) => {
                         className={[
                             align === 'left'
                                 ? styles.buttonContainer_left
+                                : align === 'center'
+                                ? styles.buttonContainer_center
                                 : styles.buttonContainer_right,
-                            classes.buttonContainer,
+                            classes.buttonContainer || '',
                         ].join(' ')}
                     >
                         {showCancel && (
@@ -108,10 +118,10 @@ const Popup = ({ ...props }) => {
                                 variant="outlined"
                                 fontSize={'0.8rem'}
                                 color="primary"
-                                size="large"
+                                fullWidth
                                 {...cancelButtonProps}
                             >
-                                {cancelButtonText}
+                                {cancelButtonText || t('popup.cancel_button')}
                             </Button>
                         )}
                         {showSubmit && (
@@ -122,15 +132,13 @@ const Popup = ({ ...props }) => {
                                 variant="contained"
                                 type="submit"
                                 fontSize={'0.8rem'}
-                                size="large"
+                                fullWidth
                                 className={styles.confirmButton}
                                 {...confirmButtonProps}
                             >
-                                {submitButtonText}
+                                {submitButtonText || t('popup.ok_button')}
                             </Button>
                         )}
-                        <span className={styles.textError}> {textError}</span>
-                        <span className={styles.textInfo}> {textInfo}</span>
                     </Grid>
                 )}
             </Grid>
@@ -172,8 +180,6 @@ Popup.propTypes = {
     title: PropTypes.string,
 };
 Popup.defaultProps = {
-    cancelButtonText: 'Отменить',
-    submitButtonText: 'Применить',
     onSubmit: () => {},
     onCancel: () => {},
     onClear: () => {},

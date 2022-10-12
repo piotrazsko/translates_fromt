@@ -91,8 +91,7 @@ export const useDeleteApllication = ({ onSuccess = () => {} }) => {
     const onDelete = (data) => {
         dispatch(
             showPopupAction({
-                // message: t('message.delete_application'),
-                title: t('title.delete_application'),
+                title: t('applications.confirm_delete'),
                 onClick: () => {
                     dispatch(
                         deleteApplicationRequest(
@@ -108,7 +107,7 @@ export const useDeleteApllication = ({ onSuccess = () => {} }) => {
                 },
                 onCancel: () => true,
                 showCancel: true,
-                submitButtonText: t('button.ok'),
+                submitButtonText: t('applications.confirm_delete'),
                 cancelButtonText: t('button.cancel'),
                 confirmButtonProps: {
                     color: 'error',

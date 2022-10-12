@@ -31,6 +31,7 @@ const Popup = ({ ...props }) => {
         showSubmit,
         showCancel,
         showClear = false,
+        message = null,
         popupBackgroundsProps,
         title,
         subtitle,
@@ -95,6 +96,7 @@ const Popup = ({ ...props }) => {
                     ].join(' ')}
                     xs={12}
                 >
+                    {message}
                     {children}
                 </Grid>
                 {(showCancel || showSubmit) && (

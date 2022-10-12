@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Applications = ({ history, setTitle, ...props }) => {
+const Applications = ({ history, setTitle }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [showPopup, switchPopup] = React.useState(false);
@@ -80,7 +80,6 @@ const Applications = ({ history, setTitle, ...props }) => {
         history.push(`/translates/${data.id}/add`);
     };
 
-    console.log(applications);
     return (
         <>
             {showPopup ? (

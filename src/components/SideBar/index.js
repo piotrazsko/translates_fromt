@@ -2,7 +2,6 @@ import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,8 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
+import { Logo, LogoFull } from 'assets/images/icons';
 import {
     DashboardIcon,
     DocumentationIcon,
@@ -44,7 +43,20 @@ const useStyles = makeStyles((theme) => ({
         position: 'static',
     },
     // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
+    toolbar: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 84,
+        // paddingLeft: 30,
+    },
+    toolbarExpanded: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        minHeight: 84,
+        paddingLeft: 30,
+    },
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
@@ -208,7 +220,13 @@ export default function PermanentDrawerLeft({
                         )}
                     </IconButton>
                 </div>
-                <div className={classes.toolbar} />
+                <div
+                    className={
+                        isExpanded ? classes.toolbarExpanded : classes.toolbar
+                    }
+                >
+                    {isExpanded ? <LogoFull /> : <Logo />}
+                </div>
                 <List>
                     {items.map((i, index) => {
                         console.log(

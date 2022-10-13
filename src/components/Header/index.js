@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 0,
     },
     toolbar: {
-        padding: '0 30px',
+        padding: '20px 30px 0 30px',
     },
     grow: {
         flexGrow: 1,

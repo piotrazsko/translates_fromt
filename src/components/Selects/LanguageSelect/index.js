@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 
+console.log(codes);
 export default function LanguageSelect({
     onChange,
     filter = () => true,

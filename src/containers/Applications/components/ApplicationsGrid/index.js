@@ -13,12 +13,14 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
+
 import { visuallyHidden } from '@mui/utils';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
+import { EditIcon } from 'assets/images/icons';
 import { sliceLangsStr } from 'helpers/translates';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: `none`,
     },
     '&:hover': {},
+    headCell: {
+        borderBottom: 'none',
+    },
 }));
 
 const headCells = (t) => [
@@ -130,6 +135,7 @@ const ApplicationsGrid = ({
                     <TableRow>
                         {headCells(t).map((headCell) => (
                             <TableCell
+                                className={classes.headCell}
                                 key={headCell.id}
                                 align={headCell.numeric ? 'right' : 'center'}
                                 padding={
@@ -213,9 +219,9 @@ const ApplicationsGrid = ({
                                           onClick={() => {
                                               onAdd(row);
                                           }}
-                                          size="large"
+                                          size="small"
                                       >
-                                          <AddCircleOutlineIcon />
+                                          <AddCircleOutlineIcon fontSize="10" />
                                       </IconButton>
                                   </TableCell>
                                   <TableCell
@@ -227,9 +233,9 @@ const ApplicationsGrid = ({
                                           onClick={() => {
                                               onEdit(row);
                                           }}
-                                          size="large"
+                                          size="small"
                                       >
-                                          <EditIcon />
+                                          <EditIcon fontSize="10" />
                                       </IconButton>
                                   </TableCell>
                                   <TableCell
@@ -239,9 +245,9 @@ const ApplicationsGrid = ({
                                       <IconButton
                                           color="warning"
                                           onClick={() => onDelete(row)}
-                                          size="large"
+                                          size="small"
                                       >
-                                          <DeleteIcon />
+                                          <DeleteIcon fontSize="10" />
                                       </IconButton>
                                   </TableCell>
                               </TableRow>

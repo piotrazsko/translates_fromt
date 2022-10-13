@@ -32,7 +32,6 @@ $maxHeight: 100vh;
     .subtitle {
         text-align: center;
         font-weight: 400 !important;
-        padding-bottom: 20px;
     }
     .textError {
         margin-left: 16px;
@@ -74,10 +73,8 @@ $maxHeight: 100vh;
     .dataContainer {
         overflow-y: hidden;
         overflow-x: hidden;
-        // min-width: 300px;
-        padding: 0px 0px;
+        padding: 20px 0px 0px 0px;
         white-space: break-spaces;
-        // max-height: calc(#{$maxHeight} - 225px);
         max-width: $maxWidth;
         @media (max-width: $md) {
             max-width: $maxWidthMobile;

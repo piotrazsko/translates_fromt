@@ -73,7 +73,13 @@ export const theme = createTheme({
                 },
             },
         },
-
+        MuiIconButton: {
+            styleOverrides: {
+                sizeSmall: {
+                    padding: 7,
+                },
+            },
+        },
         MuiButton: {
             // defaultProps: { size: 'small' },
             styleOverrides: {
@@ -83,6 +89,7 @@ export const theme = createTheme({
                     minWidth: '80px',
                     textTransform: 'none',
                     fontSize: '14px',
+                    padding: '6px 6px',
                 },
                 sizeMedium: {
                     height: 36,

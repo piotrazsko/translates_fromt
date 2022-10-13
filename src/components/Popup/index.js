@@ -88,17 +88,19 @@ const Popup = ({ ...props }) => {
                     </Grid>
                 )}
 
-                <Grid
-                    item
-                    className={[
-                        styles.dataContainer,
-                        classes.dataContainer || '',
-                    ].join(' ')}
-                    xs={12}
-                >
-                    {message}
-                    {children}
-                </Grid>
+                {message || children ? (
+                    <Grid
+                        item
+                        className={[
+                            styles.dataContainer,
+                            classes.dataContainer || '',
+                        ].join(' ')}
+                        xs={12}
+                    >
+                        {message}
+                        {children}
+                    </Grid>
+                ) : null}
                 {(showCancel || showSubmit) && (
                     <Grid
                         item

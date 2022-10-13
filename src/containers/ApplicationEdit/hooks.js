@@ -111,8 +111,12 @@ export const useDeleteApllication = ({ onSuccess = () => {} }) => {
                 cancelButtonText: t('button.cancel'),
                 confirmButtonProps: {
                     color: 'error',
+                    variant: 'outlined',
                 },
-                cancelButtonProps: {},
+                subtitle: 'Are you sure you want to delete AppName?',
+                cancelButtonProps: {
+                    variant: 'contained',
+                },
             }),
         );
     };

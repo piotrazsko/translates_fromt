@@ -116,7 +116,10 @@ export const theme = createTheme({
                 root: {
                     backgroundColor: '#FAFAFA;',
                     minWidth: '80px',
-                    height: 36,
+                    minHeight: 36,
+                },
+                input: {
+                    paddingBottom: 3,
                 },
 
                 sizeSmall: {
@@ -125,7 +128,7 @@ export const theme = createTheme({
                     fontSize: '14px',
                 },
                 sizeMedium: {
-                    height: 36,
+                    // height: 36,
                     fontSize: '14px',
                     minHeight: 36,
                 },
@@ -147,8 +150,18 @@ export const theme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: {
+                    position: 'relative',
+                    fontSize: 12,
+                    fontWeight: 500,
                     '&[data-shrink="false"]': {
-                        transform: 'translate(14px, 9px) scale(1)',
+                        transform: 'translate(0px, -6px) scale(1)',
+                    },
+                    '&[data-shrink="true"]': {
+                        transform: 'translate(0px, -6px) scale(1)',
+                    },
+                    color: '#454545',
+                    '&.Mui-disabled': {
+                        color: '#454545',
                     },
                 },
             },
@@ -197,6 +210,7 @@ export const theme = createTheme({
                 input: {
                     paddingTop: '4px',
                     paddingLeft: '16px',
+                    paddingBottom: 3,
                 },
                 notchedOutline: {
                     borderWidth: '1px !important',

@@ -16,7 +16,6 @@ import {
     ApplicationEdit,
     Plans,
 } from 'containers';
-import HomeLayout from '../containers/Home/Layout';
 
 export const redirectAuthPath = '/login';
 
@@ -25,9 +24,9 @@ const mainRoutes = [
         path: '/',
         exact: true,
         component: Home,
-        showHeader: true,
+        showHeader: false,
         showSidebar: false,
-        layout: HomeLayout,
+        layout: LayoutEmpty,
     },
     {
         path: '/dashboard',

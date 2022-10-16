@@ -17,12 +17,12 @@ const ApplicationData = ({
 }) => {
     return (
         <Grid container spacing={3}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <TextField
                     fullWidth
                     value={id}
                     disabled
-                    variant="standard"
+                    variant="filled"
                     placeholder={t('application.application_id')}
                     label={t('application.application_id')}
                     InputProps={{
@@ -36,13 +36,17 @@ const ApplicationData = ({
                                 </IconButton>
                             </InputAdornment>
                         ),
+                        shrink: true,
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
                     }}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <TextField
                     fullWidth
-                    variant="standard"
+                    variant="filled"
                     InputLabelProps={{ shrink: true }}
                     placeholder={t('application.application_name')}
                     label={t('application.application_name')}
@@ -56,7 +60,7 @@ const ApplicationData = ({
                 <TextField
                     fullWidth
                     disabled
-                    variant="standard"
+                    variant="filled"
                     multiline
                     rows={4}
                     minRows={4}

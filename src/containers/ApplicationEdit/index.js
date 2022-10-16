@@ -21,7 +21,6 @@ import {
 } from './hooks';
 
 import style from './style.scss';
-import { push } from 'react-router-redux';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -68,16 +67,7 @@ const ApplicationEdit = ({
         applicationId: id,
     });
     return (
-        <PageSkeleton
-            title={t('application.edit')}
-            showButton
-            buttonProps={{
-                color: 'error',
-                children: t('application.button_delete'),
-                variant: 'outlined',
-                onClick: () => onDelete({ id }),
-            }}
-        >
+        <PageSkeleton s>
             <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>
                 <GridGenerator
                     cols={12}

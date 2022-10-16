@@ -5,16 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
-
-import MobileScreen from '../MobileScreen';
-import { SideBar } from 'components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '60px',
-        display: 'flex',
+        // marginTop: '60px',
+        // display: 'flex',
     },
 }));
 
@@ -29,7 +25,6 @@ const Layout = ({
 }) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { isMobile } = viewPort ?? {};
 
     const [isEndOfPage, setEndOfPage] = React.useState(false);
     const restWithPermissons = {
@@ -43,7 +38,7 @@ const Layout = ({
     return (
         <>
             <Helmet>
-                <title>{t('default.user_name')}</title>
+                <title>{t('default.application_name')}</title>
             </Helmet>
             <Container maxWidth="lg" classes={{ root: classes.root }}>
                 <Grid container>

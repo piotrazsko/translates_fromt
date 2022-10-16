@@ -224,6 +224,7 @@ export default function PermanentDrawerLeft({
                     className={
                         isExpanded ? classes.toolbarExpanded : classes.toolbar
                     }
+                    onClick={() => history.push('/')}
                 >
                     {isExpanded ? <LogoFull /> : <Logo />}
                 </div>

@@ -101,23 +101,11 @@ const Header = ({ history, title, ...props }) => {
 
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                    {/* {userIsAuth ? (
-                        <IconButton
-                            aria-label="show 4 new mails"
-                            color="inherit"
-                            size="large"
-                        >
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                    ) : null} */}
                     {userIsAuth ? (
                         <IconButton
                             aria-label="show 17 new notifications"
                             color="inherit"
                             edge="end"
-                            // size="large"
                         >
                             <Badge
                                 badgeContent={null}

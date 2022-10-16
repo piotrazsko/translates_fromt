@@ -4,6 +4,9 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IconButton from '@mui/material/IconButton';
+import { CopyIcon } from 'assets/images/icons';
+
+import style from './style.scss';
 
 const ApplicationData = ({
     values,
@@ -27,12 +30,15 @@ const ApplicationData = ({
                     label={t('application.application_id')}
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment position="end">
+                            <InputAdornment
+                                position="end"
+                                classes={{ root: style.iconContainer }}
+                            >
                                 <IconButton
                                     onClick={() => onSaveToClipBoard(id)}
                                     size="small"
                                 >
-                                    <ContentCopyIcon />
+                                    <CopyIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),
@@ -73,12 +79,15 @@ const ApplicationData = ({
                     error={errors.url}
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment position="end">
+                            <InputAdornment
+                                position="end"
+                                classes={{ root: style.iconContainerTextArea }}
+                            >
                                 <IconButton
                                     onClick={() => onSaveToClipBoard(url)}
                                     size="small"
                                 >
-                                    <ContentCopyIcon />
+                                    <CopyIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),

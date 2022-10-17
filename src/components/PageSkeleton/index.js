@@ -29,10 +29,6 @@ const PageSkeleton = ({
     const classes = useStyles();
     return (
         <Grid container classes={{ root: classes.container }}>
-            <Grid xs={6} className={classes.buttonContainer}>
-                {headerControlls}
-                {showButton ? <Button {...buttonProps}></Button> : null}
-            </Grid>
             <Grid
                 classes={{
                     item: classes.content,
@@ -42,6 +38,9 @@ const PageSkeleton = ({
                 xs={12}
             >
                 {children}
+            </Grid>
+            <Grid xs={6} className={classes.buttonContainer}>
+                {showButton ? <Button {...buttonProps}></Button> : null}xxxx
             </Grid>
         </Grid>
     );

@@ -67,7 +67,7 @@ const ApplicationEdit = ({
         applicationId: id,
     });
     return (
-        <PageSkeleton s>
+        <PageSkeleton>
             <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>
                 <GridGenerator
                     cols={12}

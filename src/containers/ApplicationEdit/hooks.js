@@ -171,7 +171,7 @@ export const useHook = ({ id, location, history, classes }) => {
         },
     );
     const onCancel = () => {
-        history.push('/applications');
+        history.goBack();
     };
     const onSaveToClipBoard = (str) => {
         saveToClipBoard(dispatch, t)(str);

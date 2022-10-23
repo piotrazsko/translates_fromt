@@ -230,10 +230,6 @@ export default function PermanentDrawerLeft({
                 </div>
                 <List>
                     {items.map((i, index) => {
-                        console.log(
-                            path.indexOf(i.path),
-                            path.indexOf(i.path) === 0,
-                        );
                         return (
                             <ListItemButton
                                 classes={{

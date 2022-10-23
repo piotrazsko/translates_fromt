@@ -52,9 +52,7 @@ const ApplicationEdit = ({
         applicationId,
     });
     const { onDelete } = useDeleteApllication({
-        onSuccess: () => {
-            history.push('/applications');
-        },
+        onSuccess: onCancel,
     });
     const { onDownload } = useDownloadTranslates({ applicationId: id });
     const { onUpload, inputFileRef } = useUploadTranslates({
@@ -67,6 +65,8 @@ const ApplicationEdit = ({
                     onCancel={onCancel}
                     onDelete={onDelete}
                     onSubmit={handleSubmit}
+                    deleteProps={{ children: t('applications.confirm_delete') }}
+                    submitProps={{ children: t('applications.save_changes') }}
                 />
             }
         >

@@ -37,11 +37,15 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: '10px !important',
     },
     tabsRoot: { margin: '20px 0' },
+    selectApplication: {
+        maxWidth: '50%',
+    },
 }));
 
 const TranslatesManager = ({
     history,
     location: { pathname, search },
+    setTitle,
     ...props
 }) => {
     const { applicationId: applicationIdFromUrl, ...rest } =
@@ -55,6 +59,8 @@ const TranslatesManager = ({
     const applications = useSelector(getApplicationsListSelector);
 
     const { t } = useTranslation();
+    setTitle(t('title.translates'));
+
     const dispatch = useDispatch();
     const classes = useStyle();
 
@@ -156,82 +162,84 @@ const TranslatesManager = ({
     }, [applicationId, applications]);
     return (
         <>
-            <PageSkeleton title={t('title.translates')} grey>
-                <Pane>
-                    <Grid container justifyContent="flex-end" spacing={2}>
-                        <Grid item xs={3}>
-                            <Select
-                                defaultOpen={!applicationIdFromUrl}
-                                defaultValue={applicationId}
-                                value={applicationId}
-                                onChange={(ev) => {
-                                    setApplicationId(ev.target.value);
-                                }}
-                                fullWidth
-                                items={applications.map((i) => ({
-                                    value: i.id,
-                                    label: i.name,
-                                }))}
-                            ></Select>
-                        </Grid>
-                        <Grid item xs={7}>
-                            <SearchField
-                                fullWidth
-                                searchText={searchText}
-                                setSearchText={setSearchText}
-                                placeholder={t('input.searchplaceholder')}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Button
-                                disabled={!applicationId}
-                                color="primary"
-                                variant="contained"
-                                fullWidth
-                                onClick={() => {
-                                    history.push(
-                                        `/translates/${applicationId}/add`,
-                                    );
-                                }}
-                            >
-                                {t('button.add')}
-                            </Button>
-                        </Grid>
+            <Pane
+                title={
+                    <Select
+                        formControllProps={{
+                            classes: {
+                                root: classes.selectApplication,
+                            },
+                            variant: 'filled',
+                        }}
+                        defaultOpen={!applicationIdFromUrl}
+                        defaultValue={applicationId}
+                        value={applicationId}
+                        onChange={(ev) => {
+                            setApplicationId(ev.target.value);
+                        }}
+                        items={applications.map((i) => ({
+                            value: i.id,
+                            label: i.name,
+                        }))}
+                    ></Select>
+                }
+                action={
+                    <Button
+                        disabled={!applicationId}
+                        color="primary"
+                        variant="contained"
+                        fullWidth
+                        onClick={() => {
+                            history.push(`/translates/${applicationId}/add`);
+                        }}
+                    >
+                        {t('button.add')}
+                    </Button>
+                }
+            >
+                <Grid container justifyContent="flex-end" spacing={2}>
+                    <Grid item xs={12}>
+                        <SearchField
+                            fullWidth
+                            searchText={searchText}
+                            setSearchText={setSearchText}
+                            placeholder={t('input.searchplaceholder')}
+                        />
                     </Grid>
-                    {applicationId ? (
-                        <>
-                            <Tabs
-                                value={tab}
-                                onChange={(ev, value) => setTab(value)}
-                                indicatorColor="primary"
-                                textColor="primary"
-                                variant="scrollable"
-                                scrollButtons="auto"
-                                classes={{ root: classes.tabsRoot }}
-                            >
-                                {tabs.map((i) => (
-                                    <Tab
-                                        label={i.label}
-                                        value={i.value}
-                                        key={i.label}
-                                    />
-                                ))}
-                            </Tabs>
-                            <TranslatesGrid
-                                dense
-                                data={data}
-                                history={history}
-                                onDelete={onDelete}
-                                applicationData={applicationData}
-                            />
-                        </>
-                    ) : (
-                        <PagePlaceholder>
-                            {t('translates.placeholder_grid')}
-                        </PagePlaceholder>
-                    )}
-                </Pane>
-            </PageSkeleton>
+                </Grid>
+                {applicationId ? (
+                    <>
+                        <Tabs
+                            value={tab}
+                            onChange={(ev, value) => setTab(value)}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            variant="scrollable"
+                            scrollButtons="auto"
+                            classes={{ root: classes.tabsRoot }}
+                        >
+                            {tabs.map((i) => (
+                                <Tab
+                                    label={i.label}
+                                    value={i.value}
+                                    key={i.label}
+                                />
+                            ))}
+                        </Tabs>
+                        <TranslatesGrid
+                            dense
+                            data={data}
+                            history={history}
+                            onDelete={onDelete}
+                            applicationData={applicationData}
+                        />
+                    </>
+                ) : (
+                    <PagePlaceholder>
+                        {t('translates.placeholder_grid')}
+                    </PagePlaceholder>
+                )}
+            </Pane>
         </>
     );
 };

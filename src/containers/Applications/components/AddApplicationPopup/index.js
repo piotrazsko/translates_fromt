@@ -31,6 +31,7 @@ const AddApplicationPopup = ({ t, onCancel, onSubmit }) => {
                     error={errors.name}
                     value={values.name}
                     helperText={errors.name}
+                    size="small"
                     fullWidth
                 />
             </Popup>

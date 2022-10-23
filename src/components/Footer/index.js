@@ -31,7 +31,7 @@ const Footer = ({
                 onClick={onDelete}
                 {...deleteProps}
             >
-                {t('button.delete')}
+                {deleteProps.children || t('button.delete')}
             </Button>
             <Button
                 classes={{ root: classes.cancelButton }}
@@ -40,7 +40,7 @@ const Footer = ({
                 onClick={onCancel}
                 {...cancelProps}
             >
-                {t('button.cancel')}
+                {cancelProps.children || t('button.cancel')}
             </Button>
             <Button
                 classes={{ root: classes.submitButton }}
@@ -49,7 +49,7 @@ const Footer = ({
                 onClick={onSubmit}
                 {...submitProps}
             >
-                {t('button.submit')}
+                {submitProps.children || t('button.submit')}
             </Button>
         </>
     );

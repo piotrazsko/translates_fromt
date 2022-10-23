@@ -60,7 +60,7 @@ const Applications = ({ history, setTitle }) => {
             }),
         );
     };
-
+    console.log(applications);
     const data = React.useMemo(() => {
         return searchText
             ? applications.filter((item) => {

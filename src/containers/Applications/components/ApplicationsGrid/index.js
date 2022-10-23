@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
+import Button from '@mui/material/Button';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -54,6 +55,9 @@ const headCells = (t) => [
         sortable: true,
         disablePadding: false,
         label: t('applications.name'),
+        props: {
+            width: '30%',
+        },
     },
     {
         id: 'languages',
@@ -68,6 +72,9 @@ const headCells = (t) => [
         sortable: false,
         disablePadding: false,
         label: t('applications.count'),
+        props: {
+            width: '10%',
+        },
     },
     {
         id: 'add_translate',
@@ -75,7 +82,7 @@ const headCells = (t) => [
         sortable: false,
         disablePadding: false,
         label: t('applications.add_translations'),
-        props: { width: '10%' },
+        props: { width: '20%' },
     },
     {
         id: 'edit',
@@ -214,15 +221,16 @@ const ApplicationsGrid = ({
                                       align="center"
                                       className={classes.cell}
                                   >
-                                      <IconButton
+                                      <Button
                                           color="primary"
                                           onClick={() => {
                                               onAdd(row);
                                           }}
                                           size="small"
+                                          variant="contained"
                                       >
-                                          <AddCircleOutlineIcon fontSize="10" />
-                                      </IconButton>
+                                          {t('applications.add_translations')}
+                                      </Button>
                                   </TableCell>
                                   <TableCell
                                       align="center"

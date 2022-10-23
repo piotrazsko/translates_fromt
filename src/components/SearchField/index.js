@@ -16,7 +16,6 @@ const SearchField = ({
     ...props
 }) => {
     const classes = useStyles();
-    console.log(classes);
     return (
         <TextField
             fullWidth
@@ -32,7 +31,7 @@ const SearchField = ({
                             onClick={() => setSearchText('')}
                             size="small"
                         >
-                            <ClearIcon />
+                            <ClearIcon fontSize="18" />
                         </IconButton>
                     </InputAdornment>
                 ) : (

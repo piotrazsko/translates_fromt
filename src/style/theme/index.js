@@ -117,9 +117,11 @@ export const theme = createTheme({
                     backgroundColor: '#FAFAFA;',
                     minWidth: '80px',
                     minHeight: 36,
+                    // height: 36,
                 },
                 input: {
-                    paddingBottom: 3,
+                    padding: '3px 16px',
+                    // paddingBottom: 3,
                 },
 
                 sizeSmall: {
@@ -128,7 +130,7 @@ export const theme = createTheme({
                     fontSize: '14px',
                 },
                 sizeMedium: {
-                    // height: 36,
+                    height: 36,
                     fontSize: '14px',
                     minHeight: 36,
                 },
@@ -171,6 +173,9 @@ export const theme = createTheme({
                 root: {
                     borderRadius: '10px',
                     // borderWidth: '1px !important',
+                },
+                input: {
+                    padding: '3px 16px',
                 },
                 notchedOutline: {
                     borderWidth: '1px !important',
@@ -223,6 +228,14 @@ export const theme = createTheme({
                     borderRadius: '20px',
                     padding: '20px 30px',
                     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.03);',
+                },
+            },
+        },
+        MuiCardHeader: {
+            styleOverrides: {
+                action: {
+                    marginTop: 0,
+                    marginRight: 0,
                 },
             },
         },

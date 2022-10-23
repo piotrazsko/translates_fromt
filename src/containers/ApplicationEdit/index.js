@@ -1,18 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 import Statistic from './components/Statistic';
 import Export from './components/Export';
 import ApplicationData from './components/ApplicationData';
-import {
-    PageSkeleton,
-    EditPageSkeleton,
-    GridGenerator,
-    Cell,
-    Pane,
-    Footer,
-} from 'components';
+import { PageSkeleton, GridGenerator, Cell, Pane, Footer } from 'components';
 
 import {
     useHook,
@@ -20,8 +15,6 @@ import {
     useDownloadTranslates,
     useUploadTranslates,
 } from './hooks';
-
-import style from './style.scss';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -115,16 +108,17 @@ const ApplicationEdit = ({
                     component={
                         <Pane
                             title={t('application.statistic_block')}
-                            menuItems={[
-                                {
-                                    title: t('dashboard.go_to_application'),
-                                    onClick: () => {
+                            action={
+                                <Button
+                                    onClick={() => {
                                         history.push(
                                             `/translates?applicationId="${id}"`,
                                         );
-                                    },
-                                },
-                            ]}
+                                    }}
+                                >
+                                    See translations
+                                </Button>
+                            }
                         />
                     }
                 >
@@ -139,14 +133,16 @@ const ApplicationEdit = ({
                     row={2}
                     colSpan={12}
                     rowSpan={1}
-                    component={<Pane title={t('application.export_block')} />}
+                    component={<Box></Box>}
                 >
-                    <Export
-                        t={t}
-                        inputFileRef={inputFileRef}
-                        onDownload={onDownload}
-                        onUpload={onUpload}
-                    />
+                    <Pane showHeader={false}>
+                        <Export
+                            t={t}
+                            inputFileRef={inputFileRef}
+                            onDownload={onDownload}
+                            onUpload={onUpload}
+                        />
+                    </Pane>
                 </Cell>
             </GridGenerator>
         </PageSkeleton>

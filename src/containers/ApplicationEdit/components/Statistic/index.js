@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pane, GridGenerator, Cell, Chart, UpdatePlanLink } from 'components';
+import { Chart, UpdatePlanLink } from 'components';
 import Box from '@mui/material/Box';
 import { colorArray } from 'helpers/colors';
 import style from './style.scss';
@@ -28,7 +28,7 @@ const Statistic = ({ data = {}, t, applicationStatistics }) => {
             >
                 <span className={style.updatePlan}>
                     {t('application.translation_exist_statistic')}
-                    <UpdatePlanLink t={t} />
+                    {/* <UpdatePlanLink t={t} /> */}
                 </span>
             </Chart>
             <Box className={style.languages}>

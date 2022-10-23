@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     page: {
         gridArea: '2 / 2 / 25 / 25',
         paddingRight: '30px',
-        paddingBottom: '30px',
+        // paddingBottom: '30px',
     },
     sideBar: {
         gridArea: '1 / 1 / 25 / 2',

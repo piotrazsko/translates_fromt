@@ -11,6 +11,7 @@ import {
     GridGenerator,
     Cell,
     Pane,
+    Footer,
 } from 'components';
 
 import {
@@ -67,83 +68,87 @@ const ApplicationEdit = ({
         applicationId: id,
     });
     return (
-        <PageSkeleton>
-            <EditPageSkeleton onSave={handleSubmit} onCancel={onCancel}>
-                <GridGenerator
-                    cols={12}
-                    rows={3}
-                    // showGrid
-                    cellProps={
-                        {
-                            // children: ({ col, row }) => <div></div>,
-                        }
+        <PageSkeleton
+            footer={
+                <Footer
+                    onCancel={onCancel}
+                    onDelete={onDelete}
+                    onSubmit={handleSubmit}
+                />
+            }
+        >
+            <GridGenerator
+                cols={12}
+                rows={3}
+                // showGrid
+                cellProps={
+                    {
+                        // children: ({ col, row }) => <div></div>,
                     }
-                    gap={[48, 24]}
+                }
+                gap={[48, 24]}
+            >
+                <Cell
+                    col={0}
+                    row={0}
+                    colSpan={7}
+                    rowSpan={2}
+                    component={<Pane title={t('application.edit_block')} />}
                 >
-                    <Cell
-                        col={0}
-                        row={0}
-                        colSpan={7}
-                        rowSpan={2}
-                        component={<Pane title={t('application.edit_block')} />}
-                    >
-                        <ApplicationData
-                            t={t}
-                            {...{
-                                values,
-                                handleChange,
-                                errors,
-                                onSaveToClipBoard,
-                                url,
-                                id,
-                            }}
-                        />
-                    </Cell>
-                    <Cell
-                        col={7}
-                        row={0}
-                        colSpan={5}
-                        rowSpan={2}
-                        component={
-                            <Pane
-                                title={t('application.statistic_block')}
-                                menuItems={[
-                                    {
-                                        title: t('dashboard.go_to_application'),
-                                        onClick: () => {
-                                            history.push(
-                                                `/translates?applicationId="${id}"`,
-                                            );
-                                        },
+                    <ApplicationData
+                        t={t}
+                        {...{
+                            values,
+                            handleChange,
+                            errors,
+                            onSaveToClipBoard,
+                            url,
+                            id,
+                        }}
+                    />
+                </Cell>
+                <Cell
+                    col={7}
+                    row={0}
+                    colSpan={5}
+                    rowSpan={2}
+                    component={
+                        <Pane
+                            title={t('application.statistic_block')}
+                            menuItems={[
+                                {
+                                    title: t('dashboard.go_to_application'),
+                                    onClick: () => {
+                                        history.push(
+                                            `/translates?applicationId="${id}"`,
+                                        );
                                     },
-                                ]}
-                            />
-                        }
-                    >
-                        <Statistic
-                            data={applicationData}
-                            applicationStatistics={applicationStatistics}
-                            t={t}
+                                },
+                            ]}
                         />
-                    </Cell>
-                    <Cell
-                        col={0}
-                        row={2}
-                        colSpan={12}
-                        rowSpan={1}
-                        component={
-                            <Pane title={t('application.export_block')} />
-                        }
-                    >
-                        <Export
-                            t={t}
-                            inputFileRef={inputFileRef}
-                            onDownload={onDownload}
-                            onUpload={onUpload}
-                        />
-                    </Cell>
-                </GridGenerator>
-            </EditPageSkeleton>
+                    }
+                >
+                    <Statistic
+                        data={applicationData}
+                        applicationStatistics={applicationStatistics}
+                        t={t}
+                    />
+                </Cell>
+                <Cell
+                    col={0}
+                    row={2}
+                    colSpan={12}
+                    rowSpan={1}
+                    component={<Pane title={t('application.export_block')} />}
+                >
+                    <Export
+                        t={t}
+                        inputFileRef={inputFileRef}
+                        onDownload={onDownload}
+                        onUpload={onUpload}
+                    />
+                </Cell>
+            </GridGenerator>
         </PageSkeleton>
     );
 };

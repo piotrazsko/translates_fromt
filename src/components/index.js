@@ -11,6 +11,7 @@ export { default as GridGenerator, Cell } from './GridGenerator';
 export { default as Chart } from './Chart';
 export { default as UpdatePlanLink } from './UpdatePlanLink';
 export { default as Placeholder } from './Placeholder';
+export { default as Footer } from './Footer';
 
 export * from './Inputs';
 export * from './Selects';

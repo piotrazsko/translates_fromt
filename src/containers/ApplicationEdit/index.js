@@ -112,7 +112,7 @@ const ApplicationEdit = ({
                                 <Button
                                     onClick={() => {
                                         history.push(
-                                            `/translates?applicationId="${id}"`,
+                                            `/translations?applicationId="${id}"`,
                                         );
                                     }}
                                 >

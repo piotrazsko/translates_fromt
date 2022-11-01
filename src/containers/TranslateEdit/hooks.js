@@ -12,7 +12,7 @@ import {
     deleteTranslatesByIdAndLangRequest,
     getRecommendedTranslateRequest,
     updateTranslatesByKeyRequest,
-} from 'modules/translates';
+} from 'modules/translations';
 
 import { useGetMissingLangs } from './missingLanguages';
 
@@ -20,7 +20,7 @@ import get from 'lodash/get';
 
 const validationSchema = yup.object({
     key: yup.string().required(),
-    translates: yup.array().of(
+    translations: yup.array().of(
         yup.object().shape({
             language: yup.string().required(),
             value: yup.string().required(),
@@ -63,7 +63,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         initialValues: {
             key: '',
             namespace: '',
-            translates: [
+            translations: [
                 { id: Math.random().toString(), language: '', value: '' },
             ],
         },
@@ -133,8 +133,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     }, [translateData]);
 
     const onAdd = React.useCallback((data, values) => {
-        setFieldValue('translates', [
-            ...values.translates,
+        setFieldValue('translations', [
+            ...values.translations,
             { id: Math.random().toString(), language: '', value: '' },
         ]);
     }, []);
@@ -145,7 +145,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
             { key, namespace, language, value },
             { values, translatesOnServer },
         ) => {
-            if (values.translates.length > 1) {
+            if (values.translations.length > 1) {
                 if (translatesOnServer.includes(language) && language) {
                     dispatch(
                         showPopupAction({
@@ -153,8 +153,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                             title: t('message.delete_translate_item_text'),
 
                             onClick: () => {
-                                setFieldValue('translates', [
-                                    ...values.translates.filter(
+                                setFieldValue('translations', [
+                                    ...values.translations.filter(
                                         (i, index) => index !== itemIndex,
                                     ),
                                 ]);
@@ -192,8 +192,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                         }),
                     );
                 } else {
-                    setFieldValue('translates', [
-                        ...values.translates.filter(
+                    setFieldValue('translations', [
+                        ...values.translations.filter(
                             (i, index) => index !== itemIndex,
                         ),
                     ]);
@@ -206,8 +206,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     const onGetReccomendedTranslation = React.useCallback(
         (ev, index, values) => {
             if (index > 0) {
-                const currentLang = get(values, 'translates[0].language');
-                const text = get(values, 'translates[0].value');
+                const currentLang = get(values, 'translations[0].language');
+                const text = get(values, 'translations[0].value');
                 const translateToLang = ev.target.value;
                 if (currentLang && text && translateToLang && autoTranslate) {
                     dispatch(
@@ -220,7 +220,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                             {
                                 onSuccess: (data) => {
                                     setFieldValue(
-                                        `translates[${index}].value`,
+                                        `translations[${index}].value`,
                                         get(data, 'data.translate'),
                                     );
                                     console.log(data);
@@ -239,10 +239,10 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         (index) => (ev, value) => {
             if (typeof value === 'object' && value !== null) {
                 console.log(value);
-                setFieldValue(`translates.${index}.language`, value.id);
+                setFieldValue(`translations.${index}.language`, value.id);
             } else {
                 setFieldValue(
-                    `translates.${index}.language`,
+                    `translations.${index}.language`,
                     ev.target.value || value || undefined, // fixed bug with validation null
                 );
             }

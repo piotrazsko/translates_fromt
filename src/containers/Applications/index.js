@@ -77,7 +77,7 @@ const Applications = ({ history, setTitle }) => {
         history.push(`/applications/${data.id}`);
     };
     const onAdd = (data) => {
-        history.push(`/translates/${data.id}/add`);
+        history.push(`/translations/${data.id}/add`);
     };
 
     return (

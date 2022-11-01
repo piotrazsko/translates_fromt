@@ -17,12 +17,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 
 import { visuallyHidden } from '@mui/utils';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-// import EditIcon from '@mui/icons-material/Edit';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-import { EditIcon } from 'assets/images/icons';
-import { sliceLangsStr } from 'helpers/translates';
+import { EditIcon, DeleteIcon } from 'assets/images/icons';
+import { sliceLangsStr } from 'helpers/translations';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -82,7 +78,7 @@ const headCells = (t) => [
         sortable: false,
         disablePadding: false,
         label: t('applications.add_translations'),
-        props: { width: '20%' },
+        props: { width: '10%' },
     },
     {
         id: 'edit',

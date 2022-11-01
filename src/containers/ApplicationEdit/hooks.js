@@ -16,7 +16,7 @@ import {
 import {
     getExportJsonRequest,
     postImportJsonRequest,
-} from 'modules/translates';
+} from 'modules/translations';
 
 import {
     getStatisticsByApplicationRequest,

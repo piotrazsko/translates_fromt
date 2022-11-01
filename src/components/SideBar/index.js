@@ -152,9 +152,9 @@ const getSideBarItems = (t, history) => [
     {
         title: t('sidebar.translates'),
         onClick: () => {
-            history.push('/translates');
+            history.push('/translations');
         },
-        path: '/translates',
+        path: '/translations',
         icon: <TranslationIcon />,
     },
     {

@@ -57,7 +57,7 @@ const EditTranslate = ({
                 missingLanguages.length > 0 ? (
                     <Box>
                         <Typography>
-                            {t('translates.missing_translates')}
+                            {t('translations.missing_translates')}
                         </Typography>
                         <Typography color="error">
                             {missingLanguages.join(', ')}
@@ -104,7 +104,7 @@ const EditTranslate = ({
                         />
                     </Grid>
                     <Grid item xs={7}>
-                        {values.translates.map((i, index) => {
+                        {values.translations.map((i, index) => {
                             return (
                                 <Grid container spacing={2} key={i.id}>
                                     <Grid item xs={4}>
@@ -117,7 +117,7 @@ const EditTranslate = ({
                                                     }
                                                 >
                                                     {t(
-                                                        'translates.missing_translate',
+                                                        'translations.missing_translate',
                                                     )}
                                                 </Typography>
                                             }
@@ -141,19 +141,19 @@ const EditTranslate = ({
                                             onChange={onChangeLanguage(index)}
                                             value={get(
                                                 values,
-                                                `translates.${index}.language`,
+                                                `translations.${index}.language`,
                                                 null,
                                             )}
                                             error={Boolean(
                                                 get(
                                                     errors,
-                                                    `translates.${index}.language`,
+                                                    `translations.${index}.language`,
                                                     null,
                                                 ),
                                             )}
                                             helperText={get(
                                                 errors,
-                                                `translates.${index}.language`,
+                                                `translations.${index}.language`,
                                                 null,
                                             )}
                                         />
@@ -168,28 +168,28 @@ const EditTranslate = ({
                                             label={t('input.value')}
                                             variant="outlined"
                                             onChange={handleChange(
-                                                `translates.${index}.value`,
+                                                `translations.${index}.value`,
                                             )}
                                             value={get(
                                                 values,
-                                                `translates.${index}.value`,
+                                                `translations.${index}.value`,
                                                 null,
                                             )}
                                             error={Boolean(
                                                 get(
                                                     errors,
-                                                    `translates.${index}.value`,
+                                                    `translations.${index}.value`,
                                                     null,
                                                 ),
                                             )}
                                             helperText={get(
                                                 errors,
-                                                `translates.${index}.value`,
+                                                `translations.${index}.value`,
                                                 null,
                                             )}
                                         />
                                     </Grid>
-                                    {values.translates.length > 1 ? (
+                                    {values.translations.length > 1 ? (
                                         <Grid item xs={1}>
                                             <IconButton
                                                 tabIndex={-1}
@@ -200,14 +200,14 @@ const EditTranslate = ({
                                                         {
                                                             language: get(
                                                                 values,
-                                                                `translates.${index}.language`,
+                                                                `translations.${index}.language`,
                                                                 null,
                                                             ),
                                                             key,
                                                             namespace,
                                                             value: get(
                                                                 values,
-                                                                `translates.${index}.value`,
+                                                                `translations.${index}.value`,
                                                                 null,
                                                             ),
                                                         },

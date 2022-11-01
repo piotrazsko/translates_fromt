@@ -119,10 +119,10 @@ const getTranslateByActionSaga = function* (dispatch, action) {
 };
 
 const getTranslateSuccessSaga = function* () {
-    const { loaded, ...translates } = yield select(getTranslatesSelector);
+    const { loaded, ...translations } = yield select(getTranslatesSelector);
     const locale = yield select(localeSelector);
 
-    i18next.addResourceBundle(locale, 'translation', translates[locale]);
+    i18next.addResourceBundle(locale, 'translation', translations[locale]);
     i18next.changeLanguage(locale);
     yield put(reInitDataAction());
 };

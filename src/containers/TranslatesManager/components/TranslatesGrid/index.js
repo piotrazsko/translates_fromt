@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
 import makeStyles from '@mui/styles/makeStyles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,28 +9,51 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_FORMAT } from 'constants/date';
-import { sliceLangsStr } from 'helpers/translates';
+import { sliceLangsStr } from 'helpers/translations';
 
-import style from './style.scss';
+import {
+    EditIcon,
+    CopyFilledIcon,
+    DeleteIcon,
+    FullIcon,
+    NotFullIcon,
+} from 'assets/images/icons';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
+        marginTop: 20,
         minWidth: 700,
+        borderCollapse: 'collapse',
     },
-});
+    container: {
+        marginTop: 20,
+        boxShadow: 'none',
+    },
+    row: {
+        borderBottom: `1px solid #EDEDED`,
+        '&:hover': {
+            borderBottom: `1px solid #7675ED`,
+        },
+    },
+    cell: {
+        borderBottom: `none`,
+    },
+    '&:hover': {},
+    headCell: {
+        borderBottom: 'none',
+    },
+}));
+
+const iconSize = 13;
 
 const headCells = (t) => [
     {
@@ -40,42 +61,61 @@ const headCells = (t) => [
         numeric: false,
         disablePadding: false,
         sortable: true,
-        label: t('tableheader.key'),
+        label: t('translations.key'),
+        props: { width: '5%' },
     },
     {
         id: 'namespace',
         numeric: false,
         disablePadding: false,
         sortable: true,
-        label: t('tableheader.namespace'),
+        label: t('translations.namespace'),
     },
     {
         id: 'languages',
         numeric: false,
         sortable: false,
         disablePadding: false,
-        label: t('tableheader.langs'),
+        label: t('translations.langs'),
     },
     {
         id: 'updated_at',
         sortable: true,
         numeric: false,
         disablePadding: false,
-        label: t('tableheader.updated_at'),
+        label: t('translations.updated_at'),
     },
     {
         id: 'is_full_tranlated',
         numeric: false,
         disablePadding: false,
         sortable: false,
-        label: t('tableheader.is_full_tranlated'),
+        label: t('translations.is_full_tranlated'),
+        props: { width: '5%' },
     },
     {
-        id: 'edit_delete',
+        id: 'copy',
         numeric: false,
         disablePadding: false,
         sortable: false,
-        label: t('tableheader.edit/delete'),
+        label: t('translations.copy'),
+        props: { width: '5%' },
+    },
+    {
+        id: 'edit',
+        numeric: false,
+        disablePadding: false,
+        sortable: false,
+        label: t('translations.edit'),
+        props: { width: '5%' },
+    },
+    {
+        id: 'delete',
+        numeric: false,
+        disablePadding: false,
+        sortable: false,
+        label: t('translations.delete'),
+        props: { width: '5%' },
     },
 ];
 
@@ -102,8 +142,6 @@ const TranslatesGrid = ({
         });
     }, [sort, data]);
 
-    const [expanded, switchExpanded] = React.useState();
-
     const createSortHandler = (id, sortable) => () => {
         if (sortable) {
             setSort({ field: id, direct: sort.direct * -1 });
@@ -111,18 +149,7 @@ const TranslatesGrid = ({
     };
 
     return (
-        <TableContainer component={Paper}>
-            <Toolbar>
-                <Box>
-                    <IconButton
-                        onClick={() => switchExpanded(!expanded)}
-                        size="large"
-                    >
-                        <FilterListIcon />
-                    </IconButton>
-                </Box>
-                {expanded ? <Box>-a-a-a</Box> : null}
-            </Toolbar>
+        <TableContainer>
             <Table
                 size={dense ? 'small' : 'medium'}
                 stickyHeader
@@ -130,7 +157,7 @@ const TranslatesGrid = ({
                 aria-label="spanning table"
             >
                 <TableHead>
-                    <TableRow>
+                    <TableRow className={classes.tableHeadRow}>
                         {headCells(t).map((headCell) => (
                             <TableCell
                                 key={headCell.id}
@@ -145,6 +172,7 @@ const TranslatesGrid = ({
                                             : 'asc'
                                         : 'asc'
                                 }
+                                {...(headCell.props || {})}
                             >
                                 <TableSortLabel
                                     active={
@@ -186,37 +214,54 @@ const TranslatesGrid = ({
                               const isFull =
                                   row.langs.length === languages.length;
                               return (
-                                  <TableRow key={row.key + row.namespace}>
-                                      <TableCell align="center">
+                                  <TableRow
+                                      key={row.key + row.namespace}
+                                      className={classes.row}
+                                  >
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           {row.key}
                                       </TableCell>
-                                      <TableCell align="center">
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           {row.namespace || ''}
                                       </TableCell>
-                                      <TableCell align="center">
-                                          {sliceLangsStr(row.langs)}
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
+                                          <Tooltip title={row.langs.join(', ')}>
+                                              <Box>
+                                                  {sliceLangsStr(row.langs)}
+                                              </Box>
+                                          </Tooltip>
                                       </TableCell>
-                                      <TableCell align="center">
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           {moment(row.updated_at).format(
                                               DATE_TIME_FORMAT,
                                           ) || ''}
                                       </TableCell>
-                                      <TableCell align="center">
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           {isFull ? (
-                                              <CheckCircleOutlineIcon
-                                                  className={
-                                                      style.iconFullTranclate
-                                                  }
-                                              />
+                                              <FullIcon height={20} />
                                           ) : (
-                                              <ErrorOutlineIcon
-                                                  className={
-                                                      style.iconNotFullTranclate
-                                                  }
-                                              />
+                                              <NotFullIcon height={20} />
                                           )}
                                       </TableCell>
-                                      <TableCell align="center">
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           <IconButton
                                               color="primary"
                                               onClick={() => {
@@ -226,20 +271,32 @@ const TranslatesGrid = ({
                                               }}
                                               size="large"
                                           >
-                                              <ContentCopyIcon />
+                                              <CopyFilledIcon
+                                                  height={iconSize}
+                                              />
                                           </IconButton>
+                                      </TableCell>
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           <IconButton
                                               color="primary"
                                               onClick={() => {
                                                   console.log(row);
                                                   history.push(
-                                                      `/translates/${applicationId}/${row.id}`,
+                                                      `/translations/${applicationId}/${row.id}`,
                                                   );
                                               }}
                                               size="large"
                                           >
-                                              <EditIcon />
+                                              <EditIcon height={iconSize} />
                                           </IconButton>
+                                      </TableCell>
+                                      <TableCell
+                                          align="center"
+                                          className={classes.cell}
+                                      >
                                           <IconButton
                                               color="warning"
                                               onClick={() =>
@@ -249,7 +306,7 @@ const TranslatesGrid = ({
                                               }
                                               size="large"
                                           >
-                                              <DeleteIcon />
+                                              <DeleteIcon height={iconSize} />
                                           </IconButton>
                                       </TableCell>
                                   </TableRow>

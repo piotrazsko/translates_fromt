@@ -23,11 +23,13 @@ export const useGetMissingLangs = ({ applicationId, data, translateData }) => {
 
     const { missingLanguages, translatesOnServer, existLangs } =
         React.useMemo(() => {
-            const translatesOnServer = get(translateData, 'translates', []).map(
-                (i) => i.language,
-            );
+            const translatesOnServer = get(
+                translateData,
+                'translations',
+                [],
+            ).map((i) => i.language);
             if (data && languagesList) {
-                const existLangs = data.translates
+                const existLangs = data.translations
                     .map((i) => i.language)
                     .filter((i) => i);
                 return {

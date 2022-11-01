@@ -16,14 +16,14 @@ import { useTranslation } from 'react-i18next';
 import { PageSkeleton } from 'components';
 
 import { showError, showWarning } from 'modules/notification';
-import { deleteAllTranslatesAction } from 'modules/translates';
+import { deleteAllTranslatesAction } from 'modules/translations';
 import { LangAutocompleate } from 'components';
 
 import {
     getExportJsonRequest,
     postUploadJsonByLangRequest,
     postImportJsonRequest,
-} from 'modules/translates';
+} from 'modules/translations';
 
 const validationSchema = yup.object({
     language: yup.string().required(),
@@ -38,7 +38,7 @@ const Settings = ({ ...props }) => {
     const ref = React.useRef(null);
     const uploadAction = React.useCallback(() => {
         if (ref.current) {
-            const upload = function() {
+            const upload = function () {
                 // setTranzactionsFile(ref.current.files[0]);
                 const fd = new FormData();
                 fd.append('translate', ref.current.files[0]);
@@ -78,7 +78,7 @@ const Settings = ({ ...props }) => {
 
     const onUploadTranslatesByLang = () => {
         if (ref2.current) {
-            const upload = function() {
+            const upload = function () {
                 fd.append('translate', ref2.current.files[0]);
                 setFileName(ref2.current.files[0].name);
                 ref2.current.removeEventListener('change', upload);

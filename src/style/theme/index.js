@@ -6,7 +6,6 @@ const secondary = '#54C5EB';
 const black = '#22242C';
 const darkBlack = 'rgb(36, 40, 44)';
 const background = '#f5f5f5';
-const grey = '';
 const warningMain = '#FF4A55';
 // const warningDark = 'rgba(253, 200, 69, .7)';
 
@@ -90,6 +89,7 @@ export const theme = createTheme({
                     textTransform: 'none',
                     fontSize: '14px',
                     padding: '6px 6px',
+                    whiteSpace: 'nowrap',
                 },
                 sizeMedium: {
                     height: 36,
@@ -97,6 +97,7 @@ export const theme = createTheme({
                 },
                 sizeSmall: {
                     height: 32,
+                    padding: '6px 20px',
                 },
             },
         },

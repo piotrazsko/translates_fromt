@@ -23,9 +23,8 @@ export const DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST = `${modules}/DELETE_
 export const DELETE_TRANSLATE_BY_KEY_REQUEST = `${modules}/DELETE_TRANSLATE_BY_KEY_REQUEST`;
 export const DELETE_ALL_TRANSLATES_REQUEST = `${modules}/DELETE_ALL_TRANSLATES_REQUEST`;
 
-export const getAllKeysByApplicarionRequest = actionCreator(
-    GET_ALL_KEYS_REQUEST,
-);
+export const getAllKeysByApplicarionRequest =
+    actionCreator(GET_ALL_KEYS_REQUEST);
 export const getRecommendedTranslateRequest = actionCreator(
     GET_RECOMMENDED_TRANSLATE_REQUEST,
 );

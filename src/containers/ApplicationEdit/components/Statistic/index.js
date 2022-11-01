@@ -8,7 +8,7 @@ const Statistic = ({ data = {}, t, applicationStatistics }) => {
     const { maxTranslates, countTranslates } = data;
     const {
         languagesList = [],
-        translates = {},
+        translations = {},
         total,
     } = applicationStatistics;
     return (
@@ -36,12 +36,12 @@ const Statistic = ({ data = {}, t, applicationStatistics }) => {
                     const max = total;
                     return (
                         <Chart
-                            percent={(translates[i] / max) * 100}
+                            percent={(translations[i] / max) * 100}
                             max={''}
                             key={i}
                             color={colorArray[index]}
                             count={
-                                `${(translates[i] / max) * 100}`.slice(0, 4) +
+                                `${(translations[i] / max) * 100}`.slice(0, 4) +
                                 '%'
                             }
                         >

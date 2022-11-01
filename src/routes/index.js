@@ -54,7 +54,7 @@ const mainRoutes = [
         isPrivate: true,
     },
     {
-        path: '/translates',
+        path: '/translations',
         exact: true,
         component: TranslatesManager,
         isPrivate: true,
@@ -70,7 +70,7 @@ const mainRoutes = [
         showSidebar: true,
     },
     {
-        path: '/translates/:applicationId/:id?',
+        path: '/translations/:applicationId/:id?',
         exact: true,
         isPrivate: true,
         component: TranslateEdit,

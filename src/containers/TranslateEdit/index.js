@@ -11,9 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import Add from '@mui/icons-material/Add';
 import Delete from '@mui/icons-material/Delete';
 
-import { PageSkeleton, LangAutocompleate } from 'components';
+import { PageSkeleton, LangAutocompleate, Footer, Pane } from 'components';
 import { useHook } from './hooks';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -30,6 +30,7 @@ const EditTranslate = ({
         params: { id, applicationId },
     },
     location,
+    setTitle,
     history,
     ...props
 }) => {
@@ -51,6 +52,8 @@ const EditTranslate = ({
         existLangs,
     } = useHook({ id, location, history, classes, applicationId });
 
+    setTitle(t('translation.title'));
+
     return (
         <PageSkeleton
             headerControlls={
@@ -65,201 +68,206 @@ const EditTranslate = ({
                     </Box>
                 ) : null
             }
-            title={t('title.edit')}
+            footer={
+                <Footer
+                    deleteProps={{
+                        children: t('translations.delete_translations'),
+                    }}
+                    cancelProps={{
+                        children: t('translations.cancel'),
+                    }}
+                    submitProps={{
+                        children: t('translations.save_translations'),
+                    }}
+                    onDelete={onDelete}
+                    onSubmit={handleSubmit}
+                    onCancel={() => {
+                        history.goBack();
+                    }}
+                />
+            }
         >
-            <form onSubmit={handleSubmit}>
-                <Grid
-                    container
-                    classes={{ root: classes.container }}
-                    spacing={2}
-                >
-                    <Grid item xs={2}>
-                        <TextField
-                            fullWidth
-                            size="small"
-                            disabled={id === 'edit'}
-                            placeholder={t('input.key')}
-                            label={t('input.key')}
-                            variant="outlined"
-                            required
-                            id="outlined-error"
-                            onChange={handleChange('key')}
-                            value={values.key}
-                            error={Boolean(errors.key)}
-                            helperText={errors.key}
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <TextField
-                            fullWidth
-                            size="small"
-                            disabled={id === 'edit'}
-                            placeholder={t('input.namespace')}
-                            label={t('input.namespace')}
-                            variant="outlined"
-                            onChange={handleChange('namespace')}
-                            value={values.namespace}
-                            error={Boolean(errors.namespace)}
-                            helperText={errors.namespace}
-                        />
-                    </Grid>
-                    <Grid item xs={7}>
-                        {values.translations.map((i, index) => {
-                            return (
-                                <Grid container spacing={2} key={i.id}>
-                                    <Grid item xs={4}>
-                                        <LangAutocompleate
-                                            fullWidth
-                                            optionsExtraData={
-                                                <Typography
-                                                    className={
-                                                        classes.missingOption
-                                                    }
-                                                >
-                                                    {t(
-                                                        'translations.missing_translate',
-                                                    )}
-                                                </Typography>
-                                            }
-                                            disabledOptions={existLangs}
-                                            disabled={translatesOnServer.includes(
-                                                i.language,
-                                            )}
-                                            extraOptions={[
-                                                ...missingLanguages.map(
-                                                    (i) => ({
-                                                        id: i,
-                                                        label: i,
-                                                        isExtra: true,
-                                                    }),
-                                                ),
-                                            ]}
-                                            size="small"
-                                            placeholder={t('input.language')}
-                                            label={t('input.language')}
-                                            variant="outlined"
-                                            onChange={onChangeLanguage(index)}
-                                            value={get(
-                                                values,
-                                                `translations.${index}.language`,
-                                                null,
-                                            )}
-                                            error={Boolean(
-                                                get(
-                                                    errors,
-                                                    `translations.${index}.language`,
-                                                    null,
-                                                ),
-                                            )}
-                                            helperText={get(
-                                                errors,
-                                                `translations.${index}.language`,
-                                                null,
-                                            )}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={7}>
-                                        <TextField
-                                            fullWidth
-                                            multiline
-                                            size="small"
-                                            maxRows={4}
-                                            placeholder={t('input.value')}
-                                            label={t('input.value')}
-                                            variant="outlined"
-                                            onChange={handleChange(
-                                                `translations.${index}.value`,
-                                            )}
-                                            value={get(
-                                                values,
-                                                `translations.${index}.value`,
-                                                null,
-                                            )}
-                                            error={Boolean(
-                                                get(
-                                                    errors,
-                                                    `translations.${index}.value`,
-                                                    null,
-                                                ),
-                                            )}
-                                            helperText={get(
-                                                errors,
-                                                `translations.${index}.value`,
-                                                null,
-                                            )}
-                                        />
-                                    </Grid>
-                                    {values.translations.length > 1 ? (
-                                        <Grid item xs={1}>
-                                            <IconButton
-                                                tabIndex={-1}
-                                                color="error"
-                                                onClick={() =>
-                                                    onDelete(
-                                                        index,
-                                                        {
-                                                            language: get(
-                                                                values,
-                                                                `translations.${index}.language`,
-                                                                null,
-                                                            ),
-                                                            key,
-                                                            namespace,
-                                                            value: get(
-                                                                values,
-                                                                `translations.${index}.value`,
-                                                                null,
-                                                            ),
-                                                        },
-                                                        {
-                                                            values,
-                                                            translatesOnServer,
-                                                        },
-                                                    )
+            <Pane>
+                <form onSubmit={handleSubmit}>
+                    <Grid
+                        container
+                        classes={{ root: classes.container }}
+                        spacing={2}
+                    >
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                disabled={id === 'edit'}
+                                placeholder={t('input.key')}
+                                label={t('input.key')}
+                                variant="filled"
+                                required
+                                size="medium"
+                                id="outlined-error"
+                                onChange={handleChange('key')}
+                                value={values.key}
+                                error={Boolean(errors.key)}
+                                helperText={errors.key}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                disabled={id === 'edit'}
+                                placeholder={t('input.namespace')}
+                                label={t('input.namespace')}
+                                variant="filled"
+                                size="medium"
+                                onChange={handleChange('namespace')}
+                                value={values.namespace}
+                                error={Boolean(errors.namespace)}
+                                helperText={errors.namespace}
+                            />
+                        </Grid>
+                        <Grid item xs={7}>
+                            {values.translations.map((i, index) => {
+                                return (
+                                    <Grid container spacing={2} key={i.id}>
+                                        <Grid item xs={4}>
+                                            <LangAutocompleate
+                                                fullWidth
+                                                optionsExtraData={
+                                                    <Typography
+                                                        className={
+                                                            classes.missingOption
+                                                        }
+                                                    >
+                                                        {t(
+                                                            'translation.missing_translate',
+                                                        )}
+                                                    </Typography>
                                                 }
-                                                size="large"
-                                            >
-                                                <Delete />
-                                            </IconButton>
+                                                disabledOptions={existLangs}
+                                                disabled={translatesOnServer.includes(
+                                                    i.language,
+                                                )}
+                                                size="medium"
+                                                extraOptions={[
+                                                    ...missingLanguages.map(
+                                                        (i) => ({
+                                                            id: i,
+                                                            label: i,
+                                                            isExtra: true,
+                                                        }),
+                                                    ),
+                                                ]}
+                                                placeholder={t(
+                                                    'translation.language',
+                                                )}
+                                                label={t(
+                                                    'translation.language',
+                                                )}
+                                                variant="filled"
+                                                onChange={onChangeLanguage(
+                                                    index,
+                                                )}
+                                                value={get(
+                                                    values,
+                                                    `translation.${index}.language`,
+                                                    null,
+                                                )}
+                                                error={Boolean(
+                                                    get(
+                                                        errors,
+                                                        `translation.${index}.language`,
+                                                        null,
+                                                    ),
+                                                )}
+                                                helperText={get(
+                                                    errors,
+                                                    `translation.${index}.language`,
+                                                    null,
+                                                )}
+                                            />
                                         </Grid>
-                                    ) : null}
-                                </Grid>
-                            );
-                        })}
+                                        <Grid item xs={7}>
+                                            <TextField
+                                                fullWidth
+                                                multiline
+                                                variant="filled"
+                                                size="small"
+                                                maxRows={4}
+                                                placeholder={t(
+                                                    'translation.value',
+                                                )}
+                                                label={t('translation.value')}
+                                                onChange={handleChange(
+                                                    `translation.${index}.value`,
+                                                )}
+                                                value={get(
+                                                    values,
+                                                    `translation.${index}.value`,
+                                                    null,
+                                                )}
+                                                error={Boolean(
+                                                    get(
+                                                        errors,
+                                                        `translation.${index}.value`,
+                                                        null,
+                                                    ),
+                                                )}
+                                                helperText={get(
+                                                    errors,
+                                                    `translation.${index}.value`,
+                                                    null,
+                                                )}
+                                            />
+                                        </Grid>
+                                        {values.translations.length > 1 ? (
+                                            <Grid item xs={1}>
+                                                <IconButton
+                                                    tabIndex={-1}
+                                                    color="error"
+                                                    onClick={() =>
+                                                        onDelete(
+                                                            index,
+                                                            {
+                                                                language: get(
+                                                                    values,
+                                                                    `translation.${index}.language`,
+                                                                    null,
+                                                                ),
+                                                                key,
+                                                                namespace,
+                                                                value: get(
+                                                                    values,
+                                                                    `translation.${index}.value`,
+                                                                    null,
+                                                                ),
+                                                            },
+                                                            {
+                                                                values,
+                                                                translatesOnServer,
+                                                            },
+                                                        )
+                                                    }
+                                                    size="large"
+                                                >
+                                                    <Delete />
+                                                </IconButton>
+                                            </Grid>
+                                        ) : null}
+                                    </Grid>
+                                );
+                            })}
+                        </Grid>
+                        <Grid item xs={1}>
+                            <IconButton
+                                color="primary"
+                                onClick={(data) => onAdd(data, values)}
+                                size="large"
+                            >
+                                <Add />
+                            </IconButton>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={1}>
-                        <IconButton
-                            color="primary"
-                            onClick={(data) => onAdd(data, values)}
-                            size="large"
-                        >
-                            <Add />
-                        </IconButton>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={() => {
-                                history.goBack();
-                            }}
-                        >
-                            {t('button.cancel')}
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleSubmit}
-                        >
-                            {t('button.save')}
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
+                </form>
+            </Pane>
         </PageSkeleton>
     );
 };

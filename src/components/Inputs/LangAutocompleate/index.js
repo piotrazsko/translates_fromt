@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import codes from 'iso-language-codes';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -17,6 +16,7 @@ const LangAutocompleate = ({
     showFlags = false,
     ...props
 }) => {
+    const { size } = props;
     const optionsPrepared = React.useMemo(() => {
         const options = [
             ...codes.map((option) => ({
@@ -58,7 +58,19 @@ const LangAutocompleate = ({
             freeSolo
             {...props}
             options={optionsPrepared}
-            renderInput={(params) => <TextField {...props} {...params} />}
+            renderInput={(params) => (
+                <TextField
+                    {...props}
+                    {...params}
+                    classes={
+                        size === 'small'
+                            ? {
+                                  root: style.inputSmall,
+                              }
+                            : {}
+                    }
+                />
+            )}
             renderOption={(props, option) => {
                 return (
                     <Box

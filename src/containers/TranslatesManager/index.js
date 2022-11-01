@@ -5,7 +5,13 @@ import makeStyles from '@mui/styles/makeStyles';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
-import { PagePlaceholder, Pane, Select, SearchField } from 'components';
+import {
+    PagePlaceholder,
+    Pane,
+    Select,
+    SearchField,
+    PageSkeleton,
+} from 'components';
 
 import TranslatesGrid from './components/TranslatesGrid';
 import { useHook } from './hooks';
@@ -45,7 +51,7 @@ const TranslatesManager = ({
     } = useHook({ history, pathname, classes });
 
     return (
-        <>
+        <PageSkeleton>
             <Pane
                 title={
                     <Select
@@ -121,7 +127,7 @@ const TranslatesManager = ({
                     </PagePlaceholder>
                 )}
             </Pane>
-        </>
+        </PageSkeleton>
     );
 };
 

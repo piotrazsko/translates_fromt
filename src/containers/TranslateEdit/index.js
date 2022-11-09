@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     missingOption: {
         fontSize: '12px',
     },
+    textArea: {
+        padding: '4px 12px !important',
+    },
 }));
 
 const EditTranslate = ({
@@ -106,8 +109,6 @@ const EditTranslate = ({
                                 id="outlined-error"
                                 onChange={handleChange('key')}
                                 value={values.key}
-                                error={Boolean(errors.key)}
-                                helperText={errors.key}
                             />
                         </Grid>
                         <Grid item xs={2}>
@@ -120,8 +121,6 @@ const EditTranslate = ({
                                 size="medium"
                                 onChange={handleChange('namespace')}
                                 value={values.namespace}
-                                error={Boolean(errors.namespace)}
-                                helperText={errors.namespace}
                             />
                         </Grid>
                         <Grid item xs={7}>
@@ -146,7 +145,7 @@ const EditTranslate = ({
                                                 disabled={translatesOnServer.includes(
                                                     i.language,
                                                 )}
-                                                size="medium"
+                                                size="small"
                                                 extraOptions={[
                                                     ...missingLanguages.map(
                                                         (i) => ({
@@ -166,29 +165,15 @@ const EditTranslate = ({
                                                 onChange={onChangeLanguage(
                                                     index,
                                                 )}
-                                                value={get(
-                                                    values,
-                                                    `translation.${index}.language`,
-                                                    null,
-                                                )}
-                                                error={Boolean(
-                                                    get(
-                                                        errors,
-                                                        `translation.${index}.language`,
-                                                        null,
-                                                    ),
-                                                )}
-                                                helperText={get(
-                                                    errors,
-                                                    `translation.${index}.language`,
-                                                    null,
-                                                )}
                                             />
                                         </Grid>
                                         <Grid item xs={7}>
                                             <TextField
                                                 fullWidth
                                                 multiline
+                                                classes={{
+                                                    root: classes.textArea,
+                                                }}
                                                 variant="filled"
                                                 size="small"
                                                 maxRows={4}
@@ -198,23 +183,6 @@ const EditTranslate = ({
                                                 label={t('translation.value')}
                                                 onChange={handleChange(
                                                     `translation.${index}.value`,
-                                                )}
-                                                value={get(
-                                                    values,
-                                                    `translation.${index}.value`,
-                                                    null,
-                                                )}
-                                                error={Boolean(
-                                                    get(
-                                                        errors,
-                                                        `translation.${index}.value`,
-                                                        null,
-                                                    ),
-                                                )}
-                                                helperText={get(
-                                                    errors,
-                                                    `translation.${index}.value`,
-                                                    null,
                                                 )}
                                             />
                                         </Grid>

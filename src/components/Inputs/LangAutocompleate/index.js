@@ -52,6 +52,7 @@ const LangAutocompleate = ({
             (i) => !disabledOptions.includes(i.id),
         );
     }, [codes, flags, extraOptions, disabledOptions]);
+    console.log(size, style);
 
     return (
         <Autocomplete

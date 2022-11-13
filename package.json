@@ -122,7 +122,8 @@
         "patch": "yarn version --patch",
         "feature": "yarn version --minor",
         "release": "yarn version --major",
-        "build:prod": "yarn run version:patch && yarn run deploy"
+        "build:prod": "yarn run version:patch && yarn run deploy",
+        "build:dev": "yarn run build && yarn run deploy"
     },
     "eslintConfig": {
         "extends": [

@@ -6,7 +6,10 @@ const IconButton = ({ children, size, iconSize, ...props }) => {
         iconSize || size === 'small' ? 11 : size === 'large' ? 14 : 13;
     return (
         <IconButtonDef size={size} {...props}>
-            {React.cloneElement(children, { height: iconSizeDft })}
+            {React.cloneElement(children, {
+                height: iconSizeDft,
+                fontSize: `${iconSize}px`,
+            })}
         </IconButtonDef>
     );
 };

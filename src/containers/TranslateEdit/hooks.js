@@ -13,6 +13,10 @@ import {
     getRecommendedTranslateRequest,
     updateTranslatesByKeyRequest,
 } from 'modules/translations';
+import {
+    getApplicationByIdRequest,
+    getApplicationByIdSelector,
+} from 'modules/applications';
 
 import { useGetMissingLangs } from './missingLanguages';
 
@@ -29,15 +33,20 @@ const validationSchema = yup.object({
 });
 
 export const useHook = ({ location, history, applicationId, id, classes }) => {
+    const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const applicationData = useSelector(getApplicationByIdSelector);
+
     const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
+
+    React.useEffect(() => {
+        dispatch(getApplicationByIdRequest({ applicationId }));
+    }, [applicationId]);
 
     const { key, namespace } = React.useMemo(() => {
         const { search } = location;
         return getDataFromUrl(search);
     }, [location]);
-
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
 
     React.useEffect(() => {
         if (id !== 'add') {
@@ -275,5 +284,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         missingLanguages,
         translatesOnServer,
         existLangs,
+        applicationData,
     };
 };

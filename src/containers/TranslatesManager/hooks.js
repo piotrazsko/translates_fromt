@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,15 +15,69 @@ import {
 import { showPopupAction } from 'modules/popups';
 import { prepareSearchString, getDataFromCurrentLocarion } from 'helpers/url';
 
+const useUrlSearch = ({
+    namespace,
+    setNamespace,
+    setApplicationId,
+    applicationId,
+    searchText,
+    setSearchText,
+    history,
+    pathname,
+}) => {
+    const { ...searchParams } = getDataFromCurrentLocarion();
+    React.useEffect(() => {
+        const {
+            applicationId: appId,
+            namespace: spc,
+            searchText: search,
+        } = searchParams;
+        switch (true) {
+            case applicationId !== appId:
+                setApplicationId(appId);
+            case namespace !== spc && spc:
+                setNamespace(spc);
+            case searchText !== search:
+                setSearchText(search);
+            default:
+                if (!spc) {
+                    setNamespace(allNameSpacesValue);
+                }
+                break;
+        }
+    }, []);
+
+    React.useEffect(() => {
+        const query = prepareSearchString({
+            applicationId,
+            namespace,
+            searchText,
+        });
+
+        history.push(`${pathname}?${query}`);
+    }, [applicationId, namespace, searchText]);
+
+    const { applicationId: applicationIdFromUrl } = searchParams;
+
+    return { applicationIdFromUrl };
+};
+
 const allNameSpacesValue = 'all_namespaces_';
 
 export const useHook = ({ history, pathname, classes, ...props }) => {
-    const { applicationId: applicationIdFromUrl, ...rest } =
-        getDataFromCurrentLocarion();
-
     const [applicationId, setApplicationId] = React.useState(null);
     const [namespace, setNamespace] = React.useState(allNameSpacesValue);
     const [searchText, setSearchText] = React.useState();
+    const { applicationIdFromUrl } = useUrlSearch({
+        namespace,
+        setNamespace,
+        setApplicationId,
+        applicationId,
+        searchText,
+        setSearchText,
+        history,
+        pathname,
+    });
 
     const res = useSelector(getTranslatedListSelector);
     const applications = useSelector(getApplicationsListSelector);
@@ -36,20 +91,10 @@ export const useHook = ({ history, pathname, classes, ...props }) => {
     }, []);
 
     React.useEffect(() => {
-        if (applicationIdFromUrl && !applicationId) {
-            setApplicationId(applicationIdFromUrl);
-        } else if (applications.length === 1 && !applicationId) {
-            setApplicationId(applications[0].id);
-        }
-    }, [applications, applicationId, applicationIdFromUrl]);
-
-    React.useEffect(() => {
         if (applicationId) {
-            const url = prepareSearchString({ applicationId });
-            history.push(`${pathname}?${url}`);
             dispatch(getAllKeysByApplicarionRequest({ applicationId }));
         }
-    }, [applicationId, applicationIdFromUrl]);
+    }, [applicationId]);
 
     const { namespaces } = React.useMemo(() => {
         const tabs = new Set();
@@ -134,6 +179,7 @@ export const useHook = ({ history, pathname, classes, ...props }) => {
             return applications.find((i) => i.id === applicationId);
         }
     }, [applicationId, applications]);
+
     return {
         allNameSpacesValue,
         applicationData,
@@ -145,9 +191,9 @@ export const useHook = ({ history, pathname, classes, ...props }) => {
         setSearchText,
         applicationId,
         applications,
-        applicationIdFromUrl,
         setApplicationId,
         searchText,
+        applicationIdFromUrl,
         t,
     };
 };

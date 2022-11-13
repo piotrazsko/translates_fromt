@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import makeStyles from '@mui/styles/makeStyles';
 import Add from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
 
 import {
     PageSkeleton,
@@ -15,11 +16,10 @@ import {
     Cell,
     IconButton,
 } from 'components';
-
 import { DeleteIcon } from 'assets/images/icons';
 
+import MissingLanguages from './components/MissingLanguages';
 import { useHook } from './hooks';
-import { Paper, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 'calc(100vh - 280px)',
         paddingTop: 0,
     },
-    addButtonCell: { position: 'sticky', bottom: '10px' },
+    addButtonCell: { position: 'sticky', bottom: '0px' },
     fixedPositionCells: {
         position: 'sticky',
         top: '36px',
@@ -82,25 +82,16 @@ const EditTranslate = ({
         onChangeLanguage,
         translatesOnServer,
         existLangs,
+        applicationData,
     } = useHook({ id, location, history, classes, applicationId });
-
-    setTitle(t('translation.title'));
+    console.log(applicationData);
+    setTitle(
+        `${t('translation.title')}: ${applicationData.name || applicationId}`,
+    );
     const translationsCount = get(values, 'translations.length', 1);
 
     return (
         <PageSkeleton
-            headerControlls={
-                missingLanguages.length > 0 ? (
-                    <Box>
-                        <Typography>
-                            {t('translation.missing_translates')}
-                        </Typography>
-                        <Typography color="error">
-                            {missingLanguages.join(', ')}
-                        </Typography>
-                    </Box>
-                ) : null
-            }
             footer={
                 <Footer
                     deleteProps={{
@@ -125,14 +116,19 @@ const EditTranslate = ({
                     content: classes.content,
                     container: classes.paneContainer,
                 }}
+                showHeader
+                action={
+                    <MissingLanguages
+                        t={t}
+                        missingLanguages={missingLanguages}
+                    />
+                }
             >
                 <GridGenerator
                     cols={12}
                     rows={translationsCount}
                     style={{
-                        'grid-template-rows': `30px repeat(${
-                            translationsCount - 1
-                        }, 1fr)`,
+                        'grid-template-rows': `auto`,
                         'grid-auto-rows': 'auto',
                     }}
                     cellProps={
@@ -371,7 +367,6 @@ const EditTranslate = ({
                         <IconButton
                             color="primary"
                             onClick={(data) => onAdd(data, values)}
-                            size={'large'}
                         >
                             <Add />
                         </IconButton>

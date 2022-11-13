@@ -134,7 +134,6 @@ const TranslatesGrid = ({
         direct: 1,
     });
     const { id: applicationId, languages = [] } = applicationData;
-    console.log(applicationData);
 
     const res = React.useMemo(() => {
         return data.sort((a, b) => {

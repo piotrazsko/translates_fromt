@@ -44,11 +44,12 @@ const TranslatesManager = ({
         setSearchText,
         applicationId,
         applications,
-        applicationIdFromUrl,
         setApplicationId,
         searchText,
+        applicationIdFromUrl,
         t,
     } = useHook({ history, pathname, classes });
+    setTitle('translations.title');
 
     return (
         <PageSkeleton>

@@ -98,7 +98,6 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                     ),
                 );
             } else {
-                console.log(values);
                 dispatch(
                     updateTranslatesByKeyRequest(
                         {
@@ -130,7 +129,9 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
             translateData,
         });
 
-    const disableAdd = values.translations.length >= currentPlan?.maxLanguages;
+    const disableAdd =
+        values.translations.length >= currentPlan?.maxLanguages ||
+        existLangs.length >= currentPlan?.maxLanguages;
 
     React.useEffect(() => {
         if (translateData.loaded && id !== 'add') {

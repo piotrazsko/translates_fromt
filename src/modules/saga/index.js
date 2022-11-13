@@ -6,6 +6,7 @@ import { initModuleSaga } from '../init';
 import { i18nextModuleSaga } from 'modules/i18next';
 import { authSaga, authHashSelector } from 'modules/auth';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
+import { plansSaga } from 'modules/plans';
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
 const {
     modules: { apiWatchRequest },
@@ -127,6 +128,7 @@ function* rootSaga(dispatch) {
         authSaga(dispatch),
         i18nextModuleSaga(dispatch),
         notificationSaga(dispatch),
+        plansSaga(dispatch),
     ]);
 }
 

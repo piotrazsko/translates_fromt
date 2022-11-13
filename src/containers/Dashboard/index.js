@@ -9,8 +9,7 @@ import {
     getApplicationsStatisticsRequest,
     getApplicationsStatisticsSelector,
 } from 'modules/statistics';
-import { getCurrentUserSelector } from 'modules/auth';
-import { getPlanByIdRequest, getPlanByIdSelector } from 'modules/plans';
+import { getPlanByIdSelector } from 'modules/plans';
 
 import Applications from './components/Applications';
 import MyPlan from './components/MyPlan';
@@ -22,9 +21,9 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
     const dispatch = useDispatch();
 
     const applications = useSelector(getApplicationsStatisticsSelector);
-    const { loaded, languagesCount, countTranslates, applicationsCount } =
-        useSelector(getCommonStatisticsSelector);
-    const user = useSelector(getCurrentUserSelector);
+    const { languagesCount, countTranslates, applicationsCount } = useSelector(
+        getCommonStatisticsSelector,
+    );
     const currentPlan = useSelector(getPlanByIdSelector);
 
     const { maxApplications, maxTranslates, maxLanguages } = currentPlan;
@@ -36,11 +35,6 @@ const Dashboard = ({ history, setTitle, viewPort, ...props }) => {
         dispatch(getCommonStatissticsRequset());
     }, []);
 
-    React.useEffect(() => {
-        if (user?.plan) {
-            dispatch(getPlanByIdRequest({ planId: user.plan }));
-        }
-    }, [user]);
     return (
         <PageSkeleton>
             <GridGenerator

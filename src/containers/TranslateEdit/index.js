@@ -82,6 +82,7 @@ const EditTranslate = ({
         onChangeLanguage,
         translatesOnServer,
         existLangs,
+        disableAdd,
         applicationData,
     } = useHook({ id, location, history, classes, applicationId });
 
@@ -365,6 +366,7 @@ const EditTranslate = ({
                         component={<Box></Box>}
                     >
                         <IconButton
+                            disabled={disableAdd}
                             color="primary"
                             onClick={(data) => onAdd(data, values)}
                         >

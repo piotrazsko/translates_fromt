@@ -18,6 +18,7 @@ import {
     getApplicationByIdSelector,
 } from 'modules/applications';
 
+import { getPlanByIdSelector } from 'modules/plans';
 import { useGetMissingLangs } from './missingLanguages';
 
 import get from 'lodash/get';
@@ -36,6 +37,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const applicationData = useSelector(getApplicationByIdSelector);
+    const currentPlan = useSelector(getPlanByIdSelector);
 
     const [autoTranslate, setAutoTranslate] = React.useState(false); //  use it for disable auto translate.  maybe we can use it for switch
 
@@ -127,6 +129,8 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
             data: values,
             translateData,
         });
+
+    const disableAdd = values.translations.length >= currentPlan?.maxLanguages;
 
     React.useEffect(() => {
         if (translateData.loaded && id !== 'add') {
@@ -285,5 +289,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         translatesOnServer,
         existLangs,
         applicationData,
+
+        disableAdd,
     };
 };

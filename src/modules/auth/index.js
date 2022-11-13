@@ -34,6 +34,7 @@ export const UPDATE_USER_REQUEST = `${modules}/UPDATE_USER_REQUEST`;
 export const UPDATE_USER_SUCCESS = `${modules}/UPDATE_USER_SUCCESS`;
 
 export const GET_CURRENT_USER_REQUEST = `${modules}/GET_CURRENT_USER_REQUEST`;
+export const GET_CURRENT_USER_SUCCESS = `${modules}/GET_CURRENT_USER_SUCCESS`;
 
 export const getCurrentUserRequest = actionCreator(GET_CURRENT_USER_REQUEST);
 
@@ -151,8 +152,10 @@ export function* getUserSaga() {
 }
 
 export function* authSaga(dispatch) {
-    yield all([takeEvery(LOGOUT_USER, logoutSaga)]);
-    yield all([takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga)]);
+    yield all([
+        takeEvery(LOGOUT_USER, logoutSaga),
+        takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
+    ]);
 }
 
 export const userDataSelector = (state) => state.auth;

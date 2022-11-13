@@ -1,5 +1,8 @@
 import * as api_helpers from 'react_redux_api';
 
+import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { GET_CURRENT_USER_SUCCESS } from 'modules/auth';
+
 const modules = 'plans';
 
 const {
@@ -35,3 +38,18 @@ apiRoutes.add(UPDATE_USER_PLAN_REQUEST, ({ planId } = {}) => ({
 
 export const getPlansSelector = apiSelector(GET_PLANS_REQUEST);
 export const getPlanByIdSelector = apiSelector(GET_PLAN_BY_ID_REQUEST);
+
+function* getCurrentPlanSaga(action) {
+    const {
+        response: {
+            data: { plan },
+        },
+    } = action;
+    yield put(getPlanByIdRequest({ planId: plan }));
+}
+
+export function* plansSaga(dispatch) {
+    yield all([takeEvery([GET_CURRENT_USER_SUCCESS], getCurrentPlanSaga)]);
+}
+
+// takeEvery([GET_CURRENT_USER_SUCCESS], gotUserDataSuccessSaga),

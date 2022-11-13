@@ -52,26 +52,13 @@ const LangAutocompleate = ({
             (i) => !disabledOptions.includes(i.id),
         );
     }, [codes, flags, extraOptions, disabledOptions]);
-    console.log(size, style);
 
     return (
         <Autocomplete
             freeSolo
             {...props}
             options={optionsPrepared}
-            renderInput={(params) => (
-                <TextField
-                    {...props}
-                    {...params}
-                    classes={
-                        size === 'small'
-                            ? {
-                                  root: style.inputSmall,
-                              }
-                            : {}
-                    }
-                />
-            )}
+            renderInput={(params) => <TextField {...props} {...params} />}
             renderOption={(props, option) => {
                 return (
                     <Box

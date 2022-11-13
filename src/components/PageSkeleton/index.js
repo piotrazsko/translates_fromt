@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { useTranslation } from 'react-i18next';
 import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = makeStyles((theme) => ({
@@ -29,6 +27,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: '0 30px',
         display: 'flex',
         alignItems: 'center',
+        backgroundColor: theme.palette.common.white,
         'box-shadow': '0px 0px 1px 2px rgba(0, 0, 0, 0.03)',
     },
 }));

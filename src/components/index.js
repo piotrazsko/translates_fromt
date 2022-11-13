@@ -15,3 +15,4 @@ export { default as Footer } from './Footer';
 
 export * from './Inputs';
 export * from './Selects';
+export * from './Buttons';

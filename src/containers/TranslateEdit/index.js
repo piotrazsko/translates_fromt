@@ -1,17 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import PropTypes from 'prop-types';
 import get from 'lodash/get';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import makeStyles from '@mui/styles/makeStyles';
-import IconButton from '@mui/material/IconButton';
 import Add from '@mui/icons-material/Add';
-import Delete from '@mui/icons-material/Delete';
 
-import { PageSkeleton, LangAutocompleate, Footer, Pane } from 'components';
+import {
+    PageSkeleton,
+    LangAutocompleate,
+    Footer,
+    Pane,
+    GridGenerator,
+    Cell,
+    IconButton,
+} from 'components';
+
+import { DeleteIcon } from 'assets/images/icons';
+
 import { useHook } from './hooks';
 import { Paper, Typography } from '@mui/material';
 
@@ -22,9 +28,32 @@ const useStyles = makeStyles((theme) => ({
     missingOption: {
         fontSize: '12px',
     },
+    headerLabels: {
+        fontSize: '12px',
+        position: 'sticky',
+        top: '0px',
+        boxSizing: 'border-box',
+        zIndex: 3,
+        paddingTop: 10,
+        background: theme.palette.common.white,
+    },
     textArea: {
         padding: '4px 12px !important',
     },
+    content: {
+        overflow: 'auto',
+        maxHeight: 'calc(100vh - 280px)',
+        paddingTop: 0,
+    },
+    addButtonCell: { position: 'sticky', bottom: '10px' },
+    fixedPositionCells: {
+        position: 'sticky',
+        top: '36px',
+    },
+    paneContainer: {
+        paddingBottom: '30px',
+    },
+    gridGenerator: {},
 }));
 
 const EditTranslate = ({
@@ -56,6 +85,7 @@ const EditTranslate = ({
     } = useHook({ id, location, history, classes, applicationId });
 
     setTitle(t('translation.title'));
+    const translationsCount = get(values, 'translations.length', 1);
 
     return (
         <PageSkeleton
@@ -63,7 +93,7 @@ const EditTranslate = ({
                 missingLanguages.length > 0 ? (
                     <Box>
                         <Typography>
-                            {t('translations.missing_translates')}
+                            {t('translation.missing_translates')}
                         </Typography>
                         <Typography color="error">
                             {missingLanguages.join(', ')}
@@ -74,13 +104,13 @@ const EditTranslate = ({
             footer={
                 <Footer
                     deleteProps={{
-                        children: t('translations.delete_translations'),
+                        children: t('translation.delete_translations'),
                     }}
                     cancelProps={{
-                        children: t('translations.cancel'),
+                        children: t('translation.cancel'),
                     }}
                     submitProps={{
-                        children: t('translations.save_translations'),
+                        children: t('translation.save_translations'),
                     }}
                     onDelete={onDelete}
                     onSubmit={handleSubmit}
@@ -90,151 +120,263 @@ const EditTranslate = ({
                 />
             }
         >
-            <Pane>
-                <form onSubmit={handleSubmit}>
-                    <Grid
-                        container
-                        classes={{ root: classes.container }}
-                        spacing={2}
+            <Pane
+                classes={{
+                    content: classes.content,
+                    container: classes.paneContainer,
+                }}
+            >
+                <GridGenerator
+                    cols={12}
+                    rows={translationsCount}
+                    style={{
+                        'grid-template-rows': `30px repeat(${
+                            translationsCount - 1
+                        }, 1fr)`,
+                        'grid-auto-rows': 'auto',
+                    }}
+                    cellProps={
+                        {
+                            // children: ({ col, row }) => <div></div>,
+                        }
+                    }
+                    gap={[4, 6]}
+                >
+                    <Cell
+                        col={0}
+                        row={0}
+                        colSpan={2}
+                        rowSpan={1}
+                        className={classes.headerLabels}
+                        component={<Box></Box>}
                     >
-                        <Grid item xs={2}>
-                            <TextField
-                                fullWidth
-                                disabled={id === 'edit'}
-                                placeholder={t('input.key')}
-                                label={t('input.key')}
-                                variant="filled"
-                                required
-                                size="medium"
-                                id="outlined-error"
-                                onChange={handleChange('key')}
-                                value={values.key}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField
-                                fullWidth
-                                disabled={id === 'edit'}
-                                placeholder={t('input.namespace')}
-                                label={t('input.namespace')}
-                                variant="filled"
-                                size="medium"
-                                onChange={handleChange('namespace')}
-                                value={values.namespace}
-                            />
-                        </Grid>
-                        <Grid item xs={7}>
-                            {values.translations.map((i, index) => {
-                                return (
-                                    <Grid container spacing={2} key={i.id}>
-                                        <Grid item xs={4}>
-                                            <LangAutocompleate
-                                                fullWidth
-                                                optionsExtraData={
-                                                    <Typography
-                                                        className={
-                                                            classes.missingOption
-                                                        }
-                                                    >
-                                                        {t(
-                                                            'translation.missing_translate',
-                                                        )}
-                                                    </Typography>
+                        {t('translation.key')}
+                    </Cell>
+                    <Cell
+                        col={2}
+                        row={0}
+                        colSpan={2}
+                        rowSpan={1}
+                        className={classes.headerLabels}
+                        component={<Box></Box>}
+                    >
+                        {t('translation.language')}
+                    </Cell>
+                    <Cell
+                        col={4}
+                        row={0}
+                        colSpan={3}
+                        rowSpan={1}
+                        className={classes.headerLabels}
+                        component={<Box></Box>}
+                    >
+                        {t('translation.language')}
+                    </Cell>
+                    <Cell
+                        col={7}
+                        row={0}
+                        colSpan={5}
+                        rowSpan={1}
+                        className={classes.headerLabels}
+                        component={<Box></Box>}
+                    >
+                        {t('translation.value')}
+                    </Cell>
+
+                    <Cell
+                        col={0}
+                        row={1}
+                        colSpan={2}
+                        className={classes.fixedPositionCells}
+                        rowSpan={1}
+                        component={<Box></Box>}
+                    >
+                        <TextField
+                            fullWidth
+                            disabled={id === 'edit'}
+                            variant="filled"
+                            required
+                            name="key"
+                            size="medium"
+                            id="outlined-error"
+                            onChange={handleChange('key')}
+                            value={values.key}
+                            error={Boolean(errors.key)}
+                            helperText={errors.key}
+                        />
+                    </Cell>
+                    <Cell
+                        col={2}
+                        row={1}
+                        className={classes.fixedPositionCells}
+                        colSpan={2}
+                        rowSpan={1}
+                        component={<Box></Box>}
+                    >
+                        <TextField
+                            fullWidth
+                            disabled={id === 'edit'}
+                            variant="filled"
+                            size="medium"
+                            name="namespace"
+                            onChange={handleChange('namespace')}
+                            value={values.namespace}
+                            error={Boolean(errors.namespace)}
+                            helperText={errors.namespace}
+                        />
+                    </Cell>
+
+                    {values.translations.map((i, index) => {
+                        return (
+                            <>
+                                <Cell
+                                    col={4}
+                                    row={index + 1}
+                                    colSpan={3}
+                                    rowSpan={1}
+                                    component={<Box></Box>}
+                                >
+                                    <LangAutocompleate
+                                        fullWidth
+                                        name="language"
+                                        variant="filled"
+                                        optionsExtraData={
+                                            <Typography
+                                                className={
+                                                    classes.missingOption
                                                 }
-                                                disabledOptions={existLangs}
-                                                disabled={translatesOnServer.includes(
-                                                    i.language,
+                                            >
+                                                {t(
+                                                    'translation.missing_translate',
                                                 )}
-                                                size="small"
-                                                extraOptions={[
-                                                    ...missingLanguages.map(
-                                                        (i) => ({
-                                                            id: i,
-                                                            label: i,
-                                                            isExtra: true,
-                                                        }),
+                                            </Typography>
+                                        }
+                                        disabledOptions={existLangs}
+                                        disabled={translatesOnServer.includes(
+                                            i.language,
+                                        )}
+                                        value={get(
+                                            values,
+                                            `translations.${index}.language`,
+                                            null,
+                                        )}
+                                        error={Boolean(
+                                            get(
+                                                errors,
+                                                `translations.${index}.language`,
+                                                null,
+                                            ),
+                                        )}
+                                        helperText={get(
+                                            errors,
+                                            `translations.${index}.language`,
+                                            null,
+                                        )}
+                                        size="small"
+                                        extraOptions={[
+                                            ...missingLanguages.map((i) => ({
+                                                id: i,
+                                                label: i,
+                                                isExtra: true,
+                                            })),
+                                        ]}
+                                        onChange={onChangeLanguage(index)}
+                                    />
+                                </Cell>
+                                <Cell
+                                    col={7}
+                                    row={index + 1}
+                                    colSpan={4}
+                                    rowSpan={1}
+                                    component={<Box></Box>}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        multiline
+                                        variant="filled"
+                                        name="value"
+                                        maxRows={4}
+                                        inputProps={{ id: i.id || i.language }}
+                                        onChange={handleChange(
+                                            `translations.${index}.value`,
+                                        )}
+                                        value={get(
+                                            values,
+                                            `translations.${index}.value`,
+                                            null,
+                                        )}
+                                        error={Boolean(
+                                            get(
+                                                errors,
+                                                `translations.${index}.value`,
+                                                null,
+                                            ),
+                                        )}
+                                        helperText={get(
+                                            errors,
+                                            `translations.${index}.value`,
+                                            null,
+                                        )}
+                                    />
+                                </Cell>
+                                <Cell
+                                    col={11}
+                                    row={index + 1}
+                                    colSpan={1}
+                                    rowSpan={1}
+                                    component={<Box></Box>}
+                                >
+                                    <IconButton
+                                        tabIndex={-1}
+                                        color="error"
+                                        onClick={() =>
+                                            onDelete(
+                                                index,
+                                                {
+                                                    language: get(
+                                                        values,
+                                                        `translations.${index}.language`,
+                                                        null,
                                                     ),
-                                                ]}
-                                                placeholder={t(
-                                                    'translation.language',
-                                                )}
-                                                label={t(
-                                                    'translation.language',
-                                                )}
-                                                variant="filled"
-                                                onChange={onChangeLanguage(
-                                                    index,
-                                                )}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={7}>
-                                            <TextField
-                                                fullWidth
-                                                multiline
-                                                classes={{
-                                                    root: classes.textArea,
-                                                }}
-                                                variant="filled"
-                                                size="small"
-                                                maxRows={4}
-                                                placeholder={t(
-                                                    'translation.value',
-                                                )}
-                                                label={t('translation.value')}
-                                                onChange={handleChange(
-                                                    `translation.${index}.value`,
-                                                )}
-                                            />
-                                        </Grid>
-                                        {values.translations.length > 1 ? (
-                                            <Grid item xs={1}>
-                                                <IconButton
-                                                    tabIndex={-1}
-                                                    color="error"
-                                                    onClick={() =>
-                                                        onDelete(
-                                                            index,
-                                                            {
-                                                                language: get(
-                                                                    values,
-                                                                    `translation.${index}.language`,
-                                                                    null,
-                                                                ),
-                                                                key,
-                                                                namespace,
-                                                                value: get(
-                                                                    values,
-                                                                    `translation.${index}.value`,
-                                                                    null,
-                                                                ),
-                                                            },
-                                                            {
-                                                                values,
-                                                                translatesOnServer,
-                                                            },
-                                                        )
-                                                    }
-                                                    size="large"
-                                                >
-                                                    <Delete />
-                                                </IconButton>
-                                            </Grid>
-                                        ) : null}
-                                    </Grid>
-                                );
-                            })}
-                        </Grid>
-                        <Grid item xs={1}>
-                            <IconButton
-                                color="primary"
-                                onClick={(data) => onAdd(data, values)}
-                                size="large"
-                            >
-                                <Add />
-                            </IconButton>
-                        </Grid>
-                    </Grid>
-                </form>
+                                                    key,
+                                                    namespace,
+                                                    value: get(
+                                                        values,
+                                                        `translations.${index}.value`,
+                                                        null,
+                                                    ),
+                                                },
+                                                {
+                                                    values,
+                                                    translatesOnServer,
+                                                },
+                                            )
+                                        }
+                                        size="large"
+                                    >
+                                        <DeleteIcon height={13} />
+                                    </IconButton>
+                                </Cell>
+                            </>
+                        );
+                    })}
+                    <Cell
+                        col={12}
+                        row={translationsCount}
+                        colSpan={1}
+                        rowSpan={1}
+                        className={classes.addButtonCell}
+                        component={<Box></Box>}
+                    >
+                        <IconButton
+                            color="primary"
+                            onClick={(data) => onAdd(data, values)}
+                            size={'large'}
+                        >
+                            <Add />
+                        </IconButton>
+                    </Cell>
+                </GridGenerator>
             </Pane>
         </PageSkeleton>
     );

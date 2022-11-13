@@ -8,14 +8,21 @@ export const Cell = ({
     rowSpan = 1,
     children,
     component,
+    ...props
 }) => {
     const gridArea = `${row + 1} / ${col + 1} / ${rowSpan + row + 1} / ${
         colSpan + col + 1
     }`;
     return component ? (
-        React.cloneElement(component, { style: { gridArea } }, children)
+        React.cloneElement(
+            component,
+            { style: { gridArea }, ...props },
+            children,
+        )
     ) : (
-        <div style={{ gridArea: gridArea }}>{children}</div>
+        <div style={{ gridArea: gridArea }} {...props}>
+            {children}
+        </div>
     );
 };
 

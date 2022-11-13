@@ -1,14 +1,16 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
 
 // colors
-const primary = '#6160DC';
-const secondary = '#54C5EB';
+const primary = '#7675ED';
+const secondary = '#454545';
 const black = '#22242C';
 const darkBlack = 'rgb(36, 40, 44)';
 const background = '#f5f5f5';
 const warningMain = '#FF4A55';
-// const warningDark = 'rgba(253, 200, 69, .7)';
+const white = '#ffffff';
+const filledColor = '#FAFAFA';
 
+const subtitleColor = '#BFBFBF';
 // border
 const borderWidth = 2;
 const borderColor = 'rgba(0, 0, 0, 0.13)';
@@ -31,11 +33,10 @@ export const theme = createTheme({
         common: {
             black,
             darkBlack,
+            white,
         },
         warning: {
-            // light: warningLight,
             main: warningMain,
-            // dark: warningDark,
         },
         // Used to shift a color's luminance by approximately
         // two indexes within its tonal palette.
@@ -68,7 +69,7 @@ export const theme = createTheme({
         MuiTableCell: {
             styleOverrides: {
                 head: {
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: filledColor,
                 },
             },
         },
@@ -115,14 +116,15 @@ export const theme = createTheme({
             defaultProps: { size: 'medium' },
             styleOverrides: {
                 root: {
-                    backgroundColor: '#FAFAFA;',
+                    backgroundColor: filledColor,
                     minWidth: '80px',
                     minHeight: 36,
-                    // height: 36,
+                    '&.MuiInputBase-multiline': {
+                        padding: 0,
+                    },
                 },
                 input: {
                     padding: '3px 16px',
-                    // paddingBottom: 3,
                 },
 
                 sizeSmall: {
@@ -148,6 +150,11 @@ export const theme = createTheme({
                 input: {
                     padding: '0.5px 4px 7.5px 6px !important',
                 },
+                root: {
+                    '& .MuiFilledInput-root': {
+                        paddingTop: 4,
+                    },
+                },
             },
         },
         MuiInputLabel: {
@@ -162,9 +169,9 @@ export const theme = createTheme({
                     '&[data-shrink="true"]': {
                         transform: 'translate(0px, -6px) scale(1)',
                     },
-                    color: '#454545',
+                    color: secondary,
                     '&.Mui-disabled': {
-                        color: '#454545',
+                        color: secondary,
                     },
                 },
             },
@@ -188,11 +195,12 @@ export const theme = createTheme({
                 root: { marginTop: '0px !important' },
             },
         },
+
         MuiFilledInput: {
             styleOverrides: {
                 root: {
                     borderRadius: '10px',
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: filledColor,
                     border: '1px solid transparent',
                     '&::before': {
                         borderBottom: 'none !important',
@@ -201,17 +209,14 @@ export const theme = createTheme({
                         borderBottom: 'none !important',
                     },
                     '&:hover': {
-                        border: '1px solid #7675ED',
+                        border: '1px solid',
+                        borderColor: primary,
                     },
                     // borderWidth: '1px !important',
                     '&.Mui-disabled': {
-                        backgroundColor: '#FAFAFA',
+                        backgroundColor: filledColor,
                         color: '#BFBFBF',
                     },
-
-                    // underline: {
-                    // borderBottom: 'none !important',
-                    // },
                 },
                 input: {
                     paddingTop: '4px',
@@ -251,7 +256,7 @@ export const theme = createTheme({
                 body2: { fontWeight: 500, fontSize: '14px' },
                 subtitle1: {
                     fontSize: '16px',
-                    color: '#BFBFBF',
+                    color: subtitleColor,
                 },
             },
         },

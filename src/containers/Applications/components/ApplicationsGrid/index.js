@@ -11,9 +11,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
+
+import { IconButton } from 'components';
 
 import { visuallyHidden } from '@mui/utils';
 
@@ -237,9 +238,8 @@ const ApplicationsGrid = ({
                                           onClick={() => {
                                               onEdit(row);
                                           }}
-                                          size="small"
                                       >
-                                          <EditIcon fontSize="10" />
+                                          <EditIcon />
                                       </IconButton>
                                   </TableCell>
                                   <TableCell
@@ -249,9 +249,8 @@ const ApplicationsGrid = ({
                                       <IconButton
                                           color="warning"
                                           onClick={() => onDelete(row)}
-                                          size="small"
                                       >
-                                          <DeleteIcon fontSize="10" />
+                                          <DeleteIcon />
                                       </IconButton>
                                   </TableCell>
                               </TableRow>

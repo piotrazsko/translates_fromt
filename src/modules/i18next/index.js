@@ -56,7 +56,7 @@ i18next.on('loaded', function (loaded) {
 
 apiRoutes.add(GET_TRANSLATE_REQUEST, ({ locale }) => {
     return {
-        url: `/get-translates`,
+        url: `/get-translations`,
         method: 'GET',
         params: {
             language: locale,

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './style.scss';
+import styles from './style.scss';
 
 export * from './Cell';
 
@@ -47,6 +47,7 @@ const Grid = ({
     gap = [0, 0],
     showGrid = false,
     mountGrid = false,
+    style = {},
 }) => {
     const divs = rows * cols;
     const arr = mountGrid ? Array(divs).fill(1) : [];
@@ -82,13 +83,14 @@ const Grid = ({
     };
     return (
         <div
-            className={[style.gridContainer, className].join(' ')}
+            className={[styles.gridContainer, className].join(' ')}
             style={{
                 'grid-template-columns': `repeat(${cols}, ${colSize})`,
                 'grid-template-rows': `repeat(${
                     rows * verticalSize
                 }, ${rowSize})`,
                 gap: `${gap[0]}px ${gap[1]}px`,
+                ...style,
             }}
         >
             {arr.map((item, index) => {
@@ -127,9 +129,9 @@ const Grid = ({
                             ...setCellStyleAttr({ col, row, verticalSize }),
                         }}
                         className={[
-                            showGrid ? style.cell : '',
-                            isSelected ? style.selected : '',
-                            isHovered ? style.hovered : '',
+                            showGrid ? styles.cell : '',
+                            isSelected ? styles.selected : '',
+                            isHovered ? styles.hovered : '',
                             setColStyle(col),
                             setRowStyle(row),
                             setCellStyle({ row, col }),

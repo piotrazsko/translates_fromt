@@ -16,7 +16,7 @@ export const GET_EXPORT_JSON_REQUEST = `${modules}/GET_EXPORT_JSON_REQUEST`;
 export const POST_UPLOAD_LANG_JSON_REQUEST = `${modules}/POST_UPLOAD_LANG_JSON_REQUEST`;
 
 export const POST_IMPORT_JSON_REQUEST = `${modules}/POST_IMPORT_JSON_REQUEST`;
-export const GET_TRANSLATES_BY_KEY_REQUEST = `${modules}/GET_TRANSLATES_BY_KEY_REQUEST`;
+export const GET_TRANSLATIONS_BY_KEY_REQUEST = `${modules}/GET_TRANSLATIONS_BY_KEY_REQUEST`;
 export const SET_TRANSLATES_BY_KEY_REQUEST = `${modules}/SET_TRANSLATES_BY_KEY_REQUEST`;
 export const UPDATE_TRANSLATES_BY_KEY_REQUEST = `${modules}/UPDATE_TRANSLATES_BY_KEY_REQUEST`;
 export const DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST = `${modules}/DELETE_TRANSLATES_BY_KEY_AND_LANGUAGE_REQUEST`;
@@ -37,7 +37,7 @@ export const postUploadJsonByLangRequest = actionCreator(
 export const postImportJsonRequest = actionCreator(POST_IMPORT_JSON_REQUEST);
 
 export const getTranslatesByKeyRequest = actionCreator(
-    GET_TRANSLATES_BY_KEY_REQUEST,
+    GET_TRANSLATIONS_BY_KEY_REQUEST,
 );
 
 export const setTranslatesByKeyRequest = actionCreator(
@@ -99,9 +99,9 @@ apiRoutes.add(POST_UPLOAD_LANG_JSON_REQUEST, (data) => {
 });
 
 apiRoutes.add(
-    GET_TRANSLATES_BY_KEY_REQUEST,
+    GET_TRANSLATIONS_BY_KEY_REQUEST,
     ({ applicationId, translateId }) => ({
-        url: `/get-translate`,
+        url: `/get-translation`,
         method: 'get',
         params: { applicationId, translateId },
     }),
@@ -118,10 +118,16 @@ apiRoutes.add(
 
 apiRoutes.add(
     UPDATE_TRANSLATES_BY_KEY_REQUEST,
-    ({ key, namespace = 'null', applicationId, translates, translateId }) => ({
-        url: `/update-translate`,
+    ({
+        key,
+        namespace = 'null',
+        applicationId,
+        translations,
+        translateId,
+    }) => ({
+        url: `/update-translation`,
         method: 'PATCH',
-        data: { key, namespace, translates, applicationId, translateId },
+        data: { key, namespace, translations, applicationId, translateId },
     }),
 );
 
@@ -156,7 +162,7 @@ apiRoutes.add(DELETE_ALL_TRANSLATES_REQUEST, () => ({
 
 export const getTranslatedListSelector = apiSelector(GET_ALL_KEYS_REQUEST);
 export const getTranslatesByKeySelector = apiSelector(
-    GET_TRANSLATES_BY_KEY_REQUEST,
+    GET_TRANSLATIONS_BY_KEY_REQUEST,
 );
 export const exportJSONSelector = apiSelector(GET_EXPORT_JSON_REQUEST);
 export const getRecommenndedTranslateSelector = apiSelector(

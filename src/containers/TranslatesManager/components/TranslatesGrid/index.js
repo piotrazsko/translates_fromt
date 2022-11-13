@@ -9,7 +9,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Tooltip from '@mui/material/Tooltip';
@@ -19,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_FORMAT } from 'constants/date';
 import { sliceLangsStr } from 'helpers/translations';
+
+import { IconButton } from 'components';
 
 import {
     EditIcon,
@@ -269,11 +270,8 @@ const TranslatesGrid = ({
                                                       `t('${row.namespace}.${row.key}')`,
                                                   );
                                               }}
-                                              size="large"
                                           >
-                                              <CopyFilledIcon
-                                                  height={iconSize}
-                                              />
+                                              <CopyFilledIcon />
                                           </IconButton>
                                       </TableCell>
                                       <TableCell
@@ -283,14 +281,12 @@ const TranslatesGrid = ({
                                           <IconButton
                                               color="primary"
                                               onClick={() => {
-                                                  console.log(row);
                                                   history.push(
                                                       `/translations/${applicationId}/${row.id}`,
                                                   );
                                               }}
-                                              size="large"
                                           >
-                                              <EditIcon height={iconSize} />
+                                              <EditIcon />
                                           </IconButton>
                                       </TableCell>
                                       <TableCell
@@ -304,9 +300,8 @@ const TranslatesGrid = ({
                                                       translateId: row.id,
                                                   })
                                               }
-                                              size="large"
                                           >
-                                              <DeleteIcon height={iconSize} />
+                                              <DeleteIcon />
                                           </IconButton>
                                       </TableCell>
                                   </TableRow>

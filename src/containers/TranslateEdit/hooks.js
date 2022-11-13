@@ -87,6 +87,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                     ),
                 );
             } else {
+                console.log(values);
                 dispatch(
                     updateTranslatesByKeyRequest(
                         {
@@ -133,10 +134,18 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     }, [translateData]);
 
     const onAdd = React.useCallback((data, values) => {
+        const id = `elem${Math.round(Math.random() * 10000).toString()}`;
         setFieldValue('translations', [
             ...values.translations,
-            { id: Math.random().toString(), language: '', value: '' },
+            { id, language: '', value: '' },
         ]);
+        setTimeout(() => {
+            const elem = document.querySelector(`#${id}`);
+            if (elem) {
+                elem.scrollIntoView();
+                elem.focus();
+            }
+        }, 100);
     }, []);
 
     const onDelete = React.useCallback(

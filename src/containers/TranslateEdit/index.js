@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     addButtonCell: { position: 'sticky', bottom: '0px' },
     fixedPositionCells: {
         position: 'sticky',
-        top: '36px',
+        top: '28px',
     },
     paneContainer: {
         paddingBottom: '30px',
@@ -84,7 +84,7 @@ const EditTranslate = ({
         existLangs,
         applicationData,
     } = useHook({ id, location, history, classes, applicationId });
-    console.log(applicationData);
+
     setTitle(
         `${t('translation.title')}: ${applicationData.name || applicationId}`,
     );

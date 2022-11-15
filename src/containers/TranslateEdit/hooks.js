@@ -147,20 +147,23 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         }
     }, [translateData]);
 
-    const onAdd = React.useCallback((data, values) => {
-        const id = `elem${Math.round(Math.random() * 10000).toString()}`;
-        setFieldValue('translations', [
-            ...values.translations,
-            { id, language: '', value: '' },
-        ]);
-        setTimeout(() => {
-            const elem = document.querySelector(`#${id}`);
-            if (elem) {
-                elem.scrollIntoView();
-                elem.focus();
-            }
-        }, 100);
-    }, []);
+    const onAdd = React.useCallback(
+        (data, translations = values) => {
+            const id = `elem${Math.round(Math.random() * 10000).toString()}`;
+            setFieldValue('translations', [
+                ...translations.translations,
+                { id, language: '', value: '', ...data },
+            ]);
+            setTimeout(() => {
+                const elem = document.querySelector(`#${id}`);
+                if (elem) {
+                    elem.scrollIntoView();
+                    elem.focus();
+                }
+            }, 100);
+        },
+        [values],
+    );
 
     const onDelete = React.useCallback(
         (

@@ -118,9 +118,10 @@ const EditTranslate = ({
                     container: classes.paneContainer,
                 }}
                 showHeader
-                action={
+                title={
                     <MissingLanguages
                         t={t}
+                        onAdd={onAdd}
                         missingLanguages={missingLanguages}
                     />
                 }

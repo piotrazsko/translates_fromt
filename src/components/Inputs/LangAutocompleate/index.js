@@ -1,11 +1,11 @@
 import React from 'react';
-import codes from 'iso-language-codes';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Flag from '../../Flag';
 import { Typography } from '@mui/material';
-import * as flags from 'assets/images/flags';
+
+import { languagesList } from 'helpers/languages';
 
 import style from './style.scss';
 
@@ -16,19 +16,8 @@ const LangAutocompleate = ({
     showFlags = false,
     ...props
 }) => {
-    const { size } = props;
     const optionsPrepared = React.useMemo(() => {
-        const options = [
-            ...codes.map((option) => ({
-                id: option.iso639_1,
-                label: option.iso639_1,
-                nativeName:
-                    option.name.length > 10
-                        ? option.name.slice(0, 10) + '...'
-                        : option.name,
-                srcFlag: flags[option.iso639_1]?.default,
-            })),
-        ];
+        const options = [...languagesList];
         const extraOptionsPrepared = extraOptions.map((i) => {
             const option = options.find((item) => item.id === i.id);
             if (option) {
@@ -51,7 +40,7 @@ const LangAutocompleate = ({
         return [...extraOptionsPrepared, ...withFlags, ...withoutFlag].filter(
             (i) => !disabledOptions.includes(i.id),
         );
-    }, [codes, flags, extraOptions, disabledOptions]);
+    }, [extraOptions, languagesList, disabledOptions]);
 
     return (
         <Autocomplete

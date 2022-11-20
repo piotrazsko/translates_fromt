@@ -245,7 +245,7 @@ const EditTranslate = ({
                                                 }
                                             >
                                                 {t(
-                                                    'translation.missing_translate',
+                                                    'translation.missing_translation',
                                                 )}
                                             </Typography>
                                         }

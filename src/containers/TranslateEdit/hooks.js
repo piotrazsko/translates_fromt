@@ -23,15 +23,18 @@ import { useGetMissingLangs } from './missingLanguages';
 
 import get from 'lodash/get';
 
-const validationSchema = yup.object({
-    key: yup.string().required(),
-    translations: yup.array().of(
-        yup.object().shape({
-            language: yup.string().required(),
-            value: yup.string().required(),
-        }),
-    ),
-});
+const validationSchema = (t) =>
+    yup.object({
+        key: yup.string().required(t('errors.field_reuired')),
+        translations: yup.array().of(
+            yup.object().shape({
+                language: yup.string().required(t('errors.field_reuired')),
+                value: yup.string().required((data) => {
+                    return t('errors.field_reuired');
+                }),
+            }),
+        ),
+    });
 
 export const useHook = ({ location, history, applicationId, id, classes }) => {
     const { t } = useTranslation();
@@ -78,7 +81,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                 { id: Math.random().toString(), language: '', value: '' },
             ],
         },
-        validationSchema: validationSchema,
+        validationSchema: validationSchema(t),
         onSubmit: (values) => {
             if (id === 'add') {
                 dispatch(

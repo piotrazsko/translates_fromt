@@ -15,6 +15,7 @@ import {
     Applications,
     ApplicationEdit,
     Plans,
+    LayoutAuth,
 } from 'containers';
 
 export const redirectAuthPath = '/login';
@@ -79,13 +80,13 @@ const mainRoutes = [
         path: '/login',
         exact: true,
         component: Auth,
-        layout: LayoutEmpty,
+        layout: LayoutAuth,
     },
     {
         path: '/register',
         exact: true,
         component: SignUp,
-        layout: LayoutEmpty,
+        layout: LayoutAuth,
     },
     {
         path: '/profile',

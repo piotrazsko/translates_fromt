@@ -13,7 +13,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { getViewport as viewPortSelector } from 'modules/viewport';
 import { userIsAuthSelector } from 'modules/auth';
 
-import Layout from 'containers/Layout';
+import Layout from 'containers/layouts/Layout';
 import history from 'store/history';
 import PrivateRoute from './PrivateRoute';
 import ErrorPage from '../ErrorPage';

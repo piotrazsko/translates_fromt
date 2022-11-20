@@ -6,14 +6,19 @@ import Chip from '@mui/material/Chip';
 import { languagesList } from 'helpers/languages';
 
 import style from './style.scss';
+const iconSize = 15;
 
 const MissingLanguages = ({ t, missingLanguages, onAdd }) => {
     return (
         <Box className={style.container}>
             {missingLanguages.length > 0 ? (
-                <ErrorIcon height={14} />
+                <Box className={style.iconContainer}>
+                    <ErrorIcon height={iconSize} width={iconSize} />
+                </Box>
             ) : (
-                <SuccessIcon height={14} />
+                <Box className={style.iconContainer}>
+                    <SuccessIcon height={iconSize} width={iconSize} />
+                </Box>
             )}
             <Typography className={style.label}>
                 {t('translation.missing_translates')}:

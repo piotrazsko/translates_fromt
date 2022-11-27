@@ -83,6 +83,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         },
         validationSchema: validationSchema(t),
         onSubmit: (values) => {
+            console.log(values);
             if (id === 'add') {
                 dispatch(
                     setTranslatesByKeyRequest(

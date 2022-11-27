@@ -19,15 +19,10 @@ import {
     TranslationIcon,
     LogoutIcon,
 } from './icons';
-import { Key } from '@mui/icons-material';
 
 const drawerWidth = '100%';
 
 const useStyles = makeStyles((theme) => ({
-    // appBar: {
-    //     width: `calc(100% - ${drawerWidth}px)`,
-    //     marginLeft: drawerWidth,
-    // },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -63,10 +58,10 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     text: {
-        color: '#fff',
+        color: theme.palette.common.white,
     },
     icon: {
-        color: '#fff',
+        color: theme.palette.common.white,
         minWidth: '40px',
     },
     logout: {
@@ -76,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#7675ED !important',
         '&:before': {
             content: '""',
-            backgroundColor: '#fff',
+            backgroundColor: theme.palette.common.white,
             height: '100%',
             width: '3px',
             position: 'absolute',
@@ -84,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     drawerExpand: {
-        color: '#fff',
+        color: theme.palette.common.white,
         position: 'absolute',
         top: 'calc(50% - 27px)',
         left: 'calc(100% - 20px)',
@@ -104,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
         //
     },
     drawerCollpased: {
-        color: '#fff',
+        color: theme.palette.common.white,
         position: 'absolute',
         top: 'calc(50% - 27px)',
         left: '100%',
@@ -128,7 +123,10 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: 30,
     },
     expandButton: {
-        color: '#fff',
+        color: theme.palette.common.white,
+    },
+    fullIcon: {
+        fill: theme.palette.common.white,
     },
 }));
 
@@ -226,7 +224,11 @@ export default function PermanentDrawerLeft({
                     }
                     onClick={() => history.push('/')}
                 >
-                    {isExpanded ? <LogoFull /> : <Logo />}
+                    {isExpanded ? (
+                        <LogoFull className={classes.fullIcon} />
+                    ) : (
+                        <Logo />
+                    )}
                 </div>
                 <List>
                     {items.map((i, index) => {

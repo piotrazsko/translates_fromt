@@ -1,18 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import makeStyles from '@mui/styles/makeStyles';
 
 import Header from './components/Header';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        // marginTop: '60px',
-        // display: 'flex',
+    root: {},
+    container: {
+        display: 'flex',
+        justifyContent: 'space-around',
+    },
+    box: {
+        marginTop: '10vh',
+        width: '400px',
+        background: theme.palette.common.white,
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.03)',
+        borderRadius: '20px',
     },
 }));
 
@@ -36,7 +44,6 @@ const Layout = ({
         currentLocalization,
         ...rest,
     };
-    console.log(rest);
 
     return (
         <>
@@ -48,8 +55,10 @@ const Layout = ({
             </Grid>
             <Container maxWidth="lg" classes={{ root: classes.root }}>
                 <Grid container>
-                    <Grid item xs={12}>
-                        {React.createElement(children, restWithPermissons)}
+                    <Grid item xs={12} className={classes.container}>
+                        <Box className={classes.box}>
+                            {React.createElement(children, restWithPermissons)}
+                        </Box>
                     </Grid>
                 </Grid>
             </Container>

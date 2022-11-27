@@ -12,6 +12,7 @@ export { ReactComponent as ErrorIcon } from './Error.svg';
 export { ReactComponent as FullIcon } from './Full.svg';
 export { ReactComponent as LeftArrowIcon } from './LeftArrow.svg';
 export { ReactComponent as LogoFullIcon } from './LogoFull.svg';
+export { ReactComponent as LogoFullWhiteIcon } from './LogoFullWhite.svg';
 export { ReactComponent as LogoIcon } from './Logo.svg';
 export { ReactComponent as LogoutIcon } from './Logout.svg';
 export { ReactComponent as MoreIcon } from './More.svg';

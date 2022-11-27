@@ -109,10 +109,10 @@ apiRoutes.add(
 
 apiRoutes.add(
     SET_TRANSLATES_BY_KEY_REQUEST,
-    ({ key, namespace = 'null', applicationId, translates }) => ({
-        url: `/set-translate`,
+    ({ key, namespace = 'null', applicationId, translations }) => ({
+        url: `/set-translation`,
         method: 'PUT',
-        data: { key, namespace, translates, applicationId },
+        data: { key, namespace, translations, applicationId },
     }),
 );
 

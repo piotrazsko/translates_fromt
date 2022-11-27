@@ -8,7 +8,6 @@ import {
     ConfirmLink,
     Profile,
     Settings,
-    APIPage,
     Docs,
     Billing,
     Dashboard,
@@ -16,11 +15,38 @@ import {
     ApplicationEdit,
     Plans,
     LayoutAuth,
+    ResetPassword,
 } from 'containers';
 
 export const redirectAuthPath = '/login';
 
 const mainRoutes = [
+    {
+        path: '/confirm-link',
+        exact: true,
+        component: ConfirmLink,
+        // isPrivate: true,
+        showHeader: true,
+        showSidebar: true,
+    },
+    {
+        path: '/login',
+        exact: true,
+        component: Auth,
+        layout: LayoutAuth,
+    },
+    {
+        path: '/register',
+        exact: true,
+        component: SignUp,
+        layout: LayoutAuth,
+    },
+    {
+        path: '/reset-password',
+        exact: true,
+        component: ResetPassword,
+        layout: LayoutAuth,
+    },
     {
         path: '/',
         exact: true,
@@ -63,31 +89,12 @@ const mainRoutes = [
         showSidebar: true,
     },
     {
-        path: '/confirm-link',
-        exact: true,
-        component: ConfirmLink,
-        // isPrivate: true,
-        showHeader: true,
-        showSidebar: true,
-    },
-    {
         path: '/translations/:applicationId/:id?',
         exact: true,
         isPrivate: true,
         component: TranslateEdit,
     },
-    {
-        path: '/login',
-        exact: true,
-        component: Auth,
-        layout: LayoutAuth,
-    },
-    {
-        path: '/register',
-        exact: true,
-        component: SignUp,
-        layout: LayoutAuth,
-    },
+
     {
         path: '/profile',
         exact: true,

@@ -8,6 +8,7 @@ export { default as ConfirmLink } from './Authorization/ConfirmLink';
 export { default as ConfirmEmailPopup } from './Authorization/ConfirmEmailPopup';
 export { default as SignUp } from './Authorization/SignUp';
 export { default as Auth } from './Authorization/Auth';
+export { default as ResetPassword } from './Authorization/ResetPassword';
 
 export { default as TranslatesManager } from './TranslatesManager';
 export { default as TranslateEdit } from './TranslateEdit';

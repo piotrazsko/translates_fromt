@@ -81,7 +81,12 @@ const Auth = ({ history }) => {
                 </>
             }
         >
-            <form onSubmit={handleSubmit}>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+            >
                 <TextField
                     margin="dense"
                     required
@@ -118,7 +123,6 @@ const Auth = ({ history }) => {
                     color="primary"
                     label={t('auth.remember_me')}
                 />
-
                 <Button
                     type="submit"
                     fullWidth
@@ -131,12 +135,12 @@ const Auth = ({ history }) => {
                 <Box className={style.forgot_password_container}>
                     <Link
                         className={style.forgot_password}
-                        to="/restore-password"
+                        to="/reset-password"
                     >
                         {t('auth.forgot_password')}
                     </Link>
                 </Box>
-            </form>
+            </Box>
         </Skeleton>
     );
 };

@@ -1,15 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { confirmLinkRequest } from 'modules/auth';
-import { PageSkeleton } from 'components';
+
+import Skeleton from '../components/Skeleton';
 
 const ConfirmLink = ({ location, history, ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const [success, setSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
+
     React.useEffect(() => {
         const search = new URLSearchParams(location.search);
         const token = search.get('token');
@@ -18,22 +19,32 @@ const ConfirmLink = ({ location, history, ...props }) => {
                 { token },
                 {
                     onSuccess: () => {
-                        setTimeout(() => {
-                            // history.push('/');
-                        }, 10000);
+                        setSuccess(true);
+                    },
+                    onFailure: () => {
+                        setError(true);
                     },
                 },
             ),
         );
     }, [location]);
     return (
-        <>
-            <PageSkeleton title={t('title.email_confirmation')}>
-                <Typography variant="body1">
-                    {t('text.email_confirmation')}
-                </Typography>
-            </PageSkeleton>
-        </>
+        <Skeleton
+            title={
+                error || success
+                    ? success
+                        ? t('confirm_link.title_success')
+                        : t('confirm_link.title_error')
+                    : t('confirm_link.title_loading')
+            }
+            subtitle={
+                error || success
+                    ? success
+                        ? t('confirm_link.subtitle_success')
+                        : t('confirm_link.subtitle_error')
+                    : ''
+            }
+        ></Skeleton>
     );
 };
 

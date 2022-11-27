@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUserSelector, sendConfirmLinkRequest } from 'modules/auth';
 import { Popup } from 'components';
 import { useTranslation } from 'react-i18next';
+import Box from '@mui/material/Box';
 
-const ConfirmEmailPopup = (props) => {
+const ConfirmEmailPopup = () => {
     const [showPopup, switchPopup] = React.useState(false);
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -19,16 +19,16 @@ const ConfirmEmailPopup = (props) => {
     return showPopup ? (
         <Popup
             shwoPopup={showPopup}
-            title={t('title.confirm_email')}
-            message={t('text.confirm_email')}
-            confirmButtonProps={{
-                color: 'secondary',
-            }}
-            classes={
-                {
-                    // buttonContainer: style.buttonContainer,
-                }
+            title={t('confirm_link.popup_title')}
+            message={
+                <Box display={'flex'} justifyContent="center">
+                    {t('confirm_link.popup_content')}
+                </Box>
             }
+            confirmButtonProps={{
+                color: 'primary',
+            }}
+            classes={{}}
             submitButtonText={t('button.send')}
             cancelButtonText={t('button.cancel')}
             onSubmit={(ev) => {
@@ -49,7 +49,5 @@ const ConfirmEmailPopup = (props) => {
         ></Popup>
     ) : null;
 };
-
-ConfirmEmailPopup.propTypes = {};
 
 export default ConfirmEmailPopup;

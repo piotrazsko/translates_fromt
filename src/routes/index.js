@@ -25,9 +25,7 @@ const mainRoutes = [
         path: '/confirm-link',
         exact: true,
         component: ConfirmLink,
-        // isPrivate: true,
-        showHeader: true,
-        showSidebar: true,
+        layout: LayoutAuth,
     },
     {
         path: '/login',

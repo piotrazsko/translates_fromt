@@ -84,10 +84,17 @@ const EditTranslate = ({
         existLangs,
         disableAdd,
         applicationData,
+        isAdd,
     } = useHook({ id, location, history, classes, applicationId });
 
     setTitle(
-        `${t('translation.title')}: ${applicationData.name || applicationId}`,
+        isAdd
+            ? t('translation.title_add', {
+                  app: applicationData?.name || applicationId,
+              })
+            : t('translation.title_edit', {
+                  app: applicationData?.name || applicationId,
+              }),
     );
     const translationsCount = get(values, 'translations.length', 1);
 

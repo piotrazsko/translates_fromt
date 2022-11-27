@@ -53,8 +53,10 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         return getDataFromUrl(search);
     }, [location]);
 
+    const isAdd = id === 'add';
+
     React.useEffect(() => {
-        if (id !== 'add') {
+        if (!isAdd) {
             dispatch(
                 getTranslatesByKeyRequest({
                     applicationId,
@@ -297,7 +299,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
         translatesOnServer,
         existLangs,
         applicationData,
-
+        isAdd,
         disableAdd,
     };
 };

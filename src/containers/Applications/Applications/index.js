@@ -12,7 +12,7 @@ import {
 } from 'modules/applications';
 
 //INFO - import delete hook from edit page
-import { useDeleteApllication } from 'containers/ApplicationEdit/hooks';
+import { useDeleteApllication } from 'containers/Applications/ApplicationEdit/hooks.js';
 
 import ApplicationsGrid from './components/ApplicationsGrid';
 import AddApplicationPopup from './components/AddApplicationPopup';

@@ -1,157 +1,117 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import PropTypes from 'prop-types';
-import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Divider from '@mui/material/Divider';
 import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
+import { PageSkeleton, GridGenerator, Cell, Pane, Footer } from 'components';
 
-import { PageSkeleton, Pane, LanguageSelect } from 'components';
-import { getCurrentUserSelector } from 'modules/auth';
-import {
-    getLanguagesListRequest,
-    getLanguagesListSelector,
-    saveLocaleAction,
-    localeSelector,
-} from 'modules/i18next';
-
-import ChangePassword from './components/ChangePassword';
+import { PersonalData } from './components/PersonalData';
+import { Language } from './components/Language';
+import { Plan } from './components/Plan';
+import { useHooks } from './hooks';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-        display: 'flex',
-        height: 224,
-    },
-    tabs: {
-        borderRight: `1px solid ${theme.palette.primary.main}`,
-    },
-    title: {
-        paddingBottom: '24px',
+    container: {
+        paddingBottom: '20px',
     },
 }));
 
-const validationSchema = yup.object({
-    password: yup.string().min(6).max(16).required(),
-    confirmed_password: yup
-        .string()
-        .min(6)
-        .max(16)
-        .required()
-        .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    old_password: yup.string().min(6).max(16).required(),
-});
-
-const Profile = ({ ...props }) => {
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
+const ApplicationEdit = ({
+    route,
+    match: {
+        params: { id, applicationId },
+    },
+    location,
+    history,
+    setTitle,
+    ...props
+}) => {
     const classes = useStyles();
-    const currentUser = useSelector(getCurrentUserSelector);
-    const currentLang = useSelector(localeSelector);
-    React.useEffect(() => {
-        dispatch(getLanguagesListRequest());
-    }, []);
-    const languages = useSelector(getLanguagesListSelector);
-    console.log(languages);
-    const { handleChange, touched, values, handleSubmit, setErrors, errors } =
-        useFormik({
-            initialValues: {
-                email: currentUser.email,
-                firstName: currentUser.first_name,
-                lastName: currentUser.last_name,
-                adress: currentUser.address,
-            },
-            validationSchema: validationSchema,
-            onSubmit: (values) => {},
-        });
+    const {
+        handleChange,
+        touched,
+        values,
+        handleSubmit,
+        setErrors,
+        errors,
+        languages,
+        currentLang,
+        currentUser,
+        t,
+        onCancel,
+        onDeleteAccount,
+    } = useHooks({ history });
+
+    setTitle(t('profile.title'));
 
     return (
-        <>
-            <PageSkeleton title={t('title.profile')}>
-                <Pane>
-                    <Grid container spacing={1}>
-                        <Grid item xs={4}>
-                            <Typography className={classes.title}>
-                                {t('subtitle.reference')}
-                            </Typography>
-                            <Grid container>
-                                <Grid item xs={11}>
-                                    <LanguageSelect
-                                        filter={(i) =>
-                                            languages.includes(i.iso639_1)
-                                        }
-                                        value={currentLang}
-                                        onChange={(ev) => {
-                                            dispatch(
-                                                saveLocaleAction(
-                                                    ev.target.value,
-                                                ),
-                                            );
-                                        }}
-                                        label={t('labels.language')}
-                                    />
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <Divider orientation="vertical" />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={8}>
-                            <Typography className={classes.title}>
-                                {t('subtitle.reference')}
-                            </Typography>
-                            <Grid container spacing={6} columnSpacig={1}>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        fullWidth
-                                        label={t('labels.firstName')}
-                                        value={values.firstName}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        fullWidth
-                                        label={t('labels.lastName')}
-                                        value={values.lastName}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        fullWidth
-                                        label="email"
-                                        value={values.email}
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <ChangePassword />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        fullWidth
-                                        multiline
-                                        rows={4}
-                                        label={t('labels.address')}
-                                        value={values.address}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Pane>
-            </PageSkeleton>
-        </>
+        <PageSkeleton
+            footer={
+                <Footer
+                    onCancel={onCancel}
+                    onDelete={onDeleteAccount}
+                    onSubmit={handleSubmit}
+                    deleteProps={{ children: t('profile.confirm_delete') }}
+                    submitProps={{ children: t('profile.save_changes') }}
+                />
+            }
+        >
+            <GridGenerator
+                cols={12}
+                rows={3}
+                // showGrid
+                cellProps={
+                    {
+                        // children: ({ col, row }) => <div></div>,
+                    }
+                }
+                gap={[48, 24]}
+            >
+                <Cell
+                    col={0}
+                    row={0}
+                    colSpan={6}
+                    rowSpan={2}
+                    component={
+                        <Pane title={t('profile.address')} showHeader={false} />
+                    }
+                >
+                    <PersonalData
+                        t={t}
+                        {...{ touched, values, errors }}
+                        handleChange={handleChange}
+                    />
+                </Cell>
+                <Cell
+                    col={6}
+                    row={0}
+                    colSpan={7}
+                    rowSpan={2}
+                    component={<Pane title={t('profile.language')} />}
+                >
+                    <Language
+                        t={t}
+                        handleChange={handleChange}
+                        languages={languages}
+                        currentLang={currentLang}
+                    />
+                </Cell>
+                <Cell
+                    col={0}
+                    row={2}
+                    colSpan={13}
+                    rowSpan={1}
+                    component={<Box />}
+                >
+                    <Pane showHeader={false}>
+                        <Plan t={t} />
+                    </Pane>
+                </Cell>
+            </GridGenerator>
+        </PageSkeleton>
     );
 };
 
-Profile.propTypes = {
-    // : PropTypes.
-};
+ApplicationEdit.propTypes = {};
 
-export default Profile;
+export default ApplicationEdit;

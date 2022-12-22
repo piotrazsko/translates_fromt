@@ -1,0 +1,21 @@
+.container{
+    background-color: #fafafa;
+    // padding: 20px 0;
+   
+}
+.content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.button{
+    text-transform: uppercase;
+}
+.tab{
+    padding:25px 25px ;
+    margin:0 16px;
+    font-weight: 500;
+    font-family: Montserrat;
+    text-transform: none;
+}

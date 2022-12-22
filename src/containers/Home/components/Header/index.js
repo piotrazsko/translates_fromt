@@ -20,9 +20,24 @@ export const Header = () => {
                         setTab(value);
                     }}
                 >
-                    <Tab className={style.tab} label="Item One" value={0} />
-                    <Tab className={style.tab} label="Item Two" value={1} />
-                    <Tab className={style.tab} label="Item Three" value={2} />
+                    <Tab
+                        className={style.tab}
+                        disableRipple
+                        label="Item One"
+                        value={0}
+                    />
+                    <Tab
+                        className={style.tab}
+                        disableRipple
+                        label="Item Two"
+                        value={1}
+                    />
+                    <Tab
+                        className={style.tab}
+                        disableRipple
+                        label="Item Three"
+                        value={2}
+                    />
                 </Tabs>
                 <Button variant="contained" className={style.button}>
                     Get Free

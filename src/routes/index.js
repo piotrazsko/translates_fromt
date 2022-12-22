@@ -22,6 +22,14 @@ export const redirectAuthPath = '/login';
 
 const mainRoutes = [
     {
+        path: '/',
+        exact: true,
+        component: Home,
+        showHeader: false,
+        showSidebar: false,
+        layout: LayoutEmpty,
+    },
+    {
         path: '/confirm-link',
         exact: true,
         component: ConfirmLink,
@@ -44,14 +52,6 @@ const mainRoutes = [
         exact: true,
         component: ResetPassword,
         layout: LayoutAuth,
-    },
-    {
-        path: '/',
-        exact: true,
-        component: Home,
-        showHeader: false,
-        showSidebar: false,
-        layout: LayoutEmpty,
     },
     {
         path: '/dashboard',

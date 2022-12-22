@@ -40,13 +40,12 @@ const Layout = ({
             <Helmet>
                 <title>{t('default.application_name')}</title>
             </Helmet>
-            <Container maxWidth="lg" classes={{ root: classes.root }}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        {React.createElement(children, restWithPermissons)}
-                    </Grid>
+
+            <Grid container>
+                <Grid item xs={12}>
+                    {React.createElement(children, restWithPermissons)}
                 </Grid>
-            </Container>
+            </Grid>
         </>
     );
 };

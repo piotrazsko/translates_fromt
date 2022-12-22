@@ -1,0 +1,24 @@
+.container  {
+    background:linear-gradient(180deg, #271F62 0%, #211D4D 100%);;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.subtitle{
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 16px;
+    color:#fff
+    
+}
+
+.image{
+    width: 100%;
+}

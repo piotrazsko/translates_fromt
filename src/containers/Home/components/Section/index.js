@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 const Section = ({ children, className }) => {
     return (
-        <Container maxWidth="sm" className={className}>
-            {children}
-        </Container>
+        <Box className={className} width="100%">
+            <Container maxWidth="lg">{children}</Container>
+        </Box>
     );
 };
 

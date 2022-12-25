@@ -1,0 +1,32 @@
+.container {
+    background: linear-gradient(180deg, #271f62 0%, #211d4d 100%);
+}
+.content {
+    background-image: url('../../../../assets/images/landing/background.avif');
+    background-image: url('../../../../assets/images/landing/background.webp');
+    background-image: url('../../../../assets/images/landing/background.png');
+    // background-size: ;
+    background-repeat: no-repeat;
+    padding: 120px;
+    box-sizing: border-box;
+}
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-family: Montserrat;
+    font-size: 34px;
+    font-weight: 600;
+    color: #fff;
+}
+.button {
+    color: #fff;
+    margin-top: 48px;
+    height: 50px;
+    width: 180px;
+    border-color: #fff;
+}

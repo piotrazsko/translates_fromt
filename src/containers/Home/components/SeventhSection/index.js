@@ -13,7 +13,7 @@ export const SeventhSection = ({ t }) => {
     return (
         <Section className={style.container}>
             <Grid container spacing={6}>
-                <Grid item xs={6}>
+                <Grid item md={6} xs={12}>
                     <picture className={style.image}>
                         <source srcSet={imageAvif} type="image/avif"></source>
                         <source srcSet={imageWebp} type="image/webp"></source>
@@ -24,7 +24,7 @@ export const SeventhSection = ({ t }) => {
                         />
                     </picture>
                 </Grid>
-                <Grid item xs={6} className={style.textContainer}>
+                <Grid item md={6} xs={12} className={style.textContainer}>
                     <Typography className={style.title} variant="h1">
                         Fast
                         <br />

@@ -12,12 +12,20 @@ export const Footer = ({ t }) => {
             <Section className={style.content}>
                 <Grid container spacing={6}>
                     <Grid item xs={12}>
-                        <Grid container>
-                            <Grid xs={6} className={style.logoContainer}>
+                        <Grid container columnSpacing={6}>
+                            <Grid
+                                md={6}
+                                xs={12}
+                                className={style.logoContainer}
+                            >
                                 <LogoFull fill="#fff" />
                             </Grid>
 
-                            <Grid xs={2} className={style.logoContainer}>
+                            <Grid
+                                md={2}
+                                xs={12}
+                                className={style.logoContainer}
+                            >
                                 <Typography>About us</Typography>
                                 <Typography className={style.item}>
                                     <a href="mailto:test@test.com">
@@ -30,7 +38,11 @@ export const Footer = ({ t }) => {
                                     </a>
                                 </Typography>
                             </Grid>
-                            <Grid xs={2} className={style.logoContainer}>
+                            <Grid
+                                md={2}
+                                xs={12}
+                                className={style.logoContainer}
+                            >
                                 <Typography>Contacts</Typography>
                                 <Typography className={style.item}>
                                     Email:
@@ -57,7 +69,11 @@ export const Footer = ({ t }) => {
                                     </a>
                                 </Typography>
                             </Grid>
-                            <Grid xs={2} className={style.logoContainer}>
+                            <Grid
+                                md={2}
+                                xs={12}
+                                className={style.logoContainer}
+                            >
                                 <Typography>© 2023 Goman</Typography>
                             </Grid>
                         </Grid>

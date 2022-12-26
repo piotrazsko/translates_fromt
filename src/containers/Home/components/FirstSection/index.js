@@ -15,7 +15,7 @@ export const FirstSection = ({ t }) => {
     return (
         <Section className={style.container}>
             <Grid container>
-                <Grid item xs={6} className={style.textContainer}>
+                <Grid item md={6} xs={12} className={style.textContainer}>
                     <Typography className={style.title} variant="h1">
                         Create.
                         <br />
@@ -44,7 +44,7 @@ export const FirstSection = ({ t }) => {
                         </Button>
                     </Box>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item md={6} xs={12}>
                     <picture className={style.image}>
                         <source srcSet={imageAvif} type="image/avif"></source>
                         <source srcSet={imageWebp} type="image/webp"></source>

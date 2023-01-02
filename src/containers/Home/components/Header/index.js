@@ -8,7 +8,7 @@ import Section from '../Section';
 import { LogoFull } from 'assets/images/icons';
 import style from './style.scss';
 
-export const Header = () => {
+export const Header = ({ history, isMobile, t }) => {
     const [tab, setTab] = React.useState(0);
     return (
         <Section className={style.container}>
@@ -39,7 +39,13 @@ export const Header = () => {
                         value={2}
                     />
                 </Tabs>
-                <Button variant="contained" className={style.button}>
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        history.push('/dashboard');
+                    }}
+                    className={style.button}
+                >
                     Get Free
                 </Button>
             </Box>

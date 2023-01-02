@@ -11,7 +11,7 @@ import imageAvif from 'assets/images/landing/ill.avif';
 import Section from '../Section';
 import style from './style.scss';
 
-export const FirstSection = ({ t }) => {
+export const FirstSection = ({ t, history, isMobile }) => {
     return (
         <Section className={style.container}>
             <Grid container>
@@ -39,7 +39,13 @@ export const FirstSection = ({ t }) => {
                         Work with Goman!
                     </Typography>
                     <Box>
-                        <Button variant="contained" fullWidth={false}>
+                        <Button
+                            onClick={() => {
+                                history.push('/dashboard');
+                            }}
+                            variant="contained"
+                            fullWidth={false}
+                        >
                             Get Free
                         </Button>
                     </Box>

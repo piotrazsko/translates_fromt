@@ -12,7 +12,8 @@ import imageWebPMobile from 'assets/images/landing/way_mobile.webp';
 import Section from '../Section';
 import style from './style.scss';
 
-export const ThirdSection = ({ t }) => {
+export const ThirdSection = ({ t, isMobile }) => {
+    console.log(isMobile);
     return (
         <Section className={style.container}>
             <Grid container>

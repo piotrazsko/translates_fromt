@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import HeadSection from './HeadSection';
 import { Header } from './components/Header';
 import { FirstSection } from './components/FirstSection';
 import { SecondSection } from './components/SecondSection';
@@ -14,22 +13,22 @@ import { SeventhSection } from './components/SeventhSection';
 import { EightSection } from './components/EightSection';
 import { Footer } from './components/Footer';
 
-const Home = ({ history, ...props }) => {
+const Home = ({ history, viewPort: { isMobile }, ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
     return (
         <>
-            <Header t={t} />
-            <FirstSection t={t} />
-            <SecondSection t={t} />
-            <ThirdSection history={history} t={t} />
-            <ForthSection history={history} t={t} />
-            <FivethSection history={history} t={t} />
-            <SixthSection history={history} t={t} />
-            <SeventhSection history={history} t={t} />
-            <EightSection history={history} t={t} />
-            <Footer history={history} t={t} />
+            <Header history={history} t={t} isMobile={isMobile} />
+            <FirstSection history={history} t={t} isMobile={isMobile} />
+            <SecondSection history={history} t={t} isMobile={isMobile} />
+            <ThirdSection history={history} isMobile={isMobile} t={t} />
+            <ForthSection history={history} isMobile={isMobile} t={t} />
+            <FivethSection history={history} isMobile={isMobile} t={t} />
+            <SixthSection history={history} isMobile={isMobile} t={t} />
+            <SeventhSection history={history} isMobile={isMobile} t={t} />
+            <EightSection history={history} isMobile={isMobile} t={t} />
+            <Footer history={history} isMobile={isMobile} t={t} />
         </>
     );
 };

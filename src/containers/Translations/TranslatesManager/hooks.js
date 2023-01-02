@@ -115,7 +115,7 @@ export const useHook = ({ history, pathname, classes, ...props }) => {
                 return a.value > b.value;
             }),
         };
-    }, [res]);
+    }, [res, t]);
 
     const data = React.useMemo(() => {
         return (
@@ -139,7 +139,6 @@ export const useHook = ({ history, pathname, classes, ...props }) => {
         ({ translateId }) => {
             dispatch(
                 showPopupAction({
-                    message: t('message.delete_translate'),
                     title: t('message.delete_translate'),
 
                     onClick: () => {

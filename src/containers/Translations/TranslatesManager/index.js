@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import makeStyles from '@mui/styles/makeStyles';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { prepareSearchString } from 'helpers/url';
 
 import {
     PagePlaceholder,
@@ -49,7 +50,7 @@ const TranslatesManager = ({
         applicationIdFromUrl,
         t,
     } = useHook({ history, pathname, classes });
-    setTitle('translations.title');
+    setTitle(t('translations.title'));
 
     return (
         <PageSkeleton>
@@ -81,7 +82,11 @@ const TranslatesManager = ({
                         variant="contained"
                         fullWidth
                         onClick={() => {
-                            history.push(`/translations/${applicationId}/add`);
+                            history.push(
+                                `/translations/${applicationId}/add?${prepareSearchString(
+                                    { namespace },
+                                )}`,
+                            );
                         }}
                     >
                         {t('translations.add_button')}

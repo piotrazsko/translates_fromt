@@ -91,7 +91,7 @@ const headCells = (t) => [
         numeric: false,
         disablePadding: false,
         sortable: false,
-        label: t('translations.is_full_tranlated'),
+        label: t('translations.is_full_translated'),
         props: { width: '5%' },
     },
     {

@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { getDataFromUrl } from 'helpers/url';
+import { getDataFromCurrentLocarion } from 'helpers/url';
 import { showPopupAction } from 'modules/popups';
 import {
     getTranslatesByKeyRequest,
@@ -50,7 +50,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
 
     const { key, namespace } = React.useMemo(() => {
         const { search } = location;
-        return getDataFromUrl(search);
+        return getDataFromCurrentLocarion(search);
     }, [location]);
 
     const isAdd = id === 'add';
@@ -78,7 +78,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     } = useFormik({
         initialValues: {
             key: '',
-            namespace: '',
+            namespace: namespace !== 'all_namespaces_' ? namespace : '',
             translations: [
                 { id: Math.random().toString(), language: '', value: '' },
             ],

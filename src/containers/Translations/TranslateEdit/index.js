@@ -165,7 +165,7 @@ const EditTranslate = ({
                         className={classes.headerLabels}
                         component={<Box></Box>}
                     >
-                        {t('translation.language')}
+                        {t('translation.namespace')}
                     </Cell>
                     <Cell
                         col={4}

@@ -2,7 +2,14 @@ import React from 'react';
 import { Avatar, Box, TextField, Button } from '@mui/material';
 import style from './style.scss';
 
-export const PersonalData = ({ t, values, handleChange, errors, touched }) => {
+export const PersonalData = ({
+    t,
+    values,
+    handleChange,
+    errors,
+    touched,
+    onChangePasswordClick,
+}) => {
     console.log(values);
     return (
         <Box className={style.container}>
@@ -34,7 +41,9 @@ export const PersonalData = ({ t, values, handleChange, errors, touched }) => {
                 onChange={handleChange('email')}
             />
             <Box className={style.buttonContainer}>
-                <Button>{t('profile.change_password_button')}</Button>
+                <Button onClick={onChangePasswordClick}>
+                    {t('profile.change_password_button')}
+                </Button>
             </Box>
         </Box>
     );

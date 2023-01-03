@@ -16,6 +16,7 @@ import {
     Plans,
     LayoutAuth,
     ResetPassword,
+    ChangePassword,
 } from 'containers';
 
 export const redirectAuthPath = '/login';
@@ -52,6 +53,13 @@ const mainRoutes = [
         exact: true,
         component: ResetPassword,
         layout: LayoutAuth,
+    },
+    {
+        path: '/change-password',
+        exact: true,
+        component: ChangePassword,
+        layout: LayoutAuth,
+        isPrivate: true,
     },
     {
         path: '/dashboard',

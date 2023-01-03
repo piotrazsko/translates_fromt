@@ -5,6 +5,7 @@ export { default as Routing } from './Routing';
 export { default as Home } from './Home';
 
 export { default as ConfirmLink } from './Authorization/ConfirmLink';
+export { default as ChangePassword } from './Authorization/ChangePassword';
 export { default as ConfirmEmailPopup } from './Authorization/ConfirmEmailPopup';
 export { default as SignUp } from './Authorization/SignUp';
 export { default as Auth } from './Authorization/Auth';

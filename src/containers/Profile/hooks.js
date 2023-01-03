@@ -48,6 +48,9 @@ export const useHooks = ({ history }) => {
         });
 
     const onDeleteAccount = () => {};
+    const onChangePasswordClick = () => {
+        history.push('/change-password');
+    };
 
     return {
         handleChange,
@@ -64,5 +67,6 @@ export const useHooks = ({ history }) => {
         onCancel: () => {
             history.goBack();
         },
+        onChangePasswordClick,
     };
 };

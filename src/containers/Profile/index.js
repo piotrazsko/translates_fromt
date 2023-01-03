@@ -40,6 +40,7 @@ const ApplicationEdit = ({
         t,
         onCancel,
         onDeleteAccount,
+        onChangePasswordClick,
     } = useHooks({ history });
 
     setTitle(t('profile.title'));
@@ -80,6 +81,7 @@ const ApplicationEdit = ({
                         t={t}
                         {...{ touched, values, errors }}
                         handleChange={handleChange}
+                        onChangePasswordClick={onChangePasswordClick}
                     />
                 </Cell>
                 <Cell

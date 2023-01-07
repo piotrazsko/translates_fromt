@@ -1,10 +1,7 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import get from 'lodash/get';
-import codes from 'iso-language-codes';
 import { createAction } from 'redux-actions';
-import moment from 'moment';
-import * as locales from 'date-fns/locale';
 
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import * as api_helpers from 'react_redux_api';

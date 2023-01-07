@@ -104,6 +104,7 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
                     ),
                 );
             } else {
+                console.log(values);
                 dispatch(
                     updateTranslatesByKeyRequest(
                         {
@@ -154,11 +155,11 @@ export const useHook = ({ location, history, applicationId, id, classes }) => {
     }, [translateData]);
 
     const onAdd = React.useCallback(
-        (data, translations = values) => {
+        (translations = values) => {
             const id = `elem${Math.round(Math.random() * 10000).toString()}`;
             setFieldValue('translations', [
                 ...translations.translations,
-                { id, language: '', value: '', ...data },
+                { id, language: '', value: '' },
             ]);
             setTimeout(() => {
                 const elem = document.querySelector(`#${id}`);

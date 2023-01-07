@@ -376,7 +376,7 @@ const EditTranslate = ({
                         <IconButton
                             disabled={disableAdd}
                             color="primary"
-                            onClick={(data) => onAdd(data, values)}
+                            onClick={() => onAdd(values)}
                         >
                             <Add />
                         </IconButton>

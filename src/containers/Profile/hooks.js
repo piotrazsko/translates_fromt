@@ -7,8 +7,8 @@ import { getCurrentUserSelector } from 'modules/auth';
 import {
     getLanguagesListRequest,
     getLanguagesListSelector,
-    saveLocaleAction,
     localeSelector,
+    saveLocaleAction,
 } from 'modules/i18next';
 
 const validationSchema = yup.object({
@@ -33,7 +33,6 @@ export const useHooks = ({ history }) => {
     }, []);
 
     const languages = useSelector(getLanguagesListSelector);
-    console.log(currentUser);
 
     const { handleChange, touched, values, handleSubmit, setErrors, errors } =
         useFormik({
@@ -41,10 +40,14 @@ export const useHooks = ({ history }) => {
                 email: currentUser.email,
                 firstName: currentUser.first_name,
                 lastName: currentUser.last_name,
+                language: currentLang || 'en',
             },
             enableReinitialize: true,
             validationSchema: validationSchema,
-            onSubmit: (values) => {},
+            onSubmit: ({ language, ...values }) => {
+                console.log(values);
+                saveLocaleAction(language);
+            },
         });
 
     const onDeleteAccount = () => {};

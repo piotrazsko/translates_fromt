@@ -20,32 +20,20 @@ const validationSchema = (t) =>
             .string()
             .min(6)
             .max(16)
-            .required(
-                t('error.field_required', {
-                    name: t('change_password.password_label'),
-                }),
-            ),
+            .required(t('error.field_reqiured')),
         old_password: yup
             .string()
             .min(6)
             .max(16)
-            .required(
-                t('error.field_required', {
-                    name: t('change_password.password_label'),
-                }),
-            ),
+            .required(t('error.field_reqiured')),
         confirmed_password: yup
             .string()
             .min(6)
             .max(16)
-            .required(
-                t('error.field_required', {
-                    name: t('change_password.confirm_password_label'),
-                }),
-            )
+            .required(t('error.field_reqiured'))
             .oneOf(
                 [yup.ref('password'), null],
-                t('change_password.passwords_must_mutch'),
+                t('error.passwords_must_mutch'),
             ),
     });
 

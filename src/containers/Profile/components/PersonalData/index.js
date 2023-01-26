@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar, Box, TextField, Button } from '@mui/material';
+import { stringAvatar } from 'helpers/avatar';
 import style from './style.scss';
 
 export const PersonalData = ({
@@ -13,7 +14,10 @@ export const PersonalData = ({
     console.log(values);
     return (
         <Box className={style.container}>
-            <Avatar className={style.avatar} />
+            <Avatar
+                className={style.avatar}
+                {...stringAvatar(`${values.firstName} ${values.lastName}`)}
+            ></Avatar>
 
             <TextField
                 margin="normal"

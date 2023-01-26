@@ -7,7 +7,6 @@ import {
     SignUp,
     ConfirmLink,
     Profile,
-    Settings,
     Docs,
     Billing,
     Dashboard,
@@ -105,12 +104,6 @@ const mainRoutes = [
         path: '/profile',
         exact: true,
         component: Profile,
-        isPrivate: true,
-    },
-    {
-        path: '/settings',
-        exact: true,
-        component: Settings,
         isPrivate: true,
     },
     {

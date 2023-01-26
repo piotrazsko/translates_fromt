@@ -29,7 +29,7 @@ const validationSchema = yup.object({
     language: yup.string().required(),
 });
 
-const Settings = ({ ...props }) => {
+export const Settings = ({ ...props }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
@@ -65,7 +65,7 @@ const Settings = ({ ...props }) => {
                 submitButtonText: t('button.ok'),
                 cancelButtonText: t('button.cancel'),
                 confirmButtonProps: {
-                    color: 'secondary',
+                    color: 'error',
                     style: { marginLeft: '10px' },
                 },
                 cancelButtonProps: {},
@@ -125,9 +125,6 @@ const Settings = ({ ...props }) => {
     return (
         <>
             <PageSkeleton title={t('title.settings')}>
-                <Typography variant="body1">
-                    {t('text.manage_your_translates')}
-                </Typography>
                 <Grid container spacing={6}>
                     <Grid item xs={4}>
                         <Button variant="contained" onClick={uploadAction}>
@@ -153,5 +150,3 @@ const Settings = ({ ...props }) => {
 Settings.propTypes = {
     // : PropTypes.
 };
-
-export default Settings;

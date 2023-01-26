@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
+import { stringAvatar } from 'helpers/avatar';
 import { userIsAuthSelector, getCurrentUserSelector } from 'modules/auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,39 +55,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function stringToColor(string) {
-    let hash = 0;
-    let i;
-
-    /* eslint-disable no-bitwise */
-    for (i = 0; i < string.length; i += 1) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = '#';
-
-    for (i = 0; i < 3; i += 1) {
-        const value = (hash >> (i * 8)) & 0xff;
-        color += `00${value.toString(16)}`.slice(-2);
-    }
-    /* eslint-enable no-bitwise */
-
-    return color;
-}
-
-function stringAvatar(name) {
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-            width: 30,
-            height: 30,
-            fontSize: '0.8em',
-            cursor: 'pointer',
-        },
-        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
-}
-
 const Header = ({ history, title, ...props }) => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -123,9 +91,9 @@ const Header = ({ history, title, ...props }) => {
                     {userIsAuth && userData.loaded ? (
                         <Avatar
                             {...stringAvatar(
-                                [userData.first_name, userData.last_name]
-                                    .join(' ')
-                                    .toUpperCase(),
+                                [userData.first_name, userData.last_name].join(
+                                    ' ',
+                                ),
                             )}
                             onClick={() => history.push('/profile')}
                         ></Avatar>

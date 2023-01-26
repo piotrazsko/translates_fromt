@@ -8,6 +8,7 @@ import { PageSkeleton, GridGenerator, Cell, Pane, Footer } from 'components';
 import { PersonalData } from './components/PersonalData';
 import { Language } from './components/Language';
 import { Plan } from './components/Plan';
+import { Settings } from './components/Settings';
 import { useHooks } from './hooks';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ApplicationEdit = ({
+const Profile = ({
     route,
     match: {
         params: { id, applicationId },
@@ -59,7 +60,7 @@ const ApplicationEdit = ({
         >
             <GridGenerator
                 cols={12}
-                rows={3}
+                rows={4}
                 // showGrid
                 cellProps={
                     {
@@ -98,7 +99,7 @@ const ApplicationEdit = ({
                         currentLang={currentLang}
                     />
                 </Cell>
-                <Cell
+                {/* <Cell
                     col={0}
                     row={2}
                     colSpan={13}
@@ -108,12 +109,23 @@ const ApplicationEdit = ({
                     <Pane showHeader={false}>
                         <Plan t={t} />
                     </Pane>
+                </Cell> */}
+                <Cell
+                    col={0}
+                    row={2}
+                    colSpan={13}
+                    rowSpan={1}
+                    component={<Box />}
+                >
+                    <Pane title={t('profile.settings')}>
+                        <Settings />
+                    </Pane>
                 </Cell>
             </GridGenerator>
         </PageSkeleton>
     );
 };
 
-ApplicationEdit.propTypes = {};
+Profile.propTypes = {};
 
-export default ApplicationEdit;
+export default Profile;

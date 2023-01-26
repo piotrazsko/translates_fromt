@@ -163,14 +163,14 @@ const getSideBarItems = (t, history) => [
         path: '/docs',
         icon: <DocumentationIcon />,
     },
-    {
-        title: t('sidebar.settings'),
-        onClick: () => {
-            history.push('/settings');
-        },
-        path: '/settings',
-        icon: <SettingsIcon />,
-    },
+    // {
+    //     title: t('sidebar.settings'),
+    //     onClick: () => {
+    //         history.push('/settings');
+    //     },
+    //     path: '/settings',
+    //     icon: <SettingsIcon />,
+    // },
 ];
 
 export default function PermanentDrawerLeft({
@@ -180,7 +180,6 @@ export default function PermanentDrawerLeft({
     isExpanded = true,
     onChangeExpand,
     onLogout,
-    ...props
 }) {
     const classes = useStyles();
     const { t } = useTranslation();

@@ -48,7 +48,7 @@ const Layout = ({
     return (
         <>
             <Helmet>
-                <title>{t('default.application_name')}</title>
+                <title>Goman</title>
             </Helmet>
             <Grid item xs={12}>
                 <Header></Header>

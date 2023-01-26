@@ -91,7 +91,7 @@ const Layout = ({
     return (
         <>
             <Helmet>
-                <title>{t('default.user_name')}</title>
+                <title>Goman</title>
             </Helmet>
             <Box
                 className={

@@ -8,15 +8,15 @@ export const PersonalData = ({
     values,
     handleChange,
     errors,
-    touched,
     onChangePasswordClick,
 }) => {
-    console.log(values);
     return (
         <Box className={style.container}>
             <Avatar
                 className={style.avatar}
-                {...stringAvatar(`${values.firstName} ${values.lastName}`)}
+                {...stringAvatar(
+                    `${values.firstName || ''} ${values.lastName || ''}`,
+                )}
             ></Avatar>
 
             <TextField
@@ -26,6 +26,8 @@ export const PersonalData = ({
                 label={t('profile.first_name_input')}
                 value={values.firstName}
                 onChange={handleChange('firstName')}
+                helperText={errors.firstName}
+                error={errors.firstName}
             />
             <TextField
                 margin="normal"
@@ -34,6 +36,8 @@ export const PersonalData = ({
                 label={t('profile.last_name_input')}
                 value={values.lastName}
                 onChange={handleChange('lastName')}
+                helperText={errors.lastName}
+                error={errors.lastName}
             />
             <TextField
                 margin="normal"
@@ -43,6 +47,8 @@ export const PersonalData = ({
                 value={values.email}
                 disabled
                 onChange={handleChange('email')}
+                helperText={errors.email}
+                error={errors.email}
             />
             <Box className={style.buttonContainer}>
                 <Button onClick={onChangePasswordClick}>

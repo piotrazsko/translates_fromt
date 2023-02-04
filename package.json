@@ -24,7 +24,6 @@
         "@typescript-eslint/parser": "^4.5.0",
         "aos": "^2.3.4",
         "apexcharts": "^3.35.5",
-        "api": "https://github.com/piotrazsko/react_redux_api_helpers.git#deaee43b2d8bd2985fd39844ed73b07de2374bf4",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^26.6.0",
         "babel-loader": "8.1.0",

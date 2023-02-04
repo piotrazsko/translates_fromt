@@ -7,13 +7,13 @@ export function stringAvatar(name) {
             fontSize: '0.8em',
             cursor: 'pointer',
         },
-        children: `${name.split(' ')[0][0]}${
-            name.split(' ')[1][0]
+        children: `${name.split(' ')[0][0] || ''}${
+            name.split(' ')[1][0] || ''
         }`.toUpperCase(),
     };
 }
 
-export function stringToColor(string) {
+export function stringToColor(string = 'color') {
     let hash = 0;
     let i;
 

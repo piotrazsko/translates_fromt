@@ -70,7 +70,7 @@ apiRoutes.add(LOGIN_USER_REQUEST, ({ ...data }) => ({
 
 apiRoutes.add(UPDATE_USER_REQUEST, ({ ...data }) => ({
     url: `/update-user`,
-    method: 'patch',
+    method: 'put',
     data,
 }));
 
@@ -125,12 +125,6 @@ export const authReducer = (state = initialState, action) => {
             } = action;
             return { ...state, ...data };
         }
-        case UPDATE_USER_SUCCESS: {
-            const {
-                response: { data },
-            } = action;
-            return { ...state, ...data };
-        }
         case LOGOUT_USER:
             return { ...initialState };
         case LOGIN_USER_FAILED: {
@@ -154,7 +148,10 @@ export function* getUserSaga() {
 export function* authSaga(dispatch) {
     yield all([
         takeEvery(LOGOUT_USER, logoutSaga),
-        takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
+        takeEvery(
+            [INIT_DATA, LOGIN_USER_SUCCESS, UPDATE_USER_SUCCESS],
+            getUserSaga,
+        ),
     ]);
 }
 

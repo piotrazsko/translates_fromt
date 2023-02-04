@@ -117,9 +117,9 @@ const Profile = ({
                     rowSpan={1}
                     component={<Box />}
                 >
-                    <Pane title={t('profile.settings')}>
-                        <Settings />
-                    </Pane>
+                    {/* <Pane title={t('profile.settings')}> */}
+                    {/* <Settings /> */}
+                    {/* </Pane> */}
                 </Cell>
             </GridGenerator>
         </PageSkeleton>

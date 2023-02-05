@@ -8,8 +8,12 @@ import style from './style.scss';
 export const CopyToClipBoardButton = ({ onClick }) => {
     return (
         <InputAdornment position="end" classes={{ root: style.iconContainer }}>
-            <IconButton onClick={() => onClick()} size="small">
-                <CopyIcon />
+            <IconButton
+                onClick={() => onClick()}
+                className={style.button}
+                size="small"
+            >
+                <CopyIcon height={'14'} />
             </IconButton>
         </InputAdornment>
     );

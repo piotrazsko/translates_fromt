@@ -10,6 +10,7 @@ import {
     localeSelector,
     saveLocaleAction,
 } from 'modules/i18next';
+import { saveToClipBoard } from 'helpers/clipboard';
 
 const validationSchema = (t) =>
     yup.object({
@@ -31,7 +32,7 @@ export const useHooks = ({ history }) => {
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUserSelector);
     const currentLang = useSelector(localeSelector);
-
+    console.log(currentUser);
     React.useEffect(() => {
         dispatch(getLanguagesListRequest());
     }, []);
@@ -45,6 +46,7 @@ export const useHooks = ({ history }) => {
                 firstName: currentUser.first_name,
                 lastName: currentUser.last_name,
                 language: currentLang || 'en',
+                apiKey: currentUser.apiKey,
             },
             enableReinitialize: true,
             validationSchema: validationSchema(t),
@@ -61,6 +63,9 @@ export const useHooks = ({ history }) => {
     const onCancel = () => {
         history.goBack();
     };
+    const onSaveToClipBoard = (str) => {
+        saveToClipBoard(dispatch, t)(str);
+    };
 
     return {
         handleChange,
@@ -76,5 +81,6 @@ export const useHooks = ({ history }) => {
         onDeleteAccount,
         onCancel,
         onChangePasswordClick,
+        onSaveToClipBoard,
     };
 };

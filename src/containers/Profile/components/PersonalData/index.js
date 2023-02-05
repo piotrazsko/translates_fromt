@@ -1,6 +1,9 @@
 import React from 'react';
 import { Avatar, Box, TextField, Button } from '@mui/material';
+
+import { CopyToClipBoardButton } from 'components';
 import { stringAvatar } from 'helpers/avatar';
+
 import style from './style.scss';
 
 export const PersonalData = ({
@@ -9,6 +12,7 @@ export const PersonalData = ({
     handleChange,
     errors,
     onChangePasswordClick,
+    onSaveToClipBoard,
 }) => {
     return (
         <Box className={style.container}>
@@ -49,6 +53,22 @@ export const PersonalData = ({
                 onChange={handleChange('email')}
                 helperText={errors.email}
                 error={errors.email}
+            />
+            <TextField
+                margin="normal"
+                variant="filled"
+                fullWidth
+                label={t('profile.api_key')}
+                value={values.apiKey}
+                disabled
+                InputProps={{
+                    endAdornment: (
+                        <CopyToClipBoardButton
+                            onClick={() => onSaveToClipBoard(values.apiKey)}
+                        />
+                    ),
+                    shrink: true,
+                }}
             />
             <Box className={style.buttonContainer}>
                 <Button onClick={onChangePasswordClick}>

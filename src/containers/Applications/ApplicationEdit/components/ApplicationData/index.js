@@ -1,10 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import IconButton from '@mui/material/IconButton';
-import { CopyIcon } from 'assets/images/icons';
+import { CopyToClipBoardButton } from 'components';
 
 import style from './style.scss';
 
@@ -30,17 +27,9 @@ const ApplicationData = ({
                     label={t('application.application_id')}
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment
-                                position="end"
-                                classes={{ root: style.iconContainer }}
-                            >
-                                <IconButton
-                                    onClick={() => onSaveToClipBoard(id)}
-                                    size="small"
-                                >
-                                    <CopyIcon />
-                                </IconButton>
-                            </InputAdornment>
+                            <CopyToClipBoardButton
+                                onClick={() => onSaveToClipBoard(id)}
+                            />
                         ),
                         shrink: true,
                     }}
@@ -79,17 +68,9 @@ const ApplicationData = ({
                     error={errors.url}
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment
-                                position="end"
-                                classes={{ root: style.iconContainerTextArea }}
-                            >
-                                <IconButton
-                                    onClick={() => onSaveToClipBoard(url)}
-                                    size="small"
-                                >
-                                    <CopyIcon />
-                                </IconButton>
-                            </InputAdornment>
+                            <CopyToClipBoardButton
+                                onClick={() => onSaveToClipBoard(url)}
+                            />
                         ),
                     }}
                 />

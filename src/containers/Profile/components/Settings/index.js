@@ -131,15 +131,6 @@ export const Settings = ({ ...props }) => {
                             {t('profile.upload_json')}
                         </Button>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                            variant="contained"
-                            color="error"
-                            onClick={onDelete}
-                        >
-                            {t('profile.delete_all_translates')}
-                        </Button>
-                    </Grid>
                 </Grid>
                 <input accept=".json" hidden ref={ref} type="file" />
             </PageSkeleton>

@@ -1,6 +1,7 @@
 .container {
     background: linear-gradient(180deg, #271f62 0%, #211d4d 100%);
     color: #fff;
+    min-height: 310px;
 }
 .content {
     background-image: url('../../../../assets/images/landing/background.avif');
@@ -8,19 +9,22 @@
     background-image: url('../../../../assets/images/landing/background.png');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 48px;
+    padding: 90px 45px;
     box-sizing: border-box;
+    height: 100%;
 }
 
-.logoContainer {
+.columnContainer {
     display: flex;
     flex-direction: column;
+    :first-child {
+        margin-bottom: 60px;
+    }
 }
 .item {
     font-size: 14px;
     line-height: 150%;
     margin-top: 16px;
-    // padding-left: 8px;
     a {
         padding-left: 8px;
         color: #fff;

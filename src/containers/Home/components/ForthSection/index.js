@@ -13,7 +13,7 @@ export const ForthSection = ({ t }) => {
     return (
         <Section className={style.container}>
             <Grid container spacing={6}>
-                <Grid item md={6} xs={12}>
+                <Grid item md={6} xs={12} order={{ md: 1, xs: 2 }}>
                     <picture className={style.image}>
                         <source srcSet={imageAvif} type="image/avif"></source>
                         <source srcSet={imageWebp} type="image/webp"></source>
@@ -24,7 +24,7 @@ export const ForthSection = ({ t }) => {
                         />
                     </picture>
                 </Grid>
-                <Grid item md={6} xs={12} className={style.textContainer}>
+                <Grid item md={6} xs={12} className={style.textContainer} order={{ md: 2, xs: 1 }}>
                     <Typography className={style.title} variant="h1">
                         Easily add
                         <br />

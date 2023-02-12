@@ -8,7 +8,7 @@ export { ReactComponent as DashboardIcon } from './Dashboard.svg';
 export { ReactComponent as DocumentsIcon } from './Documents.svg';
 export { ReactComponent as DoneIcon } from './Done.svg';
 export { ReactComponent as DownArrowIcon } from './DownArrow.svg';
-export { ReactComponent as ErrorIcon } from './Error.svg';
+export { ReactComponent as ErrorIcon } from './error.svg';
 export { ReactComponent as FullIcon } from './Full.svg';
 export { ReactComponent as LeftArrowIcon } from './LeftArrow.svg';
 export { ReactComponent as LogoFullIcon } from './LogoFull.svg';

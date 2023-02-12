@@ -1,85 +1,53 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import { LogoFull } from 'assets/images/icons';
 import Section from '../Section';
 import style from './style.scss';
+import makeStyles from '@mui/styles/makeStyles';
+
+const useStyles = makeStyles((theme) => ({
+    laptopHidden: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        },
+    },
+    laptopMargined: {
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: '30px',
+        },
+    }
+}));
+
 
 export const Footer = ({ t }) => {
-    return (
-        <Box className={style.container}>
-            <Section className={style.content}>
-                <Grid container spacing={6}>
-                    <Grid item xs={12}>
-                        <Grid container columnSpacing={6}>
-                            <Grid
-                                md={6}
-                                xs={12}
-                                className={style.logoContainer}
-                            >
-                                <LogoFull fill="#fff" />
-                            </Grid>
+    const classes = useStyles();
 
-                            <Grid
-                                md={2}
-                                xs={12}
-                                className={style.logoContainer}
-                            >
-                                <Typography>About us</Typography>
-                                <Typography className={style.item}>
-                                    <a href="mailto:test@test.com">
-                                        Terms of use
-                                    </a>
-                                </Typography>
-                                <Typography className={style.item}>
-                                    <a href="mailto:test@test.com">
-                                        Privacy Policy:
-                                    </a>
-                                </Typography>
-                            </Grid>
-                            <Grid
-                                md={2}
-                                xs={12}
-                                className={style.logoContainer}
-                            >
-                                <Typography>Contacts</Typography>
-                                <Typography className={style.item}>
-                                    Email:
-                                    <a href="mailto:test@test.com">
-                                        test@test.com
-                                    </a>
-                                </Typography>
-                                <Typography className={style.item}>
-                                    Telegram:
-                                    <a href="mailto:test@test.com">
-                                        test@test.com
-                                    </a>
-                                </Typography>
-                                <Typography className={style.item}>
-                                    Skype:
-                                    <a href="mailto:test@test.com">
-                                        test@test.com
-                                    </a>
-                                </Typography>
-                                <Typography className={style.item}>
-                                    Facebook:
-                                    <a href="mailto:test@test.com">
-                                        test@test.com
-                                    </a>
-                                </Typography>
-                            </Grid>
-                            <Grid
-                                md={2}
-                                xs={12}
-                                className={style.logoContainer}
-                            >
-                                <Typography>© 2023 Goman</Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+    return (
+        <Section className={style.container}>
+            <Grid container spacing={6} columnSpacing={6} className={style.content}>
+                <Grid md={6} sm={4} xs={12} className={style.columnContainer}>
+                    <LogoFull fill="#fff" />
+                    <Typography variant="body2" className={classes.laptopMargined}>122345@gmail.com</Typography>
                 </Grid>
-            </Section>
-        </Box>
+
+                <Grid md={1.5} sm={2} xs={0} className={[style.columnContainer, classes.laptopHidden]}>
+                    <Typography>About</Typography>
+                </Grid>
+
+                <Grid md={1.5} sm={2} xs={0} className={[style.columnContainer, classes.laptopHidden]}>
+                    <Typography>Process</Typography>
+                </Grid>
+
+                <Grid md={.5} sm={2} xs={0} className={[style.columnContainer, classes.laptopHidden]}>
+                    <Typography>More</Typography>
+                </Grid>
+
+                <Grid md={1.5} sm={2} xs={12} className={style.columnContainer}>
+                    <Typography className={classes.laptopHidden}>Contacts</Typography>
+                    <Typography variant="body2">T of U & Policy</Typography>
+                </Grid>
+            </Grid>
+        </Section>
     );
 };

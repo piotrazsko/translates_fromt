@@ -4,6 +4,6 @@ export { ReactComponent as LogoFull } from './LogoFull.svg';
 export { ReactComponent as CopyIcon } from './copy.svg';
 export { ReactComponent as CopyFilledIcon } from './copyFilled.svg';
 export { ReactComponent as DeleteIcon } from './delete.svg';
-export { ReactComponent as ErrorSvg } from './Error.svg';
+export { ReactComponent as ErrorSvg } from './error.svg';
 export { ReactComponent as SuccessIcon } from './success.svg';
 export * from './icons';

@@ -1,3 +1,5 @@
+@import '../../../../style/endpoints.scss';
+
 .container {
     background-color: #fafafa;
     padding-top: 80px;
@@ -7,6 +9,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+    
+    @media (min-width: $md) {
+        text-align: left;
+    }
 }
 
 .title {

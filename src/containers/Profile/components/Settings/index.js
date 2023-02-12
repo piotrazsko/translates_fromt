@@ -128,16 +128,7 @@ export const Settings = ({ ...props }) => {
                 <Grid container spacing={6}>
                     <Grid item xs={4}>
                         <Button variant="contained" onClick={uploadAction}>
-                            {t('button.upload_json')}
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                            variant="contained"
-                            color="error"
-                            onClick={onDelete}
-                        >
-                            {t('button.delete_all_translates')}
+                            {t('profile.upload_json')}
                         </Button>
                     </Grid>
                 </Grid>

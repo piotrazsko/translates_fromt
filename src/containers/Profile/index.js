@@ -42,6 +42,7 @@ const Profile = ({
         onCancel,
         onDeleteAccount,
         onChangePasswordClick,
+        onSaveToClipBoard,
     } = useHooks({ history });
 
     setTitle(t('profile.title'));
@@ -83,6 +84,7 @@ const Profile = ({
                         {...{ touched, values, errors }}
                         handleChange={handleChange}
                         onChangePasswordClick={onChangePasswordClick}
+                        onSaveToClipBoard={onSaveToClipBoard}
                     />
                 </Cell>
                 <Cell

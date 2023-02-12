@@ -53,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
+    name: {
+        marginLeft: '-10px',
+        color: '#909090',
+        fontWeight: '500',
+        cursor: 'pointer',
+    },
 }));
 
 const Header = ({ history, title, ...props }) => {
@@ -89,14 +95,24 @@ const Header = ({ history, title, ...props }) => {
                     ) : null}
                     <Divider orientation="vertical" flexItem />
                     {userIsAuth && userData.loaded ? (
-                        <Avatar
-                            {...stringAvatar(
-                                [userData.first_name, userData.last_name].join(
-                                    ' ',
-                                ),
-                            )}
-                            onClick={() => history.push('/profile')}
-                        ></Avatar>
+                        <>
+                            <Avatar
+                                {...stringAvatar(
+                                    [
+                                        userData.first_name,
+                                        userData.last_name,
+                                    ].join(' '),
+                                )}
+                                onClick={() => history.push('/profile')}
+                            ></Avatar>
+                            <Typography
+                                onClick={() => history.push('/profile')}
+                                className={classes.name}
+                                variant="h5"
+                            >
+                                {`${userData.first_name} ${userData.last_name}`}
+                            </Typography>
+                        </>
                     ) : (
                         <IconButton
                             edge="end"

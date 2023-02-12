@@ -7,6 +7,7 @@ import { i18nextModuleSaga } from 'modules/i18next';
 import { authSaga, authHashSelector } from 'modules/auth';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
 import { plansSaga } from 'modules/plans';
+import { host, devHost } from './env';
 // const config = process.env.NODE_ENV === 'development' ? devConf : prodConf;
 const {
     modules: { apiWatchRequest },
@@ -14,10 +15,10 @@ const {
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    init('http://localhost:3001');
+    init(devHost);
     // init('https://translations.goman.live');
 } else if (process.env.NODE_ENV == 'production') {
-    init('https://translates.goman.live');
+    init(host);
 }
 
 // TODO:  need refactoring

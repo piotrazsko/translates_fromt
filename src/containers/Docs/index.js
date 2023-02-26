@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import { PageSkeleton, Pane } from 'components';
+import { PageSkeleton, Pane, MarkDownView } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserRequest, getCurrentUserSelector } from 'modules/auth';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
-import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import markdown from './index.md';
+
 // const markdown = `A paragraph with *emphasis* and **strong importance**.
 
 // > A block quote with ~strikethrough~ and a URL: https://reactjs.org.
@@ -45,7 +42,7 @@ const Docs = ({ ...props }) => {
             <PageSkeleton title={t('title.docs')}>
                 <Pane>
                     <Box>
-                        <ReactMarkdown
+                        <MarkDownView
                             children={doc}
                             remarkPlugins={[remarkGfm]}
                         />

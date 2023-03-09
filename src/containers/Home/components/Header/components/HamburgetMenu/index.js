@@ -1,5 +1,10 @@
 import React from "react";
-import { Divider, Menu, MenuItem, Fade  } from "@mui/material";
+import Divider from '@mui/material/Divider';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from "@mui/material/Fade";
+import Box from '@mui/material/Box';
+
 
 const HamburgerMenu = ({ listItems, postfixSection, ...props }) => {
     const [tab, setTab] = React.useState(0);
@@ -18,8 +23,8 @@ const HamburgerMenu = ({ listItems, postfixSection, ...props }) => {
     }
 
     return (
-        <div>
-            <div
+        <Box>
+            <Box
                 id="fade-button"
                 aria-controls={open ? 'fade-menu' : undefined}
                 aria-haspopup="true"
@@ -27,7 +32,7 @@ const HamburgerMenu = ({ listItems, postfixSection, ...props }) => {
                 onClick={handleClick}
             >
                 {props.children}
-            </div>
+            </Box>
             <Menu
                 id="fade-menu"
                 MenuListProps={{
@@ -65,7 +70,7 @@ const HamburgerMenu = ({ listItems, postfixSection, ...props }) => {
                     : null
                 }
             </Menu>
-        </div>
+        </Box>
     );
 };
 

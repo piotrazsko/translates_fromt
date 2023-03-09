@@ -1,3 +1,5 @@
+@import '../../../../style/endpoints.scss';
+
 .container  {
     background:linear-gradient(180deg, #271F62 0%, #211D4D 100%);;
     padding-top: 120px;
@@ -8,6 +10,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+
+    @media (min-width: $md) {
+        text-align: left;
+    }
 }
 
 

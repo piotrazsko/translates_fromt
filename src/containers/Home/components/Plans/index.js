@@ -30,13 +30,25 @@ export const SecondSection = ({ t }) => {
                     <Typography
                         className={style.subtitle}
                         sx={{ paddingBottom: '30px' }}
-                        variant="subtitle1"
+                        variant="body2"
                     >
-                        We are a young service that has developed a simple
-                        solution for creating and integrating translations into
-                        your projects. Easy exporting saves your time! Right now
-                        you can explore all features and start working with
-                        Goman!
+                        We are a young service that has developed a simple solution for 
+                        creating and integrating translations into your project.
+                    </Typography>
+
+                    <Typography
+                        className={style.subtitle}
+                        sx={{ paddingBottom: '30px' }}
+                        variant="body2"
+                    >
+                        Easy exporting saves your time!
+                    </Typography>
+                    <Typography
+                        className={style.subtitle}
+                        sx={{ paddingBottom: '30px' }}
+                        variant="body2"
+                    >
+                        Right now you can explore all features and start working with Goman!
                     </Typography>
                     <Box>
                         <Button variant="contained" fullWidth={false}>

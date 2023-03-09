@@ -2,8 +2,22 @@ import React from 'react';
 import IconButtonDef from '@mui/material/IconButton';
 
 const IconButton = ({ children, size, iconSize, ...props }) => {
-    const iconSizeDft =
-        iconSize || size === 'small' ? 11 : size === 'large' ? 14 : 13;
+    let definedSize;  
+    switch (size) {
+    case 'small':
+        definedSize = 11;
+        break;
+    case 'large':
+        definedSize = 14;
+        break;
+    case 'extraLarge':
+        definedSize = 23;
+        break;
+    default:
+        definedSize = 13;
+    }
+    const iconSizeDft = iconSize || definedSize;
+
     return (
         <IconButtonDef size={size} {...props}>
             {React.cloneElement(children, {

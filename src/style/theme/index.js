@@ -54,11 +54,11 @@ export const theme = createTheme({
         // theme breakpoint functions `up`, `down`, and `between` to create
         // media queries for these breakpoints
         values: {
-            xl,
-            lg,
-            md,
-            sm,
             xs,
+            sm,
+            md,
+            lg,
+            xl,
         },
     },
     border: {

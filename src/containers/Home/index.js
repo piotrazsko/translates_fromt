@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import { Header } from './components/Header';
-import { FirstSection } from './components/FirstSection';
-import { SecondSection } from './components/SecondSection';
-import { ThirdSection } from './components/ThirdSection';
-import { ForthSection } from './components/ForthSection';
-import { FivethSection } from './components/FivethSection';
-import { SixthSection } from './components/SixthSection';
-import { SeventhSection } from './components/SeventhSection';
-import { EightSection } from './components/EightSection';
+import { FirstSection } from './components/Main';
+import { SecondSection } from './components/Plans';
+import { ThirdSection } from './components/HowItWorks';
+import { ForthSection } from './components/Translations';
+import { FivethSection } from './components/Managment';
+import { SixthSection } from './components/GetStart';
+import { SeventhSection } from './components/FastIntegration';
+import { EightSection } from './components/SmartDashboard';
 import { Footer } from './components/Footer';
 
 const Home = ({ history, viewPort: { isMobile }, ...props }) => {

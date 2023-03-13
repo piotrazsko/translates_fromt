@@ -13,6 +13,8 @@ export const GET_ALL_KEYS_REQUEST = `${modules}/GET_ALL_KEYS_REQUEST`;
 export const GET_RECOMMENDED_TRANSLATE_REQUEST = `${modules}/GET_RECOMMENDED_TRANSLATE_REQUEST`;
 
 export const GET_EXPORT_JSON_REQUEST = `${modules}/GET_EXPORT_JSON_REQUEST`;
+export const GET_EXPORT_XML_REQUEST = `${modules}/GET_EXPORT_XML_REQUEST`;
+
 export const POST_UPLOAD_LANG_JSON_REQUEST = `${modules}/POST_UPLOAD_LANG_JSON_REQUEST`;
 
 export const POST_IMPORT_JSON_REQUEST = `${modules}/POST_IMPORT_JSON_REQUEST`;
@@ -30,6 +32,7 @@ export const getRecommendedTranslateRequest = actionCreator(
 );
 
 export const getExportJsonRequest = actionCreator(GET_EXPORT_JSON_REQUEST);
+export const getExportXMLRequest = actionCreator(GET_EXPORT_XML_REQUEST);
 
 export const postUploadJsonByLangRequest = actionCreator(
     POST_UPLOAD_LANG_JSON_REQUEST,
@@ -81,6 +84,14 @@ apiRoutes.add(GET_EXPORT_JSON_REQUEST, ({ applicationId }) => ({
     method: 'get',
     params: { applicationId },
 }));
+
+apiRoutes.add(GET_EXPORT_XML_REQUEST, ({ applicationId }) => ({
+    url: `/export-xml`,
+    method: 'get',
+    params: { applicationId },
+    responseType: 'blob',
+}));
+
 apiRoutes.add(POST_IMPORT_JSON_REQUEST, (data) => {
     return {
         url: `/import-json`,

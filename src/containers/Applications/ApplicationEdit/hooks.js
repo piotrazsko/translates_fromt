@@ -16,6 +16,7 @@ import {
 import {
     getExportJsonRequest,
     postImportJsonRequest,
+    getExportXMLRequest,
 } from 'modules/translations';
 
 import {
@@ -62,7 +63,7 @@ export const useUploadTranslates = ({ applicationId, onSuccess }) => {
 
 export const useDownloadTranslates = ({ applicationId }) => {
     const dispatch = useDispatch();
-    const onDownload = React.useCallback(() => {
+    const onDownloadJSON = React.useCallback(() => {
         dispatch(
             getExportJsonRequest(
                 { applicationId },
@@ -82,7 +83,46 @@ export const useDownloadTranslates = ({ applicationId }) => {
             ),
         );
     }, []);
-    return { onDownload };
+    const onDownloadXML = React.useCallback(() => {
+        dispatch(
+            getExportXMLRequest(
+                { applicationId },
+                {
+                    onSuccess: async (response) => {
+                        // const blob = Promise.resolve(response.blob());
+                        console.log(response);
+
+                        const exportXML = get(response, 'data');
+                        // var blob = new Blob([exportXML], {
+                        //     type: 'application/zip;base64',
+                        // });
+                        const blobUrl = URL.createObjectURL(exportXML);
+                        console.log(blobUrl);
+
+                        function download(filename, data) {
+                            var element = document.createElement('a');
+
+                            element.href = blobUrl;
+                            // element.href =
+                            //     'data:application/zip;charset=utf-8,' +
+                            //     URL.createObjectURL(exportXML);
+
+                            element.setAttribute('download', filename);
+
+                            element.style.display = 'none';
+                            document.body.appendChild(element);
+
+                            element.click();
+
+                            document.body.removeChild(element);
+                        }
+                        download('zip.zip', exportXML);
+                    },
+                },
+            ),
+        );
+    }, []);
+    return { onDownloadJSON, onDownloadXML };
 };
 
 export const useDeleteApllication = ({ onSuccess = () => {} }) => {

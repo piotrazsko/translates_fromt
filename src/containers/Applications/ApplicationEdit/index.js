@@ -54,7 +54,9 @@ const ApplicationEdit = ({
     const { onDelete } = useDeleteApllication({
         onSuccess: onCancel,
     });
-    const { onDownload } = useDownloadTranslates({ applicationId: id });
+    const { onDownloadJSON, onDownloadXML } = useDownloadTranslates({
+        applicationId: id,
+    });
     const { onUpload, inputFileRef } = useUploadTranslates({
         applicationId: id,
     });
@@ -139,7 +141,8 @@ const ApplicationEdit = ({
                         <Export
                             t={t}
                             inputFileRef={inputFileRef}
-                            onDownload={onDownload}
+                            onDownloadJSON={onDownloadJSON}
+                            onDownloadXML={onDownloadXML}
                             onUpload={onUpload}
                         />
                     </Pane>

@@ -133,18 +133,27 @@ const ApplicationEdit = ({
                 <Cell
                     col={0}
                     row={2}
-                    colSpan={12}
+                    colSpan={6}
                     rowSpan={1}
                     component={<Box></Box>}
                 >
                     <Pane showHeader={false}>
-                        <Export
-                            t={t}
-                            inputFileRef={inputFileRef}
-                            onDownloadJSON={onDownloadJSON}
-                            onDownloadXML={onDownloadXML}
-                            onUpload={onUpload}
-                        />
+                        <Button onClick={onDownloadJSON} variant="contained">
+                            {t('application.button_export_translates')}
+                        </Button>
+                    </Pane>
+                </Cell>
+                <Cell
+                    col={6}
+                    row={2}
+                    colSpan={6}
+                    rowSpan={1}
+                    component={<Box></Box>}
+                >
+                    <Pane showHeader={false}>
+                        <Button onClick={onDownloadJSON} variant="contained">
+                            {t('application.button_export_translates')}
+                        </Button>
                     </Pane>
                 </Cell>
             </GridGenerator>

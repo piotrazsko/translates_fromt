@@ -35,6 +35,7 @@ const Statistic = ({ data = {}, t, applicationStatistics }) => {
             <Box className={style.languages}>
                 {languagesList.map((i, index) => {
                     const max = total;
+                    console.log(translates[i] / max);
                     return (
                         <Chart
                             percent={(translates[i] / max) * 100}

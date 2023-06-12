@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box, Typography, Grid } from '@mui/material';
+import { Button, Box, Grid } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { makeStyles } from '@mui/styles';
@@ -43,8 +43,6 @@ const Export = ({
                         sx={{ borderRight: 1, borderColor: 'divider' }}
                     >
                         <Tab label="Web (JSON)" />
-                        <Tab label="Android" />
-                        <Tab label="IOS" />
                     </Tabs>
                 </Box>
             </Grid>
@@ -54,39 +52,6 @@ const Export = ({
                         <Button onClick={onDownloadJSON} variant="contained">
                             {t('application.button_export_translates')}
                         </Button>
-                        {/* <Button
-                            className={classes.upload}
-                            onClick={onUpload}
-                            variant="contained"
-                        >
-                            {t('application.button_import_translates')}
-                        </Button> */}
-                        <input
-                            accept=".json"
-                            hidden
-                            ref={inputFileRef}
-                            type="file"
-                        />
-                    </Box>
-                ) : null}
-                {value === 1 ? (
-                    <Box className={classes.buttonContainer}>
-                        <Button onClick={onDownloadXML} variant="contained">
-                            {t('application.button_export_translates')}
-                        </Button>
-                        {/* <Button
-                            className={classes.upload}
-                            onClick={onUpload}
-                            variant="contained"
-                        >
-                            {t('application.button_import_translates')}
-                        </Button> */}
-                        <input
-                            accept=".json"
-                            hidden
-                            ref={inputFileRef}
-                            type="file"
-                        />
                     </Box>
                 ) : null}
             </Grid>

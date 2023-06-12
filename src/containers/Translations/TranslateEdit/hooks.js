@@ -25,12 +25,12 @@ import get from 'lodash/get';
 
 const validationSchema = (t) =>
     yup.object({
-        key: yup.string().required(t('errors.field_reuired')),
+        key: yup.string().required(t('error.field_reuired')),
         translations: yup.array().of(
             yup.object().shape({
-                language: yup.string().required(t('errors.field_reuired')),
+                language: yup.string().required(t('error.field_reuired')),
                 value: yup.string().required((data) => {
-                    return t('errors.field_reuired');
+                    return t('error.field_reuired');
                 }),
             }),
         ),

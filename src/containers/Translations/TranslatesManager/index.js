@@ -99,7 +99,7 @@ const TranslatesManager = ({
                             fullWidth
                             searchText={searchText}
                             setSearchText={setSearchText}
-                            placeholder={t('input.searchplaceholder')}
+                            placeholder={t('translations.searchplaceholder')}
                         />
                     </Grid>
                     <Grid item xs={4}>

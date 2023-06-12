@@ -89,26 +89,14 @@ export const useDownloadTranslates = ({ applicationId }) => {
                 { applicationId },
                 {
                     onSuccess: async (response) => {
-                        // const blob = Promise.resolve(response.blob());
-                        console.log(response);
-
                         const exportXML = get(response, 'data');
-                        // var blob = new Blob([exportXML], {
-                        //     type: 'application/zip;base64',
-                        // });
                         const blobUrl = URL.createObjectURL(exportXML);
-                        console.log(blobUrl);
 
                         function download(filename, data) {
                             var element = document.createElement('a');
 
                             element.href = blobUrl;
-                            // element.href =
-                            //     'data:application/zip;charset=utf-8,' +
-                            //     URL.createObjectURL(exportXML);
-
                             element.setAttribute('download', filename);
-
                             element.style.display = 'none';
                             document.body.appendChild(element);
 
